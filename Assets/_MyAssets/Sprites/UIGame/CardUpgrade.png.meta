@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 78257b22768662240b421957a72c96ce
+guid: 91f86ba9d50702847ae92937851b8bb3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7876233753678822106
-    second: CardUpgrade3_0
+      213: 5328498034787032367
+    second: CardUpgrade_0
+  - first:
+      213: 2588612810208317498
+    second: CardUpgrade_1
+  - first:
+      213: -7476310955462098197
+    second: CardUpgrade_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,13 +52,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 8, y: 25, z: 8, w: 22}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -139,23 +145,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CardUpgrade3_0
+      name: CardUpgrade_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 29
-        width: 267
-        height: 373
+        x: 88
+        y: 110
+        width: 189
+        height: 264
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6254800912ff1b290800000000000000
-      internalID: -7876233753678822106
+      spriteID: f2d19d52bb0a2f940800000000000000
+      internalID: 5328498034787032367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardUpgrade_1
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 109
+        width: 189
+        height: 265
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a301e75c2a99ce320800000000000000
+      internalID: 2588612810208317498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardUpgrade_2
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 109
+        width: 189
+        height: 265
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be202551ccece3890800000000000000
+      internalID: -7476310955462098197
       vertices: []
       indices: 
       edges: []
@@ -164,8 +214,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -174,7 +224,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      CardUpgrade3_0: -7876233753678822106
+      CardUpgrade_0: 5328498034787032367
+      CardUpgrade_1: 2588612810208317498
+      CardUpgrade_2: -7476310955462098197
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
