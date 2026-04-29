@@ -80,7 +80,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 879360401
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0.88550174, b: 0, a: 1}
@@ -107,3 +107,4 @@ MonoBehaviour:
   attackCooldown: 0.5
   arrowSpeed: 20
   arrowPrefab: {fileID: 6548088793372470917, guid: d6d8f5a4281e95745b56241d24f28cdf, type: 3}
+  weaponLevel: 1

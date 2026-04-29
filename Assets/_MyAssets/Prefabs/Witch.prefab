@@ -81,7 +81,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 879360401
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5374305696605463109}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4d5abc43fc220147a103b890dcc9c4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 568ef2ac648724b40aa8aad1daabd6ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Witch
   skeletonPrefab: {fileID: 4435902073034120836, guid: 81bfdb6a9adff0244bc03baa216c2622, type: 3}
