@@ -102,7 +102,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5193956760265822402}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f2122b3c33b1264782ac3b6b75c6fa4, type: 3}
+  m_Script: {fileID: 11500000, guid: 754d87e65943e3549a6e48876505e888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Goblin
   goblinSpear: {fileID: 6565406648065296605, guid: 1de038e2bc4bf374da248eddcfcd91cd, type: 3}
