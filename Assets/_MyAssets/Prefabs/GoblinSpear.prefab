@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.011921406, a: 1}
+  m_Color: {r: 0, g: 0.5849056, b: 0.006881277, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -149,9 +149,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6565406648065296605}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d11b5165a1c2ba142b3a5ffc399235af, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f2122b3c33b1264782ac3b6b75c6fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GoblinSpear
+  goblinSpear: {fileID: 6565406648065296605}
+  moveSpeed: 2
+  attackRange: 10
+  attackCooldown: 2
+  spearSpeed: 20
 --- !u!50 &-8404216907062803794
 Rigidbody2D:
   serializedVersion: 5

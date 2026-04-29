@@ -102,7 +102,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4435902073034120836}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a60c024bed1356b4f8441e29406e8334, type: 3}
+  m_Script: {fileID: 11500000, guid: 100a2c9d030f6274b97e28a05b45c449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Skeleton
   moveSpeed: 4
