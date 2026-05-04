@@ -4,7 +4,7 @@ public class Skeleton : MonoBehaviour
 {
     private Transform player;
 
-    [SerializeField] private float moveSpeed = 2.5f;
+    [SerializeField] private float moveSpeed = 1.5f;
 
     public void SetPlayer(Transform target)
     {
