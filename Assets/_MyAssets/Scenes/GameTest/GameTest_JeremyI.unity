@@ -3183,7 +3183,7 @@ MonoBehaviour:
   m_text: Fermer
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bd573dbb5711fd145a0341bf7c2811c0, type: 2}
-  m_sharedMaterial: {fileID: -5615302364264689223, guid: bd573dbb5711fd145a0341bf7c2811c0, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 59216c27689880b42a5c62eb6cffd6f3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
