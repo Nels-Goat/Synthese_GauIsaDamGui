@@ -13,6 +13,8 @@ public class PlayerBow : MonoBehaviour
     private Vector3 lastPlayerPosition;
     private Transform player;
     private float nextFireTime;
+    private Vector2 currentDirection = Vector2.right;
+
 
     private void Start()
     {
@@ -31,6 +33,8 @@ public class PlayerBow : MonoBehaviour
     {
         if (player == null) return;
 
+        currentDirection = GetLookDirection();
+
         FollowPlayer();
 
         if (Time.time >= nextFireTime)
@@ -42,7 +46,7 @@ public class PlayerBow : MonoBehaviour
 
     private void Shoot()
     {
-        Vector2 baseDirection = GetLookDirection();
+        Vector2 baseDirection = currentDirection;
 
         if (weaponLevel == 1)
         {
@@ -66,9 +70,12 @@ public class PlayerBow : MonoBehaviour
 
     private void ShootArrow(Vector2 direction)
     {
-        Vector3 spawnPos = transform.position + (Vector3)(direction.normalized * 1f);
+        Vector3 spawnPos = player.position + (Vector3)(direction.normalized * 1.5f);
 
         GameObject arrow = Instantiate(arrowPrefab, spawnPos, Quaternion.identity);
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
 
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
 
@@ -77,9 +84,6 @@ public class PlayerBow : MonoBehaviour
             rb.gravityScale = 0f;
             rb.linearVelocity = direction.normalized * arrowSpeed;
         }
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
     private Vector2 RotateDirection(Vector2 direction, float angle)
     {
@@ -93,12 +97,12 @@ public class PlayerBow : MonoBehaviour
 
     private void FollowPlayer()
     {
-        Vector2 direction = GetLookDirection();
+        Vector2 direction = currentDirection;
 
         transform.localPosition = direction.normalized * 0.7f;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        transform.localRotation = Quaternion.Euler(0, 0, angle);
     }
     private Vector2 GetLookDirection()
     {
