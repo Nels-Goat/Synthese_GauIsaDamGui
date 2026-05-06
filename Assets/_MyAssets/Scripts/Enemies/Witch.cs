@@ -1,33 +1,48 @@
+using System;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Witch : MonoBehaviour
 {
-    [SerializeField] private GameObject skeletonPrefab;
+    [SerializeField] private GameObject _skeletonPrefab;
 
-    [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float summonRange = 10f;
-    [SerializeField] private float summonCooldown = 4f;
+    [SerializeField] private float _moveSpeed = 2f;
+    [SerializeField] private float _summonRange = 10f;
+    [SerializeField] private float _summonCooldown = 4f;
+    [SerializeField] private int _numSkeleton = 2;
 
-    [SerializeField] private float spawnDistance = 1.5f;
+    [SerializeField] private float _spawnRadius = 1.5f;
 
-    private float nextSummonTime;
-    private Transform player;
+    private float _nextSummonTime;
+    private Transform _player;
+
+    private GameObject _skeletonContainer;
+
+    private SpriteRenderer _spriteRenderer;
+    private float _halfSkeletonWidth;
+    private float _halfSkeletonHeight;
 
     private void Start()
     {
         GameObject target = GameObject.FindGameObjectWithTag("Player");
 
         if (target != null)
-            player = target.transform;
+            _player = target.transform;
+
+        _skeletonContainer = GameObject.FindGameObjectWithTag("EnemyContainer");
+
+        _spriteRenderer = _skeletonPrefab.GetComponent<SpriteRenderer>();
+        _halfSkeletonWidth = _spriteRenderer.bounds.extents.x;
+        _halfSkeletonHeight = _spriteRenderer.bounds.extents.y;
     }
 
     private void Update()
     {
-        if (player == null) return;
+        if (_player == null) return;
 
-        float distance = Vector2.Distance(transform.position, player.position);
+        float distance = Vector2.Distance(transform.position, _player.position);
 
-        if (distance > summonRange)
+        if (distance > _summonRange)
         {
             MoveTowardPlayer();
         }
@@ -39,9 +54,9 @@ public class Witch : MonoBehaviour
 
     private void MoveTowardPlayer()
     {
-        Vector2 direction = ((Vector2)player.position - (Vector2)transform.position).normalized;
+        Vector2 direction = ((Vector2)_player.position - (Vector2)transform.position).normalized;
 
-        transform.position += (Vector3)(direction * moveSpeed * Time.deltaTime);
+        transform.position += (Vector3)(direction * _moveSpeed * Time.deltaTime);
 
         if (direction.x > 0)
             transform.localScale = new Vector3(1, 1, 1);
@@ -51,17 +66,24 @@ public class Witch : MonoBehaviour
 
     private void SummonSkeletons()
     {
-        if (Time.time < nextSummonTime) return;
+        if (Time.time < _nextSummonTime) return;
 
-        Vector3 spawnPos1 = transform.position + Vector3.left * spawnDistance;
-        Vector3 spawnPos2 = transform.position + Vector3.right * spawnDistance;
+        float angle = (float)Mathf.PI*2 / _numSkeleton;
+        for (int i = 0; i < _numSkeleton; i++)
+        {
+            if (GameManager.Instance.IsEnemyMaxed()) break;
 
-        GameObject skel1 = Instantiate(skeletonPrefab, spawnPos1, Quaternion.identity);
-        GameObject skel2 = Instantiate(skeletonPrefab, spawnPos2, Quaternion.identity);
+            float randomX = (float)Math.Cos(i * angle) * _spawnRadius + gameObject.transform.position.x;
+            float randomY = (float)Math.Sin(i * angle) * _spawnRadius + gameObject.transform.position.y;
 
-        skel1.GetComponent<Skeleton>().SetPlayer(player);
-        skel2.GetComponent<Skeleton>().SetPlayer(player);
+            float clampedX = GameManager.Instance.ClampX(randomX, _halfSkeletonWidth);
+            float clampedY = GameManager.Instance.ClampY(randomY, _halfSkeletonHeight);
 
-        nextSummonTime = Time.time + summonCooldown;
+            Vector3 spawnPosition = new Vector3(clampedX, clampedY, 0f);
+            GameObject skel = Instantiate(_skeletonPrefab, spawnPosition, Quaternion.identity);
+            skel.transform.parent = _skeletonContainer.transform;
+        } 
+
+        _nextSummonTime = Time.time + _summonCooldown;
     }
 }

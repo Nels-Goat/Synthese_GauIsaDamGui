@@ -6,9 +6,12 @@ public class Skeleton : MonoBehaviour
 
     [SerializeField] private float moveSpeed = 1.5f;
 
-    public void SetPlayer(Transform target)
+    private void Start()
     {
-        player = target;
+        GameObject target = GameObject.FindGameObjectWithTag("Player");
+
+        if (target != null)
+            player = target.transform;
     }
 
     private void Update()
