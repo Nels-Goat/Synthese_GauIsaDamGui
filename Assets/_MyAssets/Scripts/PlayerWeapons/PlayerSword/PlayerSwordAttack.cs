@@ -1,19 +1,17 @@
 using UnityEngine;
 
-public class Arrow : MonoBehaviour
+public class PlayerSwordAttack : MonoBehaviour
 {
     private void Start()
     {
-        Destroy(gameObject, 6f);
+        Destroy(gameObject, 0.1f);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
         {
             Destroy(other.gameObject);
-            Destroy(gameObject);
         }
     }
 }
-
