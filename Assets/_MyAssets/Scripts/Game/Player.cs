@@ -1,6 +1,4 @@
 using System;
-using Unity.Collections;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,17 +11,12 @@ public class Player : MonoBehaviour
     [SerializeField] private float _playerDashRate = 0.5f;
     [SerializeField] private int _playerDashDuration = 10;
 
-    [Header("Limites de la map")]
-    [SerializeField] private GameObject _background;
-
     [Header("Son")]
     [SerializeField] private AudioClip _walkingSound;
     [SerializeField, Range(0f, 1f)] private float _walkingVolume = 0.5f;
     [SerializeField] private float _stepInterval = 0.35f;
     [SerializeField] private AudioClip _dashSound;
     [SerializeField, Range(0f, 1f)] private float _dashVolume = 0.7f;
-
-    //private float _minX, _maxX, _minY, _maxY;
 
     //private int _exp = 0;
     //private int _level = 0;
@@ -45,26 +38,28 @@ public class Player : MonoBehaviour
     private AudioSource _audioSource;
     private float _stepTimer;
 
+
+    private void Awake()
+    {
+        GameManager.Instance.OnEnemyDestroyed += OnEnemyDestroyed;
+    }
+
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
         _audioSource.playOnAwake = false;
         _audioSource.loop = false;
 
-        // Liaison avec les input actions
         _inputSystemActions = new InputSystem_Actions();
         _inputSystemActions.Player.Enable();
 
         _rigidbody2D = GetComponent<Rigidbody2D>();
-
         _anim = GetComponent<Animator>();
 
-        // Permet de calculer la largeur et hauteur de mon joueur
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _halfPlayerWidth = _spriteRenderer.bounds.extents.x;
         _halfPlayerHeight = _spriteRenderer.bounds.extents.y;
 
-        // Évènement du dash
         _inputSystemActions.Player.Dash.started += _ => _isDashing = true;
         _inputSystemActions.Player.Dash.canceled += _ => _isDashing = false;
         _isDashing = false;
@@ -74,11 +69,52 @@ public class Player : MonoBehaviour
 
     private void OnDestroy()
     {
-        _inputSystemActions.Player.Disable();
+        GameManager.Instance.OnEnemyDestroyed -= OnEnemyDestroyed;
 
+        _inputSystemActions.Player.Disable();
         _inputSystemActions.Player.Dash.started -= _ => _isDashing = true;
         _inputSystemActions.Player.Dash.canceled -= _ => _isDashing = false;
     }
+
+
+    // ===================== DÉGÂTS ===================== //
+
+    private void OnEnemyDestroyed(object sender, GameManager.OnEnemyDestroyedEventArgs e)
+    {
+        if (e.DestroyedObjectTag == "Player")
+            TakeDamage();
+    }
+
+    // Appelé par OnEnemyDestroyed (lance du goblin, skeleton, witch)
+    // et par OnTriggerEnter2D (troll en charge, attaques directes)
+    private void TakeDamage()
+    {
+        _playerLife--;
+
+        if (_playerLife <= 0)
+            Die();
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
+        // SpawnManager.Instance.StopSpawning();
+        // GameManager.Instance.EndGame();
+    }
+
+    // Détecte le contact direct avec un ennemi en charge (EnemyAttack)
+    // ou une attaque ennemie (lance du goblin)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("EnemyAttack"))
+        {
+            TakeDamage();
+            Destroy(collision.gameObject); // Détruit la lance ou le troll en charge
+        }
+    }
+
+    // ================================================== //
+
 
     private void FixedUpdate()
     {
@@ -92,36 +128,34 @@ public class Player : MonoBehaviour
             Debug.LogError("GameManager.Instance est null !");
             return;
         }
+
         Vector2 direction2D = _inputSystemActions.Player.Move.ReadValue<Vector2>();
         _lookingDirection = direction2D.x != 0 ? direction2D.x : _lookingDirection;
         direction2D.Normalize();
 
 
-
         // === VITESSE DE DÉPLACEMENT === //
         float speedMultiplier;
-        // Quand le joueur dash, initialise le dash et augmente la vitesse
+
         if (_isDashing && _deltaDash < Time.time && _deltaDashDuration == 0f)
         {
             speedMultiplier = _playerDashForce;
             _deltaDashDuration += _playerDashDuration;
             _deltaDash = Time.time + _playerDashRate + _playerDashDuration / 60;
 
-            // Joue le son de dash
             if (_dashSound != null)
             {
-                _audioSource.pitch = 1f; // Reset le pitch (au cas où il a été modifié par les pas)
+                _audioSource.pitch = 1f;
                 _audioSource.PlayOneShot(_dashSound, _dashVolume);
             }
         }
-        // Si un dash est en cours, réduit son temps restant et augmente la vitesse
         else if (_deltaDashDuration > 0)
         {
             _deltaDashDuration--;
             speedMultiplier = _playerDashForce;
         }
-        // Sinon, garde la vitesse normale
-        else speedMultiplier = _playerSpeed;
+        else
+            speedMultiplier = _playerSpeed;
         // ============================== //
 
 
@@ -193,7 +227,6 @@ public class Player : MonoBehaviour
         }
         else
         {
-            // Reset pour que le premier pas joue immédiatement quand on recommence à bouger
             _stepTimer = 0f;
         }
     }

@@ -1,30 +1,21 @@
 using UnityEngine;
 
-public class Skeleton : MonoBehaviour
+public class Skeleton : EnemyBase
 {
-    private Transform player;
-
-    [SerializeField] private float moveSpeed = 1.5f;
-
-    private void Start()
+    protected override void Start()
     {
-        GameObject target = GameObject.FindGameObjectWithTag("Player");
-
-        if (target != null)
-            player = target.transform;
+        base.Start();
     }
 
     private void Update()
     {
-        if (player == null) return;
+        if (_player == null) return;
 
-        Vector2 direction = ((Vector2)player.position - (Vector2)transform.position).normalized;
+        MoveTowardPlayer();
+    }
 
-        transform.position += (Vector3)(direction * moveSpeed * Time.deltaTime);
-
-        if (direction.x > 0)
-            transform.localScale = new Vector3(1, 1, 1);
-        else
-            transform.localScale = new Vector3(-1, 1, 1);
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        HandleCollision(collision);
     }
 }

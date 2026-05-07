@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6525479243691323384}
   m_Layer: 0
   m_Name: StaffAOE
-  m_TagString: Untagged
+  m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

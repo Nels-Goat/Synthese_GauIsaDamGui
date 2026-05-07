@@ -1,76 +1,61 @@
-using System;
+Ôªøusing System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Splines;
 
 public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance;
 
-
+    [Header("Rayon de spawn autour du joueur")]
     [SerializeField] private float _enemyMinRadius = 10f;
     [SerializeField] private float _enemyMaxRadius = 25f;
 
+    [Header("Intervalles de spawn")]
     [SerializeField] private float _enemySpawnInterval = 1f;
     [SerializeField] private float _enemyInitialSpawnInterval = 2f;
     [SerializeField] private float _enemyIntervalReducer = 0.1f;
 
+    [Header("Difficult√© progressive")]
     [SerializeField] private int _difficultyThreshold = 100;
     [SerializeField] private int _difficultyMultiplier = 2;
-
-    [SerializeField] private GameObject[] _enemyPrefabs;
-    [SerializeField] private GameObject _enemyContainer;
-
     [SerializeField] private int _timeToSpawnEnemy2 = 1000;
     [SerializeField] private int _timeToSpawnEnemy3 = 2000;
 
-
+    [Header("R√©f√©rences")]
+    [SerializeField] private GameObject[] _enemyPrefabs;
+    [SerializeField] private GameObject _enemyContainer;
 
     private float[] _halfEnemyWidthTable;
     private float[] _halfEnemyHeightTable;
-
     private bool _stopSpawning = false;
-
     private Transform _player;
 
 
     private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
-    void Start()
+    private void Start()
     {
-        _halfEnemyWidthTable = new float[_enemyPrefabs.Length];
+        _halfEnemyWidthTable  = new float[_enemyPrefabs.Length];
         _halfEnemyHeightTable = new float[_enemyPrefabs.Length];
+
         foreach (var enemy in _enemyPrefabs)
         {
-            float halfEnemyWidth = enemy.GetComponent<SpriteRenderer>().sprite.bounds.extents.x;
-            _halfEnemyWidthTable[Array.IndexOf(_enemyPrefabs, enemy)] = halfEnemyWidth;
-
-            float halfEnemyHeight = enemy.GetComponent<SpriteRenderer>().sprite.bounds.extents.y;
-            _halfEnemyHeightTable[Array.IndexOf(_enemyPrefabs, enemy)] = halfEnemyHeight;
+            int index = Array.IndexOf(_enemyPrefabs, enemy);
+            _halfEnemyWidthTable[index]  = enemy.GetComponent<SpriteRenderer>().sprite.bounds.extents.x;
+            _halfEnemyHeightTable[index] = enemy.GetComponent<SpriteRenderer>().sprite.bounds.extents.y;
         }
 
-
         GameObject target = GameObject.FindGameObjectWithTag("Player");
-
         if (target != null)
             _player = target.transform;
 
         StartCoroutine(SpawnEnemyRoutine());
-    }
-
-    void Update()
-    {
-        
     }
 
 
@@ -78,61 +63,56 @@ public class SpawnManager : MonoBehaviour
     {
         while (!_stopSpawning)
         {
-            yield return new WaitForSeconds(_enemyInitialSpawnInterval); // Attente de l'intervalle initial avant de faire apparaÓtre le premier ennemi
+            yield return new WaitForSeconds(_enemyInitialSpawnInterval);
 
             if (GameManager.Instance.IsEnemyMaxed()) continue;
+            if (_player == null) continue;
 
-            // === S…LECTION ENNEMI === //
+            // === S√âLECTION ENNEMI === //
             int randomEnemyIndex;
+
             if (GameManager.Instance.PlayerScore >= _timeToSpawnEnemy3)
-            {
                 randomEnemyIndex = UnityEngine.Random.Range(0, _enemyPrefabs.Length);
-            }
             else if (GameManager.Instance.PlayerScore >= _timeToSpawnEnemy2)
-            {
-                randomEnemyIndex = UnityEngine.Random.Range(0, 1);
-            }
+                randomEnemyIndex = UnityEngine.Random.Range(0, 2);
             else
-            {
                 randomEnemyIndex = 0;
-            }
+            // ======================== //
 
-            // ==== TEST ==== //
-            randomEnemyIndex = UnityEngine.Random.Range(0, _enemyPrefabs.Length);
 
-            // === G…N…RATION COORDONN…ES === //
-            float playerX = _player.transform.position.x;
-            float playerY = _player.transform.position.y;
+            // === G√âN√âRATION COORDONN√âES === //
             float spawnRadius = UnityEngine.Random.Range(_enemyMinRadius, _enemyMaxRadius);
-            float angle = UnityEngine.Random.value * (float)Math.PI * 2;
-            float randomX = (float)Math.Cos(angle) * spawnRadius + playerX;
-            float randomY = (float)Math.Sin(angle) * spawnRadius + playerY;
+            float angle       = UnityEngine.Random.value * (float)Math.PI * 2;
 
-            // GÈnÈration d'une position X et Y alÈatoire pour faire apparaÓtre l'ennemi
-            /*float randomX = UnityEngine.Random.Range(-Camera.main.orthographicSize * Camera.main.aspect + _halfEnemyWidthTable[randomEnemyIndex],
-            Camera.main.orthographicSize * Camera.main.aspect - _halfEnemyWidthTable[randomEnemyIndex]); 
-
-            float randomY = UnityEngine.Random.Range(-Camera.main.orthographicSize * Camera.main.aspect + _halfEnemyHeightTable[randomEnemyIndex],
-            Camera.main.orthographicSize * Camera.main.aspect - _halfEnemyHeightTable[randomEnemyIndex]);
-            */
+            float randomX = (float)Math.Cos(angle) * spawnRadius + _player.position.x;
+            float randomY = (float)Math.Sin(angle) * spawnRadius + _player.position.y;
 
             float clampedX = GameManager.Instance.ClampX(randomX, _halfEnemyWidthTable[randomEnemyIndex]);
             float clampedY = GameManager.Instance.ClampY(randomY, _halfEnemyHeightTable[randomEnemyIndex]);
+            // ============================== //
 
-            Vector3 spawnPosition = new Vector3(clampedX, clampedY, 0f);
-            GameObject newEnemy = Instantiate(_enemyPrefabs[randomEnemyIndex], spawnPosition, Quaternion.identity); // Instanciation de l'ennemi ‡ la position de spawn
-            newEnemy.transform.parent = _enemyContainer.transform; // Organisation de l'ennemi dans le conteneur
 
-            if (GameManager.Instance.PlayerScore >= _difficultyThreshold) // VÈrifie si le score du joueur atteint le seuil pour augmenter le taux de spawn des ennemis
+            // === INSTANCIATION === //
+            GameObject newEnemy = Instantiate(_enemyPrefabs[randomEnemyIndex], new Vector3(clampedX, clampedY, 0f), Quaternion.identity);
+            newEnemy.transform.parent = _enemyContainer.transform;
+            // ===================== //
+
+
+            // === DIFFICULT√â PROGRESSIVE === //
+            if (GameManager.Instance.PlayerScore >= _difficultyThreshold)
             {
                 _difficultyThreshold *= _difficultyMultiplier;
-
-                float intervalFraction = _enemySpawnInterval * _enemyIntervalReducer;
-                _enemySpawnInterval -= intervalFraction;
+                _enemySpawnInterval  -= _enemySpawnInterval * _enemyIntervalReducer;
             }
-            yield return new WaitForSeconds(_enemySpawnInterval); // Attente de l'intervalle de temps entre chaque spawn d'ennemi
+            // ============================== //
+
+            yield return new WaitForSeconds(_enemySpawnInterval);
         }
     }
 
 
+    public void StopSpawning()
+    {
+        _stopSpawning = true;
+    }
 }

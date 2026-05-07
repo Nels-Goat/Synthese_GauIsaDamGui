@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6565406648065296605
+--- !u!1 &8750366994497496672
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,42 +8,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6746122547199689153}
-  - component: {fileID: 7398614389930846718}
-  - component: {fileID: -8634767152430849712}
-  - component: {fileID: 8163517577780548586}
-  - component: {fileID: -8404216907062803794}
+  - component: {fileID: 6753355266110153700}
+  - component: {fileID: 7749488293984189948}
+  - component: {fileID: 8953947700762299050}
+  - component: {fileID: -5947350804243676180}
+  - component: {fileID: -214504435369767093}
   m_Layer: 0
-  m_Name: GoblinSpear
-  m_TagString: Untagged
+  m_Name: SwordAOE
+  m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6746122547199689153
+--- !u!4 &6753355266110153700
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6565406648065296605}
+  m_GameObject: {fileID: 8750366994497496672}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.67, y: -1.43, z: 0}
-  m_LocalScale: {x: 1, y: 0.3173, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 4.28, y: 1.26, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7398614389930846718
+--- !u!212 &7749488293984189948
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6565406648065296605}
-  m_Enabled: 1
+  m_GameObject: {fileID: 8750366994497496672}
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -82,10 +82,10 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 879360401
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0.5849056, b: 0.006881277, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -94,13 +94,13 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!61 &-8634767152430849712
-BoxCollider2D:
+--- !u!60 &8953947700762299050
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6565406648065296605}
+  m_GameObject: {fileID: 8750366994497496672}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -138,35 +138,56 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!114 &8163517577780548586
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0.5}
+      - {x: -0.014078617, y: 0.49635875}
+      - {x: -0.012488365, y: 0.38259172}
+      - {x: -0.011251688, y: 0.23371243}
+      - {x: -0.006506443, y: 0.08913696}
+      - {x: -0.010147095, y: -0.019752026}
+      - {x: -0.006505966, y: -0.21555054}
+      - {x: -0.007301092, y: -0.32062173}
+      - {x: -0.00063705444, y: -0.42999673}
+      - {x: 0.0056734085, y: -0.4845075}
+      - {x: 0, y: -0.5}
+      - {x: 0.15234375, y: -0.47265625}
+      - {x: 0.29296875, y: -0.40234375}
+      - {x: 0.40234375, y: -0.29296875}
+      - {x: 0.47265625, y: -0.15234375}
+      - {x: 0.5, y: 0}
+      - {x: 0.47265625, y: 0.15234375}
+      - {x: 0.40234375, y: 0.29296875}
+      - {x: 0.29296875, y: 0.40234375}
+      - {x: 0.15234375, y: 0.47265625}
+  m_UseDelaunayMesh: 1
+--- !u!114 &-5947350804243676180
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6565406648065296605}
+  m_GameObject: {fileID: 8750366994497496672}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d11b5165a1c2ba142b3a5ffc399235af, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c3965ff9487a064c848dad8020e44d7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GoblinSpear
---- !u!50 &-8404216907062803794
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSwordAttack
+--- !u!50 &-214504435369767093
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6565406648065296605}
+  m_GameObject: {fileID: 8750366994497496672}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
