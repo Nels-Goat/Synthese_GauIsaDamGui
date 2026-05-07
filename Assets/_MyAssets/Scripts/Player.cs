@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     [Header("Propriétés Joueur")]
+    [SerializeField] private float _playerLife = 10f;
     [SerializeField] private float _playerSpeed = 10f;
     [SerializeField] private float _playerDashForce = 25f;
     [SerializeField] private float _playerDashRate = 0.5f;
@@ -23,6 +24,9 @@ public class Player : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float _dashVolume = 0.7f;
 
     private float _minX, _maxX, _minY, _maxY;
+
+    private int _exp = 0;
+    private int _level = 0;
 
     private InputSystem_Actions _inputSystemActions;
     private Rigidbody2D _rigidbody2D;
@@ -59,14 +63,6 @@ public class Player : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _halfPlayerWidth = _spriteRenderer.bounds.extents.x;
         _halfPlayerHeight = _spriteRenderer.bounds.extents.y;
-
-
-        // Calcule les limites automatiquement depuis le Background
-        SpriteRenderer backgroundRenderer = _background.GetComponent<SpriteRenderer>();
-        _minX = backgroundRenderer.bounds.min.x;
-        _maxX = backgroundRenderer.bounds.max.x;
-        _minY = backgroundRenderer.bounds.min.y;
-        _maxY = backgroundRenderer.bounds.max.y;
 
         // Évènement du dash
         _inputSystemActions.Player.Dash.started += _ => _isDashing = true;
@@ -173,8 +169,8 @@ public class Player : MonoBehaviour
 
         Vector2 newPosition = _rigidbody2D.position + direction2D * Time.fixedDeltaTime * speedMultiplier;
 
-        float clampedX = Mathf.Clamp(newPosition.x, _minX + _halfPlayerWidth, _maxX - _halfPlayerWidth);
-        float clampedY = Mathf.Clamp(newPosition.y, _minY + _halfPlayerHeight, _maxY - _halfPlayerHeight);
+        float clampedX = GameManager.Instance.ClampX(newPosition.x, _halfPlayerWidth);
+        float clampedY = GameManager.Instance.ClampY(newPosition.y, _halfPlayerHeight);
 
         _rigidbody2D.MovePosition(new Vector2(clampedX, clampedY));
     }
