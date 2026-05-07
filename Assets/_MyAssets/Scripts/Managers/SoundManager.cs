@@ -49,7 +49,7 @@ public class SoundManager : MonoBehaviour
         AudioClip clipToPlay = null;
 
         if (sceneName == "Start") clipToPlay = startSceneMusic;
-        else if (sceneName == "Game") clipToPlay = gameSceneMusic;
+        else if (sceneName == "GameTest_NelsonG") clipToPlay = gameSceneMusic;
         else if (sceneName == "End") clipToPlay = endSceneMusic;
 
         if (clipToPlay == null)
