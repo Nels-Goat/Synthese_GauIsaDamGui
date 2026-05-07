@@ -23,10 +23,10 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip _dashSound;
     [SerializeField, Range(0f, 1f)] private float _dashVolume = 0.7f;
 
-    private float _minX, _maxX, _minY, _maxY;
+    //private float _minX, _maxX, _minY, _maxY;
 
-    private int _exp = 0;
-    private int _level = 0;
+    //private int _exp = 0;
+    //private int _level = 0;
 
     private InputSystem_Actions _inputSystemActions;
     private Rigidbody2D _rigidbody2D;
@@ -87,6 +87,11 @@ public class Player : MonoBehaviour
 
     private void PlayerMovement()
     {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager.Instance est null !");
+            return;
+        }
         Vector2 direction2D = _inputSystemActions.Player.Move.ReadValue<Vector2>();
         _lookingDirection = direction2D.x != 0 ? direction2D.x : _lookingDirection;
         direction2D.Normalize();
