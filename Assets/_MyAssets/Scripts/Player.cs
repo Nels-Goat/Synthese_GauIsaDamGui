@@ -15,6 +15,14 @@ public class Player : MonoBehaviour
 
     [Header("Limites de la map")]
     [SerializeField] private GameObject _background;
+
+    [Header("Son")]
+    [SerializeField] private AudioClip _walkingSound;
+    [SerializeField, Range(0f, 1f)] private float _walkingVolume = 0.5f;
+    [SerializeField] private float _stepInterval = 0.35f;
+    [SerializeField] private AudioClip _dashSound;
+    [SerializeField, Range(0f, 1f)] private float _dashVolume = 0.7f;
+
     private float _minX, _maxX, _minY, _maxY;
 
     private int _exp = 0;
@@ -34,8 +42,15 @@ public class Player : MonoBehaviour
 
     private float _lookingDirection;
 
+    private AudioSource _audioSource;
+    private float _stepTimer;
+
     private void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.playOnAwake = false;
+        _audioSource.loop = false;
+
         // Liaison avec les input actions
         _inputSystemActions = new InputSystem_Actions();
         _inputSystemActions.Player.Enable();
@@ -53,7 +68,7 @@ public class Player : MonoBehaviour
         _inputSystemActions.Player.Dash.started += _ => _isDashing = true;
         _inputSystemActions.Player.Dash.canceled += _ => _isDashing = false;
         _isDashing = false;
-        
+
         _lookingDirection = 1;
     }
 
@@ -77,22 +92,30 @@ public class Player : MonoBehaviour
         direction2D.Normalize();
 
 
+
         // === VITESSE DE DÉPLACEMENT === //
         float speedMultiplier;
-            // Quand le joueur dash, initialise le dash et augmente la vitesse
+        // Quand le joueur dash, initialise le dash et augmente la vitesse
         if (_isDashing && _deltaDash < Time.time && _deltaDashDuration == 0f)
         {
             speedMultiplier = _playerDashForce;
             _deltaDashDuration += _playerDashDuration;
             _deltaDash = Time.time + _playerDashRate + _playerDashDuration / 60;
+
+            // Joue le son de dash
+            if (_dashSound != null)
+            {
+                _audioSource.pitch = 1f; // Reset le pitch (au cas où il a été modifié par les pas)
+                _audioSource.PlayOneShot(_dashSound, _dashVolume);
+            }
         }
-            // Si un dash est en cours, réduit son temps restant et augmente la vitesse
+        // Si un dash est en cours, réduit son temps restant et augmente la vitesse
         else if (_deltaDashDuration > 0)
         {
             _deltaDashDuration--;
             speedMultiplier = _playerDashForce;
         }
-            // Sinon, garde la vitesse normale
+        // Sinon, garde la vitesse normale
         else speedMultiplier = _playerSpeed;
         // ============================== //
 
@@ -138,6 +161,12 @@ public class Player : MonoBehaviour
         // ================= //
 
 
+        // === SON DE MARCHE === //
+        bool isMoving = (direction2D.x != 0f || direction2D.y != 0f) && _deltaDashDuration == 0;
+        HandleWalkingSound(isMoving);
+        // ===================== //
+
+
         Vector2 newPosition = _rigidbody2D.position + direction2D * Time.fixedDeltaTime * speedMultiplier;
 
         float clampedX = GameManager.Instance.ClampX(newPosition.x, _halfPlayerWidth);
@@ -146,4 +175,21 @@ public class Player : MonoBehaviour
         _rigidbody2D.MovePosition(new Vector2(clampedX, clampedY));
     }
 
+    private void HandleWalkingSound(bool isMoving)
+    {
+        if (isMoving && _walkingSound != null)
+        {
+            _stepTimer -= Time.fixedDeltaTime;
+            if (_stepTimer <= 0f)
+            {
+                _audioSource.PlayOneShot(_walkingSound, _walkingVolume);
+                _stepTimer = _stepInterval;
+            }
+        }
+        else
+        {
+            // Reset pour que le premier pas joue immédiatement quand on recommence à bouger
+            _stepTimer = 0f;
+        }
+    }
 }

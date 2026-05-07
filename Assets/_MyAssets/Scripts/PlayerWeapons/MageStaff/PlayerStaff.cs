@@ -1,20 +1,32 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerStaff : MonoBehaviour
 {
     [Header("Attaque")]
     [SerializeField] private float attackCooldown = 3.5f;
-
     [SerializeField] private GameObject staffAOEPrefab;
     [SerializeField] private int weaponLevel = 1;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip fireSound;
+    [SerializeField][Range(0f, 1f)] private float fireVolume = 1f;
+    private AudioSource _audioSource;
 
     private Vector2 lastLookDirection = Vector2.right;
     private Vector3 lastPlayerPosition;
     private Transform player;
-    private float nextFireTime;
+    private float nextFireTime; 
 
     private void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource == null)
+        {
+            _audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        _audioSource.playOnAwake = false;
+
         GameObject target = GameObject.FindGameObjectWithTag("Player");
 
         if (target != null)
@@ -44,6 +56,16 @@ public class PlayerStaff : MonoBehaviour
         Vector2 direction = GetLookDirection();
 
         SpawnAOE(direction);
+
+        PlayFireSound();
+    }
+
+    private void PlayFireSound()
+    {
+        if (fireSound != null && _audioSource != null)
+        {
+            _audioSource.PlayOneShot(fireSound, fireVolume);
+        }
     }
 
     private void SpawnAOE(Vector2 direction)
