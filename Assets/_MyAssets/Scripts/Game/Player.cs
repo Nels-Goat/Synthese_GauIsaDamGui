@@ -39,13 +39,11 @@ public class Player : MonoBehaviour
     private float _stepTimer;
 
 
-    private void Awake()
-    {
-        GameManager.Instance.OnEnemyDestroyed += OnEnemyDestroyed;
-    }
-
     private void Start()
     {
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnEnemyDestroyed += OnEnemyDestroyed;
+
         _audioSource = GetComponent<AudioSource>();
         _audioSource.playOnAwake = false;
         _audioSource.loop = false;
@@ -69,7 +67,8 @@ public class Player : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameManager.Instance.OnEnemyDestroyed -= OnEnemyDestroyed;
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnEnemyDestroyed -= OnEnemyDestroyed;
 
         _inputSystemActions.Player.Disable();
         _inputSystemActions.Player.Dash.started -= _ => _isDashing = true;
@@ -85,8 +84,6 @@ public class Player : MonoBehaviour
             TakeDamage();
     }
 
-    // Appelé par OnEnemyDestroyed (lance du goblin, skeleton, witch)
-    // et par OnTriggerEnter2D (troll en charge, attaques directes)
     private void TakeDamage()
     {
         _playerLife--;
@@ -102,14 +99,12 @@ public class Player : MonoBehaviour
         // GameManager.Instance.EndGame();
     }
 
-    // Détecte le contact direct avec un ennemi en charge (EnemyAttack)
-    // ou une attaque ennemie (lance du goblin)
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("EnemyAttack"))
         {
             TakeDamage();
-            Destroy(collision.gameObject); // Détruit la lance ou le troll en charge
+            Destroy(collision.gameObject);
         }
     }
 
