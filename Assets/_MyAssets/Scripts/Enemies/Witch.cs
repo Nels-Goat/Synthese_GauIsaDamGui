@@ -1,67 +1,68 @@
+using System;
 using UnityEngine;
 
-public class Witch : MonoBehaviour
+public class Witch : EnemyBase
 {
-    [SerializeField] private GameObject skeletonPrefab;
+    [Header("Invocation Witch")]
+    [SerializeField] private GameObject _skeletonPrefab;
+    [SerializeField] private float _summonRange = 10f;
+    [SerializeField] private float _summonCooldown = 4f;
+    [SerializeField] private int _numSkeleton = 2;
+    [SerializeField] private float _spawnRadius = 1.5f;
 
-    [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float summonRange = 10f;
-    [SerializeField] private float summonCooldown = 4f;
+    private float _nextSummonTime;
+    private GameObject _skeletonContainer;
+    private float _halfSkeletonWidth;
+    private float _halfSkeletonHeight;
 
-    [SerializeField] private float spawnDistance = 1.5f;
-
-    private float nextSummonTime;
-    private Transform player;
-
-    private void Start()
+    protected override void Start()
     {
-        GameObject target = GameObject.FindGameObjectWithTag("Player");
+        base.Start();
 
-        if (target != null)
-            player = target.transform;
+        _skeletonContainer = GameObject.FindGameObjectWithTag("EnemyContainer");
+
+        SpriteRenderer skelRenderer = _skeletonPrefab.GetComponent<SpriteRenderer>();
+        _halfSkeletonWidth = skelRenderer.bounds.extents.x;
+        _halfSkeletonHeight = skelRenderer.bounds.extents.y;
     }
 
     private void Update()
     {
-        if (player == null) return;
+        if (_player == null) return;
 
-        float distance = Vector2.Distance(transform.position, player.position);
+        float distance = Vector2.Distance(transform.position, _player.position);
 
-        if (distance > summonRange)
-        {
+        if (distance > _summonRange)
             MoveTowardPlayer();
-        }
         else
-        {
             SummonSkeletons();
-        }
-    }
-
-    private void MoveTowardPlayer()
-    {
-        Vector2 direction = ((Vector2)player.position - (Vector2)transform.position).normalized;
-
-        transform.position += (Vector3)(direction * moveSpeed * Time.deltaTime);
-
-        if (direction.x > 0)
-            transform.localScale = new Vector3(1, 1, 1);
-        else
-            transform.localScale = new Vector3(-1, 1, 1);
     }
 
     private void SummonSkeletons()
     {
-        if (Time.time < nextSummonTime) return;
+        if (Time.time < _nextSummonTime) return;
 
-        Vector3 spawnPos1 = transform.position + Vector3.left * spawnDistance;
-        Vector3 spawnPos2 = transform.position + Vector3.right * spawnDistance;
+        float angleStep = (float)Mathf.PI * 2 / _numSkeleton;
 
-        GameObject skel1 = Instantiate(skeletonPrefab, spawnPos1, Quaternion.identity);
-        GameObject skel2 = Instantiate(skeletonPrefab, spawnPos2, Quaternion.identity);
+        for (int i = 0; i < _numSkeleton; i++)
+        {
+            if (GameManager.Instance.IsEnemyMaxed()) break;
 
-        skel1.GetComponent<Skeleton>().SetPlayer(player);
-        skel2.GetComponent<Skeleton>().SetPlayer(player);
+            float rawX = (float)Math.Cos(i * angleStep) * _spawnRadius + transform.position.x;
+            float rawY = (float)Math.Sin(i * angleStep) * _spawnRadius + transform.position.y;
 
-        nextSummonTime = Time.time + summonCooldown;
+            float clampedX = GameManager.Instance.ClampX(rawX, _halfSkeletonWidth);
+            float clampedY = GameManager.Instance.ClampY(rawY, _halfSkeletonHeight);
+
+            GameObject skel = Instantiate(_skeletonPrefab, new Vector3(clampedX, clampedY, 0f), Quaternion.identity);
+            skel.transform.parent = _skeletonContainer.transform;
+        }
+
+        _nextSummonTime = Time.time + _summonCooldown;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        HandleCollision(collision);
     }
 }
