@@ -87,15 +87,6 @@ public class PlayerStaff : MonoBehaviour
 
         aoe.transform.localScale *= multiplier;
     }
-    private Vector2 RotateDirection(Vector2 direction, float angle)
-    {
-        float rad = angle * Mathf.Deg2Rad;
-
-        float x = direction.x * Mathf.Cos(rad) - direction.y * Mathf.Sin(rad);
-        float y = direction.x * Mathf.Sin(rad) + direction.y * Mathf.Cos(rad);
-
-        return new Vector2(x, y).normalized;
-    }
 
     private void FollowPlayer()
     {

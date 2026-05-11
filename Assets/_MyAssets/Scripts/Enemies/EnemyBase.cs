@@ -42,7 +42,11 @@ public abstract class EnemyBase : MonoBehaviour
 
         if (collision.CompareTag("PlayerAttack"))
         {
-            Destroy(collision.gameObject);
+            if (collision.gameObject.GetComponent<StaffAOE>() == null)
+            {
+                Destroy(collision.gameObject);
+            }
+
             Die("PlayerAttack");
         }
         else if (collision.CompareTag("Player"))
