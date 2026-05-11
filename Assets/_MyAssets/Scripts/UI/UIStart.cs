@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 public class UIStart : UI
 {
 
-    //[SerializeField] private GameObject _resultsPanel;
+    [SerializeField] private GameObject _resultsPanel;
+    [SerializeField] private Button _creditsButton;
     [SerializeField] private GameObject _gameButtons;
     [SerializeField] private Button _buttonStart;
-    //[SerializeField] private Button _buttonClose;
+    [SerializeField] private Button _buttonClose;
 
     private void Awake()
     {
@@ -27,6 +28,8 @@ public class UIStart : UI
     private void Start()
     {
 
+        _resultsPanel.SetActive(false);
+
         EventSystem.current.SetSelectedGameObject(_buttonStart.gameObject);
 
     }
@@ -34,10 +37,11 @@ public class UIStart : UI
     public void OnResultsClick()
     {
 
-        //_resultsPanel.SetActive(true);
+        _resultsPanel.SetActive(true);
         _gameButtons.SetActive(false);
+        _creditsButton.enabled = false;
 
-        //EventSystem.current.SetSelectedGameObject(_buttonClose.gameObject);
+        EventSystem.current.SetSelectedGameObject(_buttonClose.gameObject);
 
     }
 
@@ -51,8 +55,9 @@ public class UIStart : UI
     public void OnCloseClick()
     {
 
-        //_resultsPanel.SetActive(false);
+        _resultsPanel.SetActive(false);
         _gameButtons.SetActive(true);
+        _creditsButton.enabled = true;
 
         EventSystem.current.SetSelectedGameObject(_buttonStart.gameObject);
 
