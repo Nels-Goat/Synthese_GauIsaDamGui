@@ -1521,7 +1521,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1158486430
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2172,22 +2172,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HighScoreTable
       objectReference: {fileID: 0}
-    - target: {fileID: 3272178819203504962, guid: 6eef1e96bd1d5814091ebbd279886fb8, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3272178819203504962, guid: 6eef1e96bd1d5814091ebbd279886fb8, type: 3}
-      propertyPath: m_Color.b
-      value: 0.4156863
-      objectReference: {fileID: 0}
-    - target: {fileID: 3272178819203504962, guid: 6eef1e96bd1d5814091ebbd279886fb8, type: 3}
-      propertyPath: m_Color.g
-      value: 0.20000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 3272178819203504962, guid: 6eef1e96bd1d5814091ebbd279886fb8, type: 3}
-      propertyPath: m_Color.r
-      value: 0.39607847
-      objectReference: {fileID: 0}
     - target: {fileID: 5703604714893383126, guid: 6eef1e96bd1d5814091ebbd279886fb8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2219,18 +2203,6 @@ PrefabInstance:
     - target: {fileID: 5703604714893383126, guid: 6eef1e96bd1d5814091ebbd279886fb8, type: 3}
       propertyPath: m_SizeDelta.y
       value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5703604714893383126, guid: 6eef1e96bd1d5814091ebbd279886fb8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5703604714893383126, guid: 6eef1e96bd1d5814091ebbd279886fb8, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5703604714893383126, guid: 6eef1e96bd1d5814091ebbd279886fb8, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 5703604714893383126, guid: 6eef1e96bd1d5814091ebbd279886fb8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2279,14 +2251,6 @@ PrefabInstance:
     - target: {fileID: 5703604714893383126, guid: 6eef1e96bd1d5814091ebbd279886fb8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5703604714893383126, guid: 6eef1e96bd1d5814091ebbd279886fb8, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6139817016697736083, guid: 6eef1e96bd1d5814091ebbd279886fb8, type: 3}
-      propertyPath: m_Color.a
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
