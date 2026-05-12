@@ -33,7 +33,8 @@ public class Troll : EnemyBase
             {
                 _isCharging = true;
                 _chargeDirection = ((Vector2)_player.position - (Vector2)transform.position).normalized;
-                gameObject.tag = "EnemyAttack"; // Devient dangereux au contact
+                gameObject.tag = "EnemyAttack";
+                Debug.Log("[Troll] Charge déclenchée !");
             }
         }
         else
@@ -54,16 +55,18 @@ public class Troll : EnemyBase
             );
             transform.position = new Vector3(randomX, Camera.main.orthographicSize + 2f, 0f);
             _isCharging = false;
-            gameObject.tag = "Enemy"; // Redevient normal
+            gameObject.tag = "Enemy";
+            Debug.Log("[Troll] Reset après sortie d'écran.");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Quand le Troll charge et touche le joueur, le joueur gère les dégâts via son propre OnTriggerEnter2D
-        // Ici on détruit seulement le Troll s'il est touché par une attaque du joueur
+        // Le Troll en charge est "EnemyAttack" ? le joueur gère ses propres dégâts
+        // Ici on gère seulement si le Troll se fait tuer
         if (collision.CompareTag("PlayerAttack"))
         {
+            Debug.Log("[Troll] Tué par PlayerAttack pendant la charge.");
             Destroy(collision.gameObject);
             Die("PlayerAttack");
         }

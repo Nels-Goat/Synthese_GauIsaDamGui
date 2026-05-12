@@ -13,6 +13,10 @@ public class Goblin : EnemyBase
     protected override void Start()
     {
         base.Start();
+
+        // Vérification que la lance a bien le bon tag
+        if (_goblinSpear != null && !_goblinSpear.CompareTag("EnemyAttack"))
+            Debug.LogWarning("[Goblin] Le prefab _goblinSpear n'a pas le tag 'EnemyAttack' ! Le joueur ne prendra pas de dégâts.");
     }
 
     private void Update()
@@ -49,6 +53,8 @@ public class Goblin : EnemyBase
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         spear.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        Debug.Log($"[Goblin] Lance tirée vers le joueur — direction: {direction}");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))] // Fix Bug 1 : garantit qu'un AudioSource existe
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
@@ -15,7 +16,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private Image _muteImage;
     [SerializeField] private Sprite _spriteOn;
     [SerializeField] private Sprite _spriteOff;
-
     [SerializeField][Range(0f, 1f)] private float _volume = 0.5f;
 
     private InputSystem_Actions _inputSystem_Actions;
@@ -32,6 +32,7 @@ public class SoundManager : MonoBehaviour
             _audioSource.loop = true;
             _audioSource.volume = _volume;
             SceneManager.sceneLoaded += OnSceneLoaded;
+            PlayMusicForScene(SceneManager.GetActiveScene().name);
         }
         else
         {
@@ -42,13 +43,11 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        _inputSystem_Actions = new InputSystem_Actions(); // Initialisation de la classe d'actions d'entrée
-        _inputSystem_Actions.Player.Enable();             // Activation des actions d'entrée pour le joueur
+        _inputSystem_Actions = new InputSystem_Actions();
+        _inputSystem_Actions.Player.Enable();
         _inputSystem_Actions.Player.Mute.performed += Mute_performed;
-
-        _muteImage.sprite = _spriteOn; // Sprite par défaut : musique active
-        _muteImage.gameObject.SetActive(false); // Caché par défaut
-        PlayMusicForScene(SceneManager.GetActiveScene().name);
+        _muteImage.sprite = _spriteOn;
+        _muteImage.gameObject.SetActive(false);
     }
 
     private void Mute_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -65,11 +64,9 @@ public class SoundManager : MonoBehaviour
     {
         AudioClip clipToPlay = null;
 
-        if (sceneName == "Start")
+        if (sceneName == "StartTest_NelsonG")
             clipToPlay = _startSceneMusic;
-        else if (sceneName == "GameTest_NelsonG" || sceneName == "GameTest_JeremyI" ||
-                 sceneName == "GameTest_XavierD" || sceneName == "GameTest_XavierG" ||
-                 sceneName == "Game")
+        else if (sceneName == "GameTest_NelsonG")
             clipToPlay = _gameSceneMusic;
         else if (sceneName == "End")
             clipToPlay = _endSceneMusic;
@@ -88,20 +85,10 @@ public class SoundManager : MonoBehaviour
 
     public void OnMuteClick()
     {
-        if (_isMuted)
-        {
-            _audioSource.mute = false;
-            _muteImage.sprite = _spriteOn;
-            _isMuted = false;
-        }
-        else
-        {
-            _audioSource.mute = true;
-            _muteImage.sprite = _spriteOff;
-            _isMuted = true;
-        }
+        _isMuted = !_isMuted;
+        _audioSource.mute = _isMuted;
+        _muteImage.sprite = _isMuted ? _spriteOff : _spriteOn;
 
-        // Affiche le sprite et annule le hide précédent si on rappuie avant 5 sec
         _muteImage.gameObject.SetActive(true);
         CancelInvoke(nameof(HideMuteImage));
         Invoke(nameof(HideMuteImage), 5f);
@@ -114,10 +101,15 @@ public class SoundManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        // Fix Bug 2 : vérification null avant d'utiliser _inputSystem_Actions
         if (Instance == this)
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
-            _inputSystem_Actions.Player.Mute.performed -= Mute_performed;
+
+            if (_inputSystem_Actions != null)
+            {
+                _inputSystem_Actions.Player.Mute.performed -= Mute_performed;
+            }
         }
     }
 }
