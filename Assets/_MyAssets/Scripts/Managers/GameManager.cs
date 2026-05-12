@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,9 +11,9 @@ public class GameManager : MonoBehaviour
     public class OnEnemyDestroyedEventArgs : EventArgs
     {
         public string DestroyedObjectTag;
+        public int Damage;
     }
     // ====================================================== //
-
 
     [Header("Limites de la map")]
     [SerializeField] private GameObject _background;
@@ -26,7 +27,6 @@ public class GameManager : MonoBehaviour
     private int _playerScore = 0;
     public int PlayerScore => _playerScore;
 
-
     private void Awake()
     {
         if (Instance == null)
@@ -37,29 +37,35 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        PlayerPrefs.SetInt("PlayerScore", 0);
+
         SpriteRenderer backgroundRenderer = _background.GetComponent<SpriteRenderer>();
         _minX = backgroundRenderer.bounds.min.x;
         _maxX = backgroundRenderer.bounds.max.x;
         _minY = backgroundRenderer.bounds.min.y;
         _maxY = backgroundRenderer.bounds.max.y;
+
+        Debug.Log("[GameManager] Initialisé — Score: 0");
     }
 
-
     // ===================== GESTION ENNEMIS ===================== //
-
     public bool IsEnemyMaxed()
     {
         return _enemyContainer.transform.childCount >= _maxEnemy;
     }
 
-    public void EnemyDestroyed(int p_enemyPoints, string p_gameObjectTag)
+    public void EnemyDestroyed(int p_enemyPoints, string p_gameObjectTag, int p_damage = 1)
     {
         if (p_gameObjectTag == "PlayerAttack")
+        {
             _playerScore += p_enemyPoints;
+            Debug.Log($"[GameManager] +{p_enemyPoints} pts | Score total : {_playerScore}");
+        }
 
         OnEnemyDestroyed?.Invoke(this, new OnEnemyDestroyedEventArgs
         {
-            DestroyedObjectTag = p_gameObjectTag
+            DestroyedObjectTag = p_gameObjectTag,
+            Damage = p_damage
         });
     }
 
@@ -67,15 +73,39 @@ public class GameManager : MonoBehaviour
     {
         OnEnemyDestroyed?.Invoke(this, new OnEnemyDestroyedEventArgs
         {
-            DestroyedObjectTag = "Player"
+            DestroyedObjectTag = "Player",
+            Damage = 1
         });
     }
-
     // =========================================================== //
 
+    // ===================== FIN DE JEU ===================== //
+    public void EndGame()
+    {
+        // Sauvegarde du score
+        PlayerPrefs.SetInt("PlayerScore", _playerScore);
+
+        // Meilleur score
+        if (PlayerPrefs.HasKey("PlayerHighScore"))
+        {
+            int highScore = PlayerPrefs.GetInt("PlayerHighScore");
+            if (_playerScore > highScore)
+                PlayerPrefs.SetInt("PlayerHighScore", _playerScore);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("PlayerHighScore", _playerScore);
+        }
+
+        PlayerPrefs.Save();
+
+        Debug.Log($"[GameManager] Game Over — Score: {_playerScore} | HighScore: {PlayerPrefs.GetInt("PlayerHighScore")}");
+
+        SceneManager.LoadScene("End");
+    }
+    // ====================================================== //
 
     // ===================== LIMITES DE LA MAP ===================== //
-
     public float ClampX(float coo, float half)
     {
         return Mathf.Clamp(coo, _minX + half, _maxX - half);
@@ -85,6 +115,5 @@ public class GameManager : MonoBehaviour
     {
         return Mathf.Clamp(coo, _minY + half, _maxY - half);
     }
-
     // ============================================================= //
 }
