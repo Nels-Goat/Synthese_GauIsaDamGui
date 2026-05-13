@@ -1,16 +1,30 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIEnd : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    //[SerializeField] private TextMeshProUGUI _txtScore;
+    //[SerializeField] private TextMeshProUGUI _txtHighScore;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //private void Start()
+    //{
+    //    int score = PlayerPrefs.GetInt("PlayerScore", 0);
+    //    int highScore = PlayerPrefs.GetInt("PlayerHighScore", 0);
+
+    //    _txtScore.text = $"Score : {score}";
+    //    _txtHighScore.text = $"Meilleur score : {highScore}";
+
+    //    Debug.Log($"[UIEnd] Score: {score} | HighScore: {highScore}");
+    //}
+
+    //public void OnRestartClick()
+    //{
+    //    SceneManager.LoadScene("Game");
+    //}
+
+    //public void OnMenuClick()
+    //{
+    //    SceneManager.LoadScene("StartTest_JeremyI");
+    //}
 }

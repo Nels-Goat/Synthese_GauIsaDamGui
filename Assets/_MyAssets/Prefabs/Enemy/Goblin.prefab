@@ -107,6 +107,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Goblin
   _moveSpeed: 2
   _points: 10
+  _maxLife: 1
+  _damage: 1
   _goblinSpear: {fileID: 6565406648065296605, guid: 1de038e2bc4bf374da248eddcfcd91cd, type: 3}
   _attackRange: 10
   _attackCooldown: 2
