@@ -22,30 +22,36 @@ public class UIGame : UI
     [SerializeField] private float _maxLife = 10f;
     [SerializeField] private int _enemiesPerLevel = 5;
 
+    private float _currentLife;
+
     int level = 1;
     int points = 0;
-    private float _currentLife;
     private int _enemiesKilled = 0;
 
     private void Awake()
     {
         if (Instance == null)
         {
+
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
         }
         else
         {
+
             Destroy(gameObject);
+
         }
     }
 
     private void Start()
     {
 
-        _currentLife = _maxLife;
         _lifeBar.fillAmount = 1f;
-        _xpBar.fillAmount = 0f;    
+        _xpBar.fillAmount = 0f;
+
+        _currentLife = _maxLife;
 
         if (GameManager.Instance != null)
             GameManager.Instance.OnEnemyDestroyed += OnEnemyDestroyed;
@@ -71,17 +77,18 @@ public class UIGame : UI
 
     }
 
+    public void UpdateLifeBar(float currentLife)
+    {
+
+        _currentLife = currentLife;
+        _lifeBar.fillAmount = _currentLife / _maxLife;
+
+    }
+
     private void OnEnemyDestroyed(object sender, GameManager.OnEnemyDestroyedEventArgs e)
     {
 
-        if (e.DestroyedObjectTag == "Player")
-        {
-
-            _currentLife = Mathf.Max(0, _currentLife - 1f);
-            _lifeBar.fillAmount = 1f - (_currentLife / _maxLife);
-
-        }
-        else if (e.DestroyedObjectTag == "PlayerAttack")
+        if (e.DestroyedObjectTag == "PlayerAttack")
         {
 
             _enemiesKilled++;
@@ -104,6 +111,8 @@ public class UIGame : UI
         _instructionsPanel.SetActive(false);
         _upgradePanel.SetActive(false);
         _gameBar.SetActive(true);
+
+        _lifeBar.fillAmount = _currentLife / _maxLife;
 
     }
 
@@ -128,6 +137,8 @@ public class UIGame : UI
         _instructionsPanel.SetActive(false);
         _upgradePanel.SetActive(false);
         _gameBar.SetActive(true);
+
+        _lifeBar.fillAmount = _currentLife / _maxLife;
 
         level += 1;
         _txtLevel.text = $"Niveau {level}";

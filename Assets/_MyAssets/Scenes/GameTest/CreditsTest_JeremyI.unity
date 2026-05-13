@@ -155,8 +155,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0009765625}
-  m_SizeDelta: {x: -538.0027, y: 0.0020752}
+  m_AnchoredPosition: {x: 0, y: -1095}
+  m_SizeDelta: {x: -538.0027, y: -94.7627}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &100236563
 MonoBehaviour:
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52060d43df247ef4b8b0744d20a0186f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UICredits
-  scrollSpeed: 50
+  scrollSpeed: 100
 --- !u!1 &472230844
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,8 +515,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.007225, y: -412.6432}
-  m_SizeDelta: {x: 1382, y: 1905.2864}
+  m_AnchoredPosition: {x: -0.0013199, y: 0.010529}
+  m_SizeDelta: {x: 1382, y: 1600.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1252583547
 MonoBehaviour:
@@ -538,9 +538,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Titre de notre jeu\n\n\n\nInterface utilisateur : J\xE9r\xE9my Isabelle\n\nVotre
-    t\xE2che : Nelson Gauthier\n\nVotre t\xE2che : Xavier Guimond\n\nVotre t\xE2che
-    : Xavier Damphousse"
+  m_text: "Titre de notre jeu\n\n\nMerci \xE0 nos d\xE9veloppeurs : \n\n\nInterface
+    utilisateur : J\xE9r\xE9my Isabelle\n\nVotre t\xE2che : Nelson Gauthier\n\nVotre
+    t\xE2che : Xavier Guimond\n\nVotre t\xE2che : Xavier Damphousse\n\n\nDroits d'auteurs
+    \xA9 2026 \nProgrammation Jeux vid\xE9os - Simulation"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
