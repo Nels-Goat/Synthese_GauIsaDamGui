@@ -4705,8 +4705,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIStart, Assembly-CSharp
+      - m_Target: {fileID: 1764965891}
+        m_TargetAssemblyTypeName: UIEnd, Assembly-CSharp
         m_MethodName: OnQuitCLick
         m_Mode: 1
         m_Arguments:
@@ -6189,9 +6189,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIStart, Assembly-CSharp
-        m_MethodName: OnResultsClick
+      - m_Target: {fileID: 1764965891}
+        m_TargetAssemblyTypeName: UIEnd, Assembly-CSharp
+        m_MethodName: OnMenuClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6342,9 +6342,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIStart, Assembly-CSharp
-        m_MethodName: OnStartClick
+      - m_Target: {fileID: 1764965891}
+        m_TargetAssemblyTypeName: UIEnd, Assembly-CSharp
+        m_MethodName: OnRestartClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7855,6 +7855,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1764965890}
+  - component: {fileID: 1764965891}
   m_Layer: 0
   m_Name: UIEnd
   m_TagString: Untagged
@@ -7878,6 +7879,20 @@ Transform:
   - {fileID: 1707443907}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1764965891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764965889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85998a139daf88f4399cf42bf93ade09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIEnd
+  _txtScore: {fileID: 577939786}
+  _buttonRestart: {fileID: 1415654449}
 --- !u!1 &1788115079
 GameObject:
   m_ObjectHideFlags: 0
