@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class UICredits : UI
 {
+    [SerializeField] private string _sceneName = "Start";
     public float scrollSpeed = 50f;
     private RectTransform rectTransform;
 
@@ -18,7 +19,7 @@ public class UICredits : UI
 
         if (rectTransform.anchoredPosition.y > 1500f)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Start");
+            UnityEngine.SceneManagement.SceneManager.LoadScene(_sceneName);
         }
     }
 }

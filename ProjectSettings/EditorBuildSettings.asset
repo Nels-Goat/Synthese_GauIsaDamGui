@@ -8,18 +8,27 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_MyAssets/Scenes/GameTest/StartTest_NelsonG.unity
     guid: 3f215240cd7f5c9409ab58afb39a78ec
-  - enabled: 1
+  - enabled: 0
     path: Assets/_MyAssets/Scenes/Start.unity
     guid: f33648004b591914a949923b2129fe38
   - enabled: 0
     path: Assets/_MyAssets/Scenes/GameTest/GameTest_NelsonG.unity
     guid: a977ae9876d97c3448171909aa0ed621
-  - enabled: 1
+  - enabled: 0
     path: Assets/_MyAssets/Scenes/Game.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
+  - enabled: 0
     path: Assets/_MyAssets/Scenes/End.unity
     guid: ad8f01e76e2d3e54487d1f434252b1a5
+  - enabled: 1
+    path: Assets/_MyAssets/Scenes/GameTest/StartTest_JeremyI.unity
+    guid: a9184608a096fe04ea3a4423bfba8ab1
+  - enabled: 1
+    path: Assets/_MyAssets/Scenes/GameTest/GameTest_JeremyI.unity
+    guid: bb3c1a4361963b842a54d3e605a24b58
+  - enabled: 1
+    path: Assets/_MyAssets/Scenes/GameTest/EndTest_JeremyI.unity
+    guid: bcf1bf5a0cb1555459aa10c087c06894
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

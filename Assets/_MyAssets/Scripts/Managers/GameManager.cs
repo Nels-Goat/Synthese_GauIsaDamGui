@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private string _endSceneName = "End";
     public static GameManager Instance;
 
     // ===================== ÉVÉNEMENTS ===================== //
@@ -101,11 +102,11 @@ public class GameManager : MonoBehaviour
 
         Debug.Log($"[GameManager] Game Over — Score: {_playerScore} | HighScore: {PlayerPrefs.GetInt("PlayerHighScore")}");
 
-        SceneManager.LoadScene("End");
+        SceneManager.LoadScene(_endSceneName);
     }
     // ====================================================== //
 
-    // ===================== LIMITES DE LA MAP ===================== //
+    // ===================== MÉTHODES DE DÉLIMITATION ===================== //
     public float ClampX(float coo, float half)
     {
         return Mathf.Clamp(coo, _minX + half, _maxX - half);
