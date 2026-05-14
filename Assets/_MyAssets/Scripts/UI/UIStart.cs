@@ -27,11 +27,10 @@ public class UIStart : UI
 
     private void Start()
     {
-
         _resultsPanel.SetActive(false);
 
-        EventSystem.current.SetSelectedGameObject(_buttonStart.gameObject);
-
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(_buttonStart.gameObject);
     }
 
     public void OnResultsClick()
