@@ -1,16 +1,41 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class UIEnd : MonoBehaviour
+public class UIEnd : UI
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private string _startSceneName = "Start";
+    [SerializeField] private string _gameSceneName = "Game";
+    [SerializeField] private TextMeshProUGUI _txtScore;
+    //[SerializeField] private TextMeshProUGUI _txtHighScore;
+    [SerializeField] private Button _buttonRestart;
+
+    private void Start()
     {
-        
+        int score = PlayerPrefs.GetInt("PlayerScore", 0);
+        //int highScore = PlayerPrefs.GetInt("PlayerHighScore", 0);
+
+        _txtScore.text = $"Score : {score}";
+        //_txtHighScore.text = $"Meilleur score : {highScore}";
+
+        //Debug.Log($"[UIEnd] Score: {score} | HighScore: {highScore}");
+
+        EventSystem.current.SetSelectedGameObject(_buttonRestart.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnRestartClick()
     {
-        
+
+        SceneManager.LoadScene(_gameSceneName);
+
+    }
+
+    public void OnMenuClick()
+    {
+
+        SceneManager.LoadScene(_startSceneName);
+
     }
 }

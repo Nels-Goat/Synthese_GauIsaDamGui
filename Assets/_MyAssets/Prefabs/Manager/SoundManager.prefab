@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8789820392217636419}
   - component: {fileID: 3536905889263323118}
-  - component: {fileID: 1828598211005474555}
+  - component: {fileID: 9151590516696514592}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -130,7 +130,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1828598211005474555
+--- !u!114 &9151590516696514592
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,7 +142,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d88e74118763b04dad0973eaa936775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
-  startSceneMusic: {fileID: 8300000, guid: cc3f9b73359d8ef49a03ff31cae018a6, type: 3}
-  gameSceneMusic: {fileID: 8300000, guid: 31b2d9df40cf365469d253fe45ca8ad1, type: 3}
-  endSceneMusic: {fileID: 8300000, guid: 83d436de58c126442aafc1d2ca2996bd, type: 3}
-  volume: 0.5
+  _startSceneMusic: {fileID: 8300000, guid: cc3f9b73359d8ef49a03ff31cae018a6, type: 3}
+  _gameSceneMusic: {fileID: 8300000, guid: 31b2d9df40cf365469d253fe45ca8ad1, type: 3}
+  _endSceneMusic: {fileID: 8300000, guid: 83d436de58c126442aafc1d2ca2996bd, type: 3}
+  _muteImage: {fileID: 0}
+  _spriteOn: {fileID: 2488193864150925076, guid: 686ad3d3b02df56499fa67bac4299551, type: 3}
+  _spriteOff: {fileID: 2654917550513951137, guid: 686ad3d3b02df56499fa67bac4299551, type: 3}
+  _volume: 0.5

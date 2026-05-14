@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,10 +7,15 @@ public class Player : MonoBehaviour
 {
     [Header("Propriétés Joueur")]
     [SerializeField] private float _playerLife = 10f;
+    [SerializeField] private float _playerMaxLife = 10f;
     [SerializeField] private float _playerSpeed = 10f;
     [SerializeField] private float _playerDashForce = 25f;
     [SerializeField] private float _playerDashRate = 0.5f;
     [SerializeField] private int _playerDashDuration = 10;
+
+    [Header("Invincibilité")]
+    [SerializeField] private float _iFramesDuration = 1.5f;
+    [SerializeField] private int _iFramesFlashCount = 6;
 
     [Header("Son")]
     [SerializeField] private AudioClip _walkingSound;
@@ -17,9 +23,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float _stepInterval = 0.35f;
     [SerializeField] private AudioClip _dashSound;
     [SerializeField, Range(0f, 1f)] private float _dashVolume = 0.7f;
-
-    //private int _exp = 0;
-    //private int _level = 0;
+    [SerializeField] private AudioClip _hitSound;
+    [SerializeField, Range(0f, 1f)] private float _hitVolume = 0.8f;
 
     private InputSystem_Actions _inputSystemActions;
     private Rigidbody2D _rigidbody2D;
@@ -38,11 +43,15 @@ public class Player : MonoBehaviour
     private AudioSource _audioSource;
     private float _stepTimer;
 
+    private bool _isInvincible = false;
+
 
     private void Start()
     {
         if (GameManager.Instance != null)
+        {
             GameManager.Instance.OnEnemyDestroyed += OnEnemyDestroyed;
+        }
 
         _audioSource = GetComponent<AudioSource>();
         _audioSource.playOnAwake = false;
@@ -53,8 +62,8 @@ public class Player : MonoBehaviour
 
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
-
         _spriteRenderer = GetComponent<SpriteRenderer>();
+
         _halfPlayerWidth = _spriteRenderer.bounds.extents.x;
         _halfPlayerHeight = _spriteRenderer.bounds.extents.y;
 
@@ -63,12 +72,16 @@ public class Player : MonoBehaviour
         _isDashing = false;
 
         _lookingDirection = 1;
+
+        Debug.Log($"[Player] Initialisé — Vie : {_playerLife}/{_playerMaxLife}");
     }
 
     private void OnDestroy()
     {
         if (GameManager.Instance != null)
+        {
             GameManager.Instance.OnEnemyDestroyed -= OnEnemyDestroyed;
+        }
 
         _inputSystemActions.Player.Disable();
         _inputSystemActions.Player.Dash.started -= _ => _isDashing = true;
@@ -81,29 +94,63 @@ public class Player : MonoBehaviour
     private void OnEnemyDestroyed(object sender, GameManager.OnEnemyDestroyedEventArgs e)
     {
         if (e.DestroyedObjectTag == "Player")
-            TakeDamage();
+            TakeDamage(e.Damage);
     }
 
-    private void TakeDamage()
+    private void TakeDamage(int damage)
     {
-        _playerLife--;
+        if (_isInvincible) return;
+
+        _playerLife -= damage;
+        Debug.Log($"[Player] -{damage} vie | Vie restante : {_playerLife}/{_playerMaxLife}");
+
+        UIGame.Instance?.UpdateLifeBar(_playerLife);
 
         if (_playerLife <= 0)
+        {
             Die();
+            return;
+        }
+
+        if (_hitSound != null)
+            _audioSource.PlayOneShot(_hitSound, _hitVolume);
+
+        StartCoroutine(IFramesRoutine());
+    }
+
+    private IEnumerator IFramesRoutine()
+    {
+        _isInvincible = true;
+        Debug.Log("[Player] Invincibilité activée.");
+
+        float flashInterval = _iFramesDuration / (_iFramesFlashCount * 2);
+
+        for (int i = 0; i < _iFramesFlashCount; i++)
+        {
+            _spriteRenderer.enabled = false;
+            yield return new WaitForSeconds(flashInterval);
+            _spriteRenderer.enabled = true;
+            yield return new WaitForSeconds(flashInterval);
+        }
+
+        _isInvincible = false;
+        Debug.Log("[Player] Invincibilité terminée.");
     }
 
     private void Die()
     {
+        Debug.Log("[Player] Le joueur est mort — Game Over.");
+        SpawnManager.Instance?.StopSpawning();
+        GameManager.Instance?.EndGame();
         Destroy(gameObject);
-        // SpawnManager.Instance.StopSpawning();
-        // GameManager.Instance.EndGame();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("EnemyAttack"))
         {
-            TakeDamage();
+            Debug.Log("[Player] Touché par EnemyAttack !");
+            TakeDamage(1); // Dégât fixe pour les projectiles
             Destroy(collision.gameObject);
         }
     }
@@ -120,7 +167,7 @@ public class Player : MonoBehaviour
     {
         if (GameManager.Instance == null)
         {
-            Debug.LogError("GameManager.Instance est null !");
+            Debug.LogError("[Player] GameManager.Instance est null !");
             return;
         }
 
