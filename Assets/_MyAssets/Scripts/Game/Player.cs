@@ -104,7 +104,7 @@ public class Player : MonoBehaviour
         _playerLife -= damage;
         Debug.Log($"[Player] -{damage} vie | Vie restante : {_playerLife}/{_playerMaxLife}");
 
-        // TODO (collègue UI) : UIGame.Instance?.UpdateLifeBar(_playerLife);
+        UIGame.Instance?.UpdateLifeBar(_playerLife);
 
         if (_playerLife <= 0)
         {
