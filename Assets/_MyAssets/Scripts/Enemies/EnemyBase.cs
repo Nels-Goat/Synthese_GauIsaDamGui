@@ -1,8 +1,8 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour
 {
-    [Header("Propriétés communes")]
+    [Header("Propriï¿½tï¿½s communes")]
     [SerializeField] protected float _moveSpeed = 2f;
     [SerializeField] protected int _points = 10;
 
@@ -29,10 +29,12 @@ public abstract class EnemyBase : MonoBehaviour
         Vector2 direction = ((Vector2)_player.position - (Vector2)transform.position).normalized;
         transform.position += (Vector3)(direction * _moveSpeed * Time.deltaTime);
 
-        if (direction.x > 0)
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-        else
-            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        /*
+        transform.localScale = new Vector3(
+            direction.x > 0 ? Mathf.Abs(transform.localScale.x) : -Mathf.Abs(transform.localScale.x),
+            transform.localScale.y,
+            transform.localScale.z
+        );*/
     }
 
     protected void HandleCollision(Collider2D collision)
