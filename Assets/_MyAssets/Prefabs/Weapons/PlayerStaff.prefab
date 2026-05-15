@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStaff
   attackCooldown: 3.5
-  staffAOEPrefab: {fileID: 0}
+  staffAOEPrefab: {fileID: 8669197673555266423, guid: a35c9cc19385f0640b148d836a6e1af5, type: 3}
   weaponLevel: 1
   fireSound: {fileID: 0}
   fireVolume: 1
