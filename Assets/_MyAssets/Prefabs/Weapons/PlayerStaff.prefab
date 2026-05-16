@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1629897293433164508}
   - component: {fileID: 875509558552364979}
   - component: {fileID: 7562380544065516665}
+  - component: {fileID: -2181330100737443373}
   m_Layer: 0
   m_Name: PlayerStaff
   m_TagString: Untagged
@@ -109,3 +110,25 @@ MonoBehaviour:
   weaponLevel: 1
   fireSound: {fileID: 0}
   fireVolume: 1
+--- !u!95 &-2181330100737443373
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251681193676503241}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 15e73843c76c23246b036ec8ac07971a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
