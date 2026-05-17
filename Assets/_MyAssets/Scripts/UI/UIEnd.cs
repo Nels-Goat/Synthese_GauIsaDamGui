@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class UIEnd : UI
 {
+    [SerializeField] private string _startSceneName = "Start";
+    [SerializeField] private string _gameSceneName = "Game";
     [SerializeField] private TextMeshProUGUI _txtScore;
     //[SerializeField] private TextMeshProUGUI _txtHighScore;
     [SerializeField] private Button _buttonRestart;
@@ -27,11 +29,15 @@ public class UIEnd : UI
     {
         SceneManager.LoadScene("Game");
 
+        SceneManager.LoadScene(_gameSceneName);
+
     }
 
     public void OnMenuClick()
     {
         SceneManager.LoadScene("StartTest_JeremyI");
+
+        SceneManager.LoadScene(_startSceneName);
 
     }
 }

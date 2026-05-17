@@ -7,6 +7,10 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
     [SerializeField] protected int _points = 10;
     [SerializeField] protected int _maxLife = 1;
     [SerializeField] protected int _damage = 1;
+    [SerializeField] protected float _bumpingForce = 0f;
+
+    public int Damage { get; set; }
+    public int MaxLife { get; set; }
 
     protected int _currentLife;
     protected Transform _player;
@@ -51,14 +55,13 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
             if (collision.gameObject.GetComponent<StaffAOE>() == null)
                 Destroy(collision.gameObject);
 
-            Die("PlayerAttack");
+            TakeHit("PlayerAttack");
         }
-        else if (collision.CompareTag("Player"))
-        {
-            TakeHit("Player");
-        }
+
     }
 
+
+    // Interface IDamageable
     public void TakeHit(string attackerTag)
     {
         _currentLife--;

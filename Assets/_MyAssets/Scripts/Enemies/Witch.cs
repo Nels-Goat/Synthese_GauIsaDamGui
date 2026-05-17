@@ -11,13 +11,22 @@ public class Witch : EnemyBase
     [SerializeField] private float _spawnRadius = 1.5f;
 
     private float _nextSummonTime;
+    private bool _isAttacking = false;
+
     private GameObject _skeletonContainer;
     private float _halfSkeletonWidth;
     private float _halfSkeletonHeight;
 
+    private float _lookingDirection;
+    private Animator _anim;
+
     protected override void Start()
     {
         base.Start();
+
+        _anim = GetComponent<Animator>();
+        _lookingDirection = 1;
+
         _skeletonContainer = GameObject.FindGameObjectWithTag("EnemyContainer");
         SpriteRenderer skelRenderer = _skeletonPrefab.GetComponent<SpriteRenderer>();
         _halfSkeletonWidth = skelRenderer.bounds.extents.x;
@@ -30,10 +39,18 @@ public class Witch : EnemyBase
 
         float distance = Vector2.Distance(transform.position, _player.position);
 
-        if (distance > _summonRange)
-            MoveTowardPlayer();
-        else
+        //
+        float xDiff = _player.position.x - transform.position.x;
+        _lookingDirection = xDiff != 0f ? xDiff : _lookingDirection;
+        //
+
+        bool inRange = distance <= _summonRange;
+        if (inRange)
             SummonSkeletons();
+        else
+            MoveTowardPlayer();
+
+        SetAnims(inRange);
     }
 
     private void SummonSkeletons()
@@ -41,6 +58,7 @@ public class Witch : EnemyBase
         if (Time.time < _nextSummonTime) return;
 
         SoundManager.Instance?.PlayWitchSpawnSkeleton(); // Witch invoque des squelettes
+        float angleStep = Mathf.PI * 2 / _numSkeleton;
 
         float angleStep = (float)Mathf.PI * 2 / _numSkeleton;
         for (int i = 0; i < _numSkeleton; i++)
@@ -57,7 +75,63 @@ public class Witch : EnemyBase
         }
 
         _nextSummonTime = Time.time + _summonCooldown;
+        _isAttacking = true;
     }
+
+
+    private void SetAnims(bool inRange)
+    {
+        if (_isAttacking)
+        {
+            if (_lookingDirection > 0f)
+            {
+                _anim.SetBool("_idling", false);
+                _anim.SetBool("_attacking", true);
+                _anim.SetBool("_turningLeft", false);
+                _anim.SetBool("_turningRight", true);
+            } else
+            {
+                _anim.SetBool("_idling", false);
+                _anim.SetBool("_attacking", true);
+                _anim.SetBool("_turningLeft", true);
+                _anim.SetBool("_turningRight", false);
+            }
+            _isAttacking = false;
+        }
+        else if (inRange)
+        {
+            if (_lookingDirection > 0f)
+            {
+                _anim.SetBool("_idling", true);
+                _anim.SetBool("_attacking", false);
+                _anim.SetBool("_turningRight", true);
+                _anim.SetBool("_turningLeft", false);
+            } else
+            {
+                _anim.SetBool("_idling", true);
+                _anim.SetBool("_attacking", false);
+                _anim.SetBool("_turningLeft", true);
+                _anim.SetBool("_turningRight", false);
+            }
+        } else
+        {
+            if (_lookingDirection > 0f)
+            {
+                _anim.SetBool("_idling", false);
+                _anim.SetBool("_attacking", false);
+                _anim.SetBool("_turningRight", true);
+                _anim.SetBool("_turningLeft", false);
+            } else
+            {
+                _anim.SetBool("_idling", false);
+                _anim.SetBool("_attacking", false);
+                _anim.SetBool("_turningLeft", true);
+                _anim.SetBool("_turningRight", false);
+            }
+        }
+    }
+
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

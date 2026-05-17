@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _playerDashForce = 25f;
     [SerializeField] private float _playerDashRate = 0.5f;
     [SerializeField] private int _playerDashDuration = 10;
+    [SerializeField] private float _bumpingForce = 1f;
 
     [Header("Invincibilité")]
     [SerializeField] private float _iFramesDuration = 1.5f;
@@ -127,12 +128,41 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Got Touched by: " + collision.tag);
         if (collision.CompareTag("EnemyAttack"))
         {
             Debug.Log("[Player] Touché par EnemyAttack !");
             TakeDamage(1);
+            EnemyBase enemy = collision.GetComponent<EnemyBase>();
+
+            Debug.Log("[Player] Touché par EnemyAttack ! Dmg: " + enemy.Damage);
+            TakeDamage(enemy.Damage); // Dégât fixe pour les projectiles
+            
+            TriggerBumping(collision.transform);
+
+            try {
+                collision.tag = "Enemy";
+            } catch (Exception) {}
+
+            //Destroy(collision.gameObject);
+        }
+
+        if (collision.CompareTag("EnemyProjectile"))
+        {
+            EnemyBase enemy = collision.GetComponent<EnemyBase>();
+            Debug.Log("[Player] Touché par EnemyProjectile ! Dmg: " + enemy.Damage);
+            TakeDamage(enemy.Damage); // Dégât fixe pour les projectiles
+            
+            TriggerBumping(collision.transform);
+
             Destroy(collision.gameObject);
         }
+    }
+
+    private void TriggerBumping(Transform bumper)
+    {
+        Vector3 diffPos = (gameObject.transform.position - bumper.position).normalized;
+        gameObject.transform.Translate(diffPos * _bumpingForce);
     }
 
     // ================================================== //

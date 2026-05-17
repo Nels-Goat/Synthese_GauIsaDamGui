@@ -9,6 +9,7 @@ TagManager:
   - EnemyAttack
   - PowerUp
   - PlayerAttack
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX
@@ -51,6 +52,15 @@ TagManager:
     locked: 0
   - name: ForeGround
     uniqueID: 879360401
+    locked: 0
+  - name: Player
+    uniqueID: 2227939503
+    locked: 0
+  - name: Small
+    uniqueID: 1016608173
+    locked: 0
+  - name: Big
+    uniqueID: 3420157103
     locked: 0
   m_RenderingLayers:
   - Default

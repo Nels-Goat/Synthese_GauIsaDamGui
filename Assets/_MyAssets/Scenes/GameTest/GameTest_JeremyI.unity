@@ -4047,6 +4047,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9151590516696514592, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+      propertyPath: _muteImage
+      value: 
+      objectReference: {fileID: 929219479}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5020,6 +5024,10 @@ PrefabInstance:
       propertyPath: _background
       value: 
       objectReference: {fileID: 788747732}
+    - target: {fileID: 8510721978730887684, guid: bb726fe9fa45c6349a87c883783ebefc, type: 3}
+      propertyPath: _endSceneName
+      value: EndTest_JeremyI
+      objectReference: {fileID: 0}
     - target: {fileID: 8510721978730887684, guid: bb726fe9fa45c6349a87c883783ebefc, type: 3}
       propertyPath: _enemyContainer
       value: 

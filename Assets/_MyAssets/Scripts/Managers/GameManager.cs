@@ -1,12 +1,14 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private string _endSceneName = "End";
     public static GameManager Instance;
 
-    // ===================== ÉVÉNEMENTS ===================== //
+    // ===================== ï¿½Vï¿½NEMENTS ===================== //
     public event EventHandler<OnEnemyDestroyedEventArgs> OnEnemyDestroyed;
     public class OnEnemyDestroyedEventArgs : EventArgs
     {
@@ -16,7 +18,10 @@ public class GameManager : MonoBehaviour
     // ====================================================== //
 
     [Header("Limites de la map")]
-    [SerializeField] private GameObject _background;
+    [SerializeField] private GameObject _top;
+    [SerializeField] private GameObject _bottom;
+    [SerializeField] private GameObject _right;
+    [SerializeField] private GameObject _left;
     private float _minX, _maxX, _minY, _maxY;
 
     [Header("Gestion des ennemis")]
@@ -39,13 +44,12 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("PlayerScore", 0);
 
-        SpriteRenderer backgroundRenderer = _background.GetComponent<SpriteRenderer>();
-        _minX = backgroundRenderer.bounds.min.x;
-        _maxX = backgroundRenderer.bounds.max.x;
-        _minY = backgroundRenderer.bounds.min.y;
-        _maxY = backgroundRenderer.bounds.max.y;
+        _maxY = _top.GetComponent<SpriteRenderer>().bounds.min.y;
+        _minY = _bottom.GetComponent<SpriteRenderer>().bounds.max.y;
+        _maxX = _right.GetComponent<SpriteRenderer>().bounds.min.x;
+        _minX = _left.GetComponent<SpriteRenderer>().bounds.max.x;
 
-        Debug.Log("[GameManager] Initialisé — Score: 0");
+        Debug.Log("[GameManager] Initialisï¿½ ï¿½ Score: 0");
     }
 
     // ===================== GESTION ENNEMIS ===================== //
@@ -99,13 +103,13 @@ public class GameManager : MonoBehaviour
 
         PlayerPrefs.Save();
 
-        Debug.Log($"[GameManager] Game Over — Score: {_playerScore} | HighScore: {PlayerPrefs.GetInt("PlayerHighScore")}");
+        Debug.Log($"[GameManager] Game Over ï¿½ Score: {_playerScore} | HighScore: {PlayerPrefs.GetInt("PlayerHighScore")}");
 
-        SceneManager.LoadScene("End");
+        SceneManager.LoadScene(_endSceneName);
     }
     // ====================================================== //
 
-    // ===================== LIMITES DE LA MAP ===================== //
+    // ===================== Mï¿½THODES DE Dï¿½LIMITATION ===================== //
     public float ClampX(float coo, float half)
     {
         return Mathf.Clamp(coo, _minX + half, _maxX - half);
