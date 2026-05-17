@@ -28,7 +28,6 @@ public class Witch : EnemyBase
         _lookingDirection = 1;
 
         _skeletonContainer = GameObject.FindGameObjectWithTag("EnemyContainer");
-
         SpriteRenderer skelRenderer = _skeletonPrefab.GetComponent<SpriteRenderer>();
         _halfSkeletonWidth = skelRenderer.bounds.extents.x;
         _halfSkeletonHeight = skelRenderer.bounds.extents.y;
@@ -58,15 +57,16 @@ public class Witch : EnemyBase
     {
         if (Time.time < _nextSummonTime) return;
 
+        SoundManager.Instance?.PlayWitchSpawnSkeleton(); // Witch invoque des squelettes
         float angleStep = Mathf.PI * 2 / _numSkeleton;
 
+        float angleStep = (float)Mathf.PI * 2 / _numSkeleton;
         for (int i = 0; i < _numSkeleton; i++)
         {
             if (GameManager.Instance.IsEnemyMaxed()) break;
 
             float rawX = (float)Math.Cos(i * angleStep) * _spawnRadius + transform.position.x;
             float rawY = (float)Math.Sin(i * angleStep) * _spawnRadius + transform.position.y;
-
             float clampedX = GameManager.Instance.ClampX(rawX, _halfSkeletonWidth);
             float clampedY = GameManager.Instance.ClampY(rawY, _halfSkeletonHeight);
 
@@ -137,4 +137,7 @@ public class Witch : EnemyBase
     {
         HandleCollision(collision);
     }
+
+    protected override void PlayDeathSound()
+        => SoundManager.Instance?.PlayWitchDie();
 }

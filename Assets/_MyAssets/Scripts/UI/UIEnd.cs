@@ -27,6 +27,7 @@ public class UIEnd : UI
 
     public void OnRestartClick()
     {
+        SceneManager.LoadScene("Game");
 
         SceneManager.LoadScene(_gameSceneName);
 
@@ -34,6 +35,7 @@ public class UIEnd : UI
 
     public void OnMenuClick()
     {
+        SceneManager.LoadScene("StartTest_JeremyI");
 
         SceneManager.LoadScene(_startSceneName);
 
