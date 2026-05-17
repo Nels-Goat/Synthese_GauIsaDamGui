@@ -5,4 +5,6 @@ public class GoblinSpear : MonoBehaviour
     {
         Destroy(gameObject, 5f);
     }
+
+    override protected void PlayDeathSound(){}
 }
