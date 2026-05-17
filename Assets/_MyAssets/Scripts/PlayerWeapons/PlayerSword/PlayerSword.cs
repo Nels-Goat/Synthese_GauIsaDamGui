@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerSword : MonoBehaviour
 {
@@ -8,6 +9,28 @@ public class PlayerSword : MonoBehaviour
     [SerializeField] private GameObject swordAOEPrefab;
     [SerializeField] private int weaponLevel = 1;
 
+    [Header("Sprites par niveau")]
+    [SerializeField] private Sprite level1Sprite;
+    [SerializeField] private Sprite level2Sprite;
+    [SerializeField] private Sprite level3Sprite;
+
+    [Header("Transform Level 1")]
+    [SerializeField] private Vector3 level1Scale = new Vector3(0.2f, 0.2f, 1f);
+    [SerializeField] private Vector3 level1Rotation = new Vector3(0f, 0f, -15f);
+
+    [Header("Transform Level 2")]
+    [SerializeField] private Vector3 level2Scale = new Vector3(0.2f, 0.2f, 1f);
+    [SerializeField] private Vector3 level2Rotation = new Vector3(0f, 0f, -54f);
+
+    [Header("Transform Level 3")]
+    [SerializeField] private Vector3 level3Scale = new Vector3(0.2f, 0.2f, 1f);
+    [SerializeField] private Vector3 level3Rotation = new Vector3(0f, 0f, -40f);
+
+    [SerializeField] private Transform visual;
+    [SerializeField] private Animator visualAnimator;
+    [SerializeField] private SpriteRenderer visualRenderer;
+
+    private SpriteRenderer sr;
     private Vector2 lastLookDirection = Vector2.right;
     private Vector3 lastPlayerPosition;
     private Transform player;
@@ -16,6 +39,7 @@ public class PlayerSword : MonoBehaviour
 
     private void Start()
     {
+        UpdateSprite();
         GameObject target = GameObject.FindGameObjectWithTag("Player");
 
         baseAttackCD = attackCooldown;
@@ -45,6 +69,13 @@ public class PlayerSword : MonoBehaviour
     {
         Vector2 direction = GetLookDirection();
 
+        UpdateSprite();
+
+        visualAnimator.Play("SwordAttackAnim", 0, 0f);
+
+        StopCoroutine(nameof(ResetSwordAfterAnimation));
+        StartCoroutine(nameof(ResetSwordAfterAnimation));
+
         SpawnAOE(direction);
     }
 
@@ -60,6 +91,7 @@ public class PlayerSword : MonoBehaviour
             Quaternion.Euler(0, 0, angle)
         );
 
+        SpriteRenderer sr = aoe.GetComponentInChildren<SpriteRenderer>();
         float multiplier = 1f;
 
         if (weaponLevel == 2) { multiplier = 1.5f; };
@@ -77,7 +109,19 @@ public class PlayerSword : MonoBehaviour
         transform.localPosition = direction.normalized * 0.7f;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
         transform.localRotation = Quaternion.Euler(0, 0, angle);
+
+        bool facingLeft = direction.x < 0;
+
+        Vector3 visualScale = visual.localScale;
+
+        if (facingLeft)
+            visualScale.y = -Mathf.Abs(visualScale.y);
+        else
+            visualScale.y = Mathf.Abs(visualScale.y);
+
+        visual.localScale = visualScale;
     }
 
     private Vector2 GetLookDirection()
@@ -97,6 +141,37 @@ public class PlayerSword : MonoBehaviour
     public void SetWeaponLevel(int level)
     {
         if(level > 3) {level= 3;}
+        if (level < 1) level = 1;
         weaponLevel = level;
+        UpdateSprite(); 
+    }
+
+    private void UpdateSprite()
+    {
+        if (visualRenderer == null) return;
+
+        if (weaponLevel == 1)
+        {
+            visualRenderer.sprite = level1Sprite;
+            visual.localScale = level1Scale;
+            visual.localRotation = Quaternion.Euler(level1Rotation);
+        }
+        else if (weaponLevel == 2)
+        {
+            visualRenderer.sprite = level2Sprite;
+            visual.localScale = level2Scale;
+            visual.localRotation = Quaternion.Euler(level2Rotation);
+        }
+        else if (weaponLevel == 3)
+        {
+            visualRenderer.sprite = level3Sprite;
+            visual.localScale = level3Scale;
+            visual.localRotation = Quaternion.Euler(level3Rotation);
+        }
+    }
+    private IEnumerator ResetSwordAfterAnimation()
+    {
+        yield return new WaitForSeconds(0.12f); 
+        UpdateSprite();
     }
 }

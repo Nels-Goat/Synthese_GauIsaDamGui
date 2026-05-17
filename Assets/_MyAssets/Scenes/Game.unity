@@ -151,8 +151,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 170678786}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.43144578}
+  m_AnchorMax: {x: 1, y: 0.99999976}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 22428423}
   m_HandleRect: {fileID: 22428422}
   m_Direction: 2
-  m_Value: 0.99999946
+  m_Value: 0.99999875
   m_Size: 0.568554
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -457,11 +457,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6cea4e926449240b1262ea6bc9aa7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  _playerLife: 10
+  _playerMaxLife: 10
   _playerSpeed: 5
   _playerDashForce: 25
   _playerDashRate: 0.5
   _playerDashDuration: 10
-  _background: {fileID: 1905003680}
+  _iFramesDuration: 1.5
+  _iFramesFlashCount: 6
+  _walkingSound: {fileID: 0}
+  _walkingVolume: 0.5
+  _stepInterval: 0.35
+  _dashSound: {fileID: 0}
+  _dashVolume: 0.7
+  _hitSound: {fileID: 0}
+  _hitVolume: 0.8
 --- !u!212 &107168341
 SpriteRenderer:
   serializedVersion: 2
@@ -1464,9 +1474,9 @@ RectTransform:
   m_Father: {fileID: 407357565}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &468906967
 MonoBehaviour:
@@ -3182,8 +3192,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bd573dbb5711fd145a0341bf7c2811c0, type: 2}
-  m_sharedMaterial: {fileID: -5615302364264689223, guid: bd573dbb5711fd145a0341bf7c2811c0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4051,8 +4061,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Texte des instructions pour notre jeu
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bd573dbb5711fd145a0341bf7c2811c0, type: 2}
-  m_sharedMaterial: {fileID: -5615302364264689223, guid: bd573dbb5711fd145a0341bf7c2811c0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4219,7 +4229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1194026352
 Transform:
   m_ObjectHideFlags: 0
