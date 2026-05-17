@@ -26,6 +26,7 @@ public class Skeleton : EnemyBase
     private void Update()
     {
         if (_player == null) return;
+        MoveTowardPlayer();
 
         float distance = Vector2.Distance(transform.position, _player.position);
 
@@ -126,4 +127,7 @@ public class Skeleton : EnemyBase
     {
         HandleCollision(collision);
     }
+
+    protected override void PlayDeathSound()
+        => SoundManager.Instance?.PlaySkeletonDie();
 }
