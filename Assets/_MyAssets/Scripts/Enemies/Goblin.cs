@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Goblin : EnemyBase
@@ -8,15 +9,22 @@ public class Goblin : EnemyBase
     [SerializeField] private float _attackCooldown = 2f;
     [SerializeField] private float _spearSpeed = 20f;
 
+    private Animator _anim;
+    private float _lookingDirection;
+
     private float _nextAttackTime;
+    
 
     protected override void Start()
     {
         base.Start();
 
-        // Vérification que la lance a bien le bon tag
+        _anim = GetComponent<Animator>();
+        _lookingDirection = 1;
+
+        // Vï¿½rification que la lance a bien le bon tag
         if (_goblinSpear != null && !_goblinSpear.CompareTag("EnemyAttack"))
-            Debug.LogWarning("[Goblin] Le prefab _goblinSpear n'a pas le tag 'EnemyAttack' ! Le joueur ne prendra pas de dégâts.");
+            Debug.LogWarning("[Goblin] Le prefab _goblinSpear n'a pas le tag 'EnemyAttack' ! Le joueur ne prendra pas de dï¿½gï¿½ts.");
     }
 
     private void Update()
@@ -25,10 +33,17 @@ public class Goblin : EnemyBase
 
         float distance = Vector2.Distance(transform.position, _player.position);
 
-        if (distance > _attackRange)
-            MoveTowardPlayer();
-        else
+        //
+        float xDiff = _player.position.x - transform.position.x;
+        _lookingDirection = xDiff != 0f ? xDiff : _lookingDirection;
+        //
+
+        bool inRange = distance <= _attackRange;
+        if (inRange)
             StopAndAttack();
+        else
+            MoveTowardPlayer();
+        SetAnims(inRange);
     }
 
     private void StopAndAttack()
@@ -54,7 +69,38 @@ public class Goblin : EnemyBase
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         spear.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        Debug.Log($"[Goblin] Lance tirée vers le joueur — direction: {direction}");
+        Debug.Log($"[Goblin] Lance tirï¿½e vers le joueur ï¿½ direction: {direction}");
+    }
+
+    private void SetAnims(bool inRange)
+    {
+        if (inRange)
+        {
+            if (_lookingDirection > 0f)
+            {
+                _anim.SetBool("_idling", true);
+                _anim.SetBool("_turningRight", true);
+                _anim.SetBool("_turningLeft", false);
+            } else
+            {
+                _anim.SetBool("_idling", true);
+                _anim.SetBool("_turningLeft", true);
+                _anim.SetBool("_turningRight", false);
+            }
+        } else
+        {
+            if (_lookingDirection > 0f)
+            {
+                _anim.SetBool("_idling", false);
+                _anim.SetBool("_turningRight", true);
+                _anim.SetBool("_turningLeft", false);
+            } else
+            {
+                _anim.SetBool("_idling", false);
+                _anim.SetBool("_turningLeft", true);
+                _anim.SetBool("_turningRight", false);
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

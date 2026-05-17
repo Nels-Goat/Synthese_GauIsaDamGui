@@ -231,7 +231,7 @@
                 {
                     "name": "",
                     "id": "3ea4d645-4504-4529-b061-ab81934c3752",
-                    "path": "<Joystick>/stick",
+                    "path": "<HID::xin-mo.com Xinmotek Controller>/stick",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
@@ -256,7 +256,7 @@
                     "path": "<HID::xin-mo.com Xinmotek Controller>/button6",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Mute",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -531,7 +531,7 @@
                     "path": "<HID::xin-mo.com Xinmotek Controller>/trigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -564,7 +564,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "7607c7b6-cd76-4816-beef-bd0341cfe950",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -909,6 +909,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ce3cdd6f-b052-4d9d-87ac-12a00e2e71b0",
+                    "path": "<HID::xin-mo.com Xinmotek Controller>/stick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Joystick",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "dcbb8e3b-55ab-4eb4-98ad-2bd10b893b90",
                     "path": "<Keyboard>/m",
                     "interactions": "",
@@ -924,7 +935,7 @@
                     "path": "<HID::xin-mo.com Xinmotek Controller>/button6",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Mute",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -932,10 +943,21 @@
                 {
                     "name": "",
                     "id": "9e92bb26-7e3b-4ec4-b06b-3c8f8e498ddc",
-                    "path": "*/{Submit}",
+                    "path": "<HID::xin-mo.com Xinmotek Controller>/trigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
+                    "groups": ";Gamepad",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "73940f0c-da38-448c-8a51-df3c45870b4e",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
