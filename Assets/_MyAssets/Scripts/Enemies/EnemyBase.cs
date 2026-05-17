@@ -21,7 +21,6 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
     protected virtual void Start()
     {
         _currentLife = _maxLife;
-
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _halfWidth = _spriteRenderer.bounds.extents.x;
         _halfHeight = _spriteRenderer.bounds.extents.y;
@@ -39,6 +38,11 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
 
         Vector2 direction = ((Vector2)_player.position - (Vector2)transform.position).normalized;
         transform.position += (Vector3)(direction * _moveSpeed * Time.deltaTime);
+        transform.localScale = new Vector3(
+            direction.x > 0 ? Mathf.Abs(transform.localScale.x) : -Mathf.Abs(transform.localScale.x),
+            transform.localScale.y,
+            transform.localScale.z
+        );
     }
 
     protected void HandleCollision(Collider2D collision)
@@ -49,9 +53,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
         if (collision.CompareTag("PlayerAttack"))
         {
             if (collision.gameObject.GetComponent<StaffAOE>() == null)
-            {
                 Destroy(collision.gameObject);
-            }
 
             TakeHit("PlayerAttack");
         }
@@ -72,7 +74,13 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
     protected void Die(string collidedTag)
     {
         Debug.Log($"[{gameObject.name}] Die() — tag: {collidedTag} — +{_points} pts | Dégâts: {_damage}");
-        GameManager.Instance.EnemyDestroyed(_points, collidedTag, _damage); // _damage passé ici
+
+        PlayDeathSound(); // chaque ennemi joue son propre son
+
+        GameManager.Instance.EnemyDestroyed(_points, collidedTag, _damage);
         Destroy(gameObject);
     }
+
+    // Chaque sous-classe override cette méthode pour son son de mort
+    protected abstract void PlayDeathSound();
 }
