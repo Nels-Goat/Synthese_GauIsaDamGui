@@ -28,15 +28,7 @@ public class UIGame : UI
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
     }
 
     private void Start()
@@ -52,7 +44,10 @@ public class UIGame : UI
         _instructionsPanel.SetActive(true);
         _gameBar.SetActive(false);
         _upgradePanel.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(_buttonCloseInstructions.gameObject);
+
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(_buttonCloseInstructions.gameObject);
+
         _txtLevel.text = $"Niveau {level}";
         _txtPoints.text = $"{points}";
     }
