@@ -18,7 +18,6 @@ public class GetNewHighScore : MonoBehaviour
 
     private void Start()
     {
-        _btSaveName.onClick.AddListener(EnregistrerNom);
         StartCoroutine(CloseGetHighScorePanelDelay());
     }
 
@@ -43,10 +42,6 @@ public class GetNewHighScore : MonoBehaviour
             if (p_letter == "Space")
             {
                 _tempText += " ";
-            }
-            else if (p_letter == "←" && _tempText.Length > 0)
-            {
-                _tempText = _tempText.Remove(_tempText.Length - 1);
             }
             else
             {
@@ -76,14 +71,18 @@ public class GetNewHighScore : MonoBehaviour
 
             _getNewHighScporePanel.SetActive(false);
             _endPanel.SetActive(true);
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(_menuButton.gameObject);
+
+            if (EventSystem.current != null)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(_menuButton.gameObject);
+            }
+
             _tempText = "";
             _showingError = false;
         }
         else
         {
-            // Affiche le message d'erreur dans le champ texte comme pour le mot de passe
             _txtName.text = "Nom invalide!";
             _showingError = true;
         }
@@ -93,8 +92,13 @@ public class GetNewHighScore : MonoBehaviour
     {
         _getNewHighScporePanel.SetActive(false);
         _endPanel.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(_menuButton.gameObject);
+
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(_menuButton.gameObject);
+        }
+
         _tempText = "";
         _showingError = false;
     }
