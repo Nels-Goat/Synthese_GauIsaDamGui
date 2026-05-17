@@ -7,6 +7,10 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
     [SerializeField] protected int _points = 10;
     [SerializeField] protected int _maxLife = 1;
     [SerializeField] protected int _damage = 1;
+    [SerializeField] protected float _bumpingForce = 0f;
+
+    public int Damage { get; set; }
+    public int MaxLife { get; set; }
 
     protected int _currentLife;
     protected Transform _player;
@@ -35,12 +39,6 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
 
         Vector2 direction = ((Vector2)_player.position - (Vector2)transform.position).normalized;
         transform.position += (Vector3)(direction * _moveSpeed * Time.deltaTime);
-
-        transform.localScale = new Vector3(
-            direction.x > 0 ? Mathf.Abs(transform.localScale.x) : -Mathf.Abs(transform.localScale.x),
-            transform.localScale.y,
-            transform.localScale.z
-        );
     }
 
     protected void HandleCollision(Collider2D collision)
@@ -50,14 +48,16 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
 
         if (collision.CompareTag("PlayerAttack"))
         {
-            Destroy(collision.gameObject);
+            if (collision.gameObject.GetComponent<StaffAOE>() == null)
+            {
+                Destroy(collision.gameObject);
+            }
+
             TakeHit("PlayerAttack");
         }
-        else if (collision.CompareTag("Player"))
-        {
-            TakeHit("Player");
-        }
+
     }
+
 
     // Interface IDamageable
     public void TakeHit(string attackerTag)

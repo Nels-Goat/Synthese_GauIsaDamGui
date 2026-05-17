@@ -120,6 +120,7 @@ public class PlayerBow : MonoBehaviour
 
     public void SetWeaponLevel(int level)
     {
+        if (level > 3) { level = 3; }
         weaponLevel = level;
     }
 }
