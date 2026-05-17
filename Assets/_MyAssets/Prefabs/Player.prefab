@@ -30,9 +30,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9043614037177155579}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.8202744, y: 1.1929933, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -104,8 +104,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 879360401
-  m_SortingLayer: 1
+  m_SortingLayerID: -2067027793
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -3781910019033479378, guid: cf956a664858aea4e87a2f4349227146, type: 3}
@@ -131,15 +131,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   _playerLife: 10
+  _playerMaxLife: 10
   _playerSpeed: 5
   _playerDashForce: 25
   _playerDashRate: 0.5
   _playerDashDuration: 10
+  _bumpingForce: 1.2
+  _iFramesDuration: 1.5
+  _iFramesFlashCount: 6
   _walkingSound: {fileID: 8300000, guid: d08abf42f6ac5b64685fda6613f0a0e0, type: 3}
   _walkingVolume: 0.203
   _stepInterval: 0.35
   _dashSound: {fileID: 8300000, guid: cc1a5c29e7c7baf488e8ddc10efccab7, type: 3}
   _dashVolume: 0.195
+  _hitSound: {fileID: 0}
+  _hitVolume: 0.8
 --- !u!50 &7611798826381681474
 Rigidbody2D:
   serializedVersion: 5
@@ -148,7 +154,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9043614037177155579}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -294,7 +300,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

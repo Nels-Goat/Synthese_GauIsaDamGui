@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class Skeleton : EnemyBase
 {
-    [SerializeField] private float _attackRange = 2f;
+    [Header("Attaque Skeleton")]
+    [SerializeField] private float _attackRange = 1f;
     [SerializeField] private float _attackCooldown = 2f;
-    [SerializeField] private GameObject _attackHitbox;
+    [SerializeField] private float _attackDuration = 1f;
+    [SerializeField] private GameObject _enemyHitBox;
+    [SerializeField] private float _enemyHitBoxOffset = 1f;
 
     private float _lookingDirection;
     private Animator _anim;
@@ -32,39 +35,56 @@ public class Skeleton : EnemyBase
         //
 
         bool inRange = distance <= _attackRange;
-        if (inRange || _isAttacking)
+        if (inRange)
             StopAndAttack();
         else
             MoveTowardPlayer();
+
         SetAnims(inRange);
     }
 
 
     private void StopAndAttack()
     {
-        _isAttacking = Time.time < _nextAttackTime;
         if (Time.time >= _nextAttackTime)
         {
-            Attack();
             _nextAttackTime = Time.time + _attackCooldown;
+            _isAttacking = true;
+            
+            Vector2 direction = ((Vector2)_player.position - (Vector2)transform.position).normalized;
+            Vector3 spawnPos = transform.position + (Vector3)(direction * _enemyHitBoxOffset);
+
+            GameObject hitBox = Instantiate(_enemyHitBox, spawnPos, Quaternion.identity);
+            hitBox.GetComponent<SkeletonSword>().Damage = this._damage;
+            Destroy(hitBox, _attackDuration);
+
+            Debug.Log($"[Skeleton] Attaque vers le joueur � direction: {direction}");
+
         }
-    }
-
-    private void Attack()
-    {
-        Vector2 direction = ((Vector2)_player.position - (Vector2)transform.position).normalized;
-        Vector3 spawnPos = transform.position + (Vector3)(direction * 2.5f);
-
-        //Instantiate(_attackHitbox, spawnPos, Quaternion.identity);
-
-        Debug.Log($"[Skeleton] Attaque le joueur � direction: {direction}");
     }
 
 
 
     private void SetAnims(bool inRange)
     {
-        if (inRange)
+        if (_isAttacking)
+        {
+            if (_lookingDirection > 0f)
+            {
+                _anim.SetBool("_idling", false);
+                _anim.SetBool("_attacking", true);
+                _anim.SetBool("_turningLeft", false);
+                _anim.SetBool("_turningRight", true);
+            } else
+            {
+                _anim.SetBool("_idling", false);
+                _anim.SetBool("_attacking", true);
+                _anim.SetBool("_turningLeft", true);
+                _anim.SetBool("_turningRight", false);
+            }
+            _isAttacking = false;
+        }
+        else if (inRange)
         {
             if (_lookingDirection > 0f)
             {
@@ -79,7 +99,8 @@ public class Skeleton : EnemyBase
                 _anim.SetBool("_turningLeft", false);
                 _anim.SetBool("_turningRight", false);
             }
-        } else
+        }
+        else
         {
             if (_lookingDirection > 0f)
             {
