@@ -1,6 +1,14 @@
 using UnityEngine;
 
-public class SkeletonSword : EnemyBase
+public class SkeletonSword : MonoBehaviour
 {
-    override protected void PlayDeathSound(){}
+    public int Damage { get; set; }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            collision.GetComponent<IDamageable>()?.TakeHit("EnemyAttack");
+        }
+    }
 }
