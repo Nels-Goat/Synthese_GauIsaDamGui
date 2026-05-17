@@ -71,8 +71,12 @@ public class PlayerSword : MonoBehaviour
 
         UpdateSprite();
 
-        visualAnimator.Play("SwordAttackAnim", 0, 0f);
-
+        if (weaponLevel == 1)
+            visualAnimator.Play("SwordAttackLvl1", 0, 0f);
+        else if (weaponLevel == 2)
+            visualAnimator.Play("SwordAttackLvl2", 0, 0f);
+        else if (weaponLevel == 3)
+            visualAnimator.Play("SwordAttackLvl3", 0, 0f);
         StopCoroutine(nameof(ResetSwordAfterAnimation));
         StartCoroutine(nameof(ResetSwordAfterAnimation));
 

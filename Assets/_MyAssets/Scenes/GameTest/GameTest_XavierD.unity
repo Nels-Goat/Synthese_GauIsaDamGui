@@ -3733,7 +3733,7 @@ PrefabInstance:
       objectReference: {fileID: 773207633}
     - target: {fileID: 1917712623346365533, guid: 47c87b33821be02449acbce90170fd18, type: 3}
       propertyPath: weaponLevel
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1917712623346365533, guid: 47c87b33821be02449acbce90170fd18, type: 3}
       propertyPath: attackCooldown
