@@ -51,16 +51,13 @@ public class Skeleton : EnemyBase
         {
             _nextAttackTime = Time.time + _attackCooldown;
             _isAttacking = true;
-            
+
             Vector2 direction = ((Vector2)_player.position - (Vector2)transform.position).normalized;
             Vector3 spawnPos = transform.position + (Vector3)(direction * _enemyHitBoxOffset);
-
             GameObject hitBox = Instantiate(_enemyHitBox, spawnPos, Quaternion.identity);
             hitBox.GetComponent<SkeletonSword>().Damage = this._damage;
             Destroy(hitBox, _attackDuration);
-
-            Debug.Log($"[Skeleton] Attaque vers le joueur � direction: {direction}");
-
+            Debug.Log($"[Skeleton] Attaque vers le joueur — direction: {direction}");
         }
     }
 

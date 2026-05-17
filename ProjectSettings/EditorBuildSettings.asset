@@ -17,8 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_MyAssets/Scenes/GameTest/GameTest_JeremyI.unity
     guid: bb3c1a4361963b842a54d3e605a24b58
-    path: Assets/_MyAssets/Scenes/GameTest/StartTest_NelsonG.unity
-    guid: 3f215240cd7f5c9409ab58afb39a78ec
   - enabled: 0
     path: Assets/_MyAssets/Scenes/Start.unity
     guid: f33648004b591914a949923b2129fe38
@@ -37,8 +35,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_MyAssets/Scenes/GameTest/CreditsTest_JeremyI.unity
     guid: b9d5de934a19cd844b5e16693c31f755
-    path: Assets/_MyAssets/Scenes/GameTest/StartTest_JeremyI.unity
-    guid: a9184608a096fe04ea3a4423bfba8ab1
   - enabled: 1
     path: Assets/_MyAssets/Scenes/GameTest/GameTest_JeremyI.unity
     guid: bb3c1a4361963b842a54d3e605a24b58
