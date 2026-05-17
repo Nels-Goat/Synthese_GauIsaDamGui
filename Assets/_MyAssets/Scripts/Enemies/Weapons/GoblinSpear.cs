@@ -6,4 +6,6 @@ public class GoblinSpear : EnemyBase
     {
         Destroy(gameObject, 5f);
     }
+
+    override protected void PlayDeathSound(){}
 }
