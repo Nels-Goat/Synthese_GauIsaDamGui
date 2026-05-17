@@ -6,9 +6,21 @@ public class PlayerBow : MonoBehaviour
     [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private float arrowSpeed = 20f;
 
+
+    [Header("Sprites arc")]
+    [SerializeField] private SpriteRenderer bowRenderer;
+    [SerializeField] private Sprite bowSprite1;
+    [SerializeField] private Sprite bowSprite2;
+
+    [Header("Sprites flèches")]
+    [SerializeField] private Sprite arrowLevel1Sprite;
+    [SerializeField] private Sprite arrowLevel2Sprite;
+    [SerializeField] private Sprite arrowLevel3Sprite;
+
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private int weaponLevel = 1;
 
+    private float shootSpriteDuration = 0.1f;
     private Vector2 lastLookDirection = Vector2.right;
     private Vector3 lastPlayerPosition;
     private Transform player;
@@ -19,6 +31,8 @@ public class PlayerBow : MonoBehaviour
     private void Start()
     {
         GameObject target = GameObject.FindGameObjectWithTag("Player");
+        if (bowRenderer != null)
+            bowRenderer.sprite = bowSprite1;
 
         if (target != null)
         {
@@ -48,6 +62,11 @@ public class PlayerBow : MonoBehaviour
     {
         Vector2 baseDirection = currentDirection;
 
+        bowRenderer.sprite = bowSprite2;
+        CancelInvoke(nameof(ResetBowSprite));
+        Invoke(nameof(ResetBowSprite), shootSpriteDuration);
+
+
         if (weaponLevel == 1)
         {
             ShootArrow(baseDirection);
@@ -73,6 +92,18 @@ public class PlayerBow : MonoBehaviour
         Vector3 spawnPos = player.position + (Vector3)(direction.normalized * 1.5f);
 
         GameObject arrow = Instantiate(arrowPrefab, spawnPos, Quaternion.identity);
+
+        SpriteRenderer arrowRenderer = arrow.GetComponentInChildren<SpriteRenderer>();
+
+        if (arrowRenderer != null)
+        {
+            if (weaponLevel == 1)
+                arrowRenderer.sprite = arrowLevel1Sprite;
+            else if (weaponLevel == 2)
+                arrowRenderer.sprite = arrowLevel2Sprite;
+            else
+                arrowRenderer.sprite = arrowLevel3Sprite;
+        }
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -122,5 +153,11 @@ public class PlayerBow : MonoBehaviour
     {
         if (level > 3) { level = 3; }
         weaponLevel = level;
+    }
+
+    private void ResetBowSprite()
+    {
+        if (bowRenderer != null)
+            bowRenderer.sprite = bowSprite1;
     }
 }
