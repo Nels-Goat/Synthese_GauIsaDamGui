@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class PlayerSword : MonoBehaviour
 {
@@ -13,18 +12,6 @@ public class PlayerSword : MonoBehaviour
     [SerializeField] private Sprite level1Sprite;
     [SerializeField] private Sprite level2Sprite;
     [SerializeField] private Sprite level3Sprite;
-
-    [Header("Transform Level 1")]
-    [SerializeField] private Vector3 level1Scale = new Vector3(0.2f, 0.2f, 1f);
-    [SerializeField] private Vector3 level1Rotation = new Vector3(0f, 0f, -15f);
-
-    [Header("Transform Level 2")]
-    [SerializeField] private Vector3 level2Scale = new Vector3(0.2f, 0.2f, 1f);
-    [SerializeField] private Vector3 level2Rotation = new Vector3(0f, 0f, -54f);
-
-    [Header("Transform Level 3")]
-    [SerializeField] private Vector3 level3Scale = new Vector3(0.2f, 0.2f, 1f);
-    [SerializeField] private Vector3 level3Rotation = new Vector3(0f, 0f, -40f);
 
     [SerializeField] private Transform visual;
     [SerializeField] private Animator visualAnimator;
@@ -71,15 +58,8 @@ public class PlayerSword : MonoBehaviour
 
         UpdateSprite();
 
-        if (weaponLevel == 1)
-            visualAnimator.Play("SwordAttackLvl1", 0, 0f);
-        else if (weaponLevel == 2)
-            visualAnimator.Play("SwordAttackLvl2", 0, 0f);
-        else if (weaponLevel == 3)
-            visualAnimator.Play("SwordAttackLvl3", 0, 0f);
-        StopCoroutine(nameof(ResetSwordAfterAnimation));
-        StartCoroutine(nameof(ResetSwordAfterAnimation));
 
+        visualAnimator.SetTrigger("Attack");
         SpawnAOE(direction);
     }
 
@@ -157,25 +137,14 @@ public class PlayerSword : MonoBehaviour
         if (weaponLevel == 1)
         {
             visualRenderer.sprite = level1Sprite;
-            visual.localScale = level1Scale;
-            visual.localRotation = Quaternion.Euler(level1Rotation);
         }
         else if (weaponLevel == 2)
         {
             visualRenderer.sprite = level2Sprite;
-            visual.localScale = level2Scale;
-            visual.localRotation = Quaternion.Euler(level2Rotation);
         }
         else if (weaponLevel == 3)
         {
             visualRenderer.sprite = level3Sprite;
-            visual.localScale = level3Scale;
-            visual.localRotation = Quaternion.Euler(level3Rotation);
         }
-    }
-    private IEnumerator ResetSwordAfterAnimation()
-    {
-        yield return new WaitForSeconds(0.12f); 
-        UpdateSprite();
     }
 }
