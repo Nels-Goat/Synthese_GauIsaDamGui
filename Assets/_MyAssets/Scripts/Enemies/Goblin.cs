@@ -13,8 +13,6 @@ public class Goblin : EnemyBase
     protected override void Start()
     {
         base.Start();
-
-        // Vérification que la lance a bien le bon tag
         if (_goblinSpear != null && !_goblinSpear.CompareTag("EnemyAttack"))
             Debug.LogWarning("[Goblin] Le prefab _goblinSpear n'a pas le tag 'EnemyAttack' ! Le joueur ne prendra pas de dégâts.");
     }
@@ -46,13 +44,14 @@ public class Goblin : EnemyBase
         Vector3 spawnPos = transform.position + (Vector3)(direction * 2.5f);
 
         GameObject spear = Instantiate(_goblinSpear, spawnPos, Quaternion.identity);
-
         Rigidbody2D rb = spear.GetComponent<Rigidbody2D>();
         if (rb != null)
             rb.linearVelocity = direction * _spearSpeed;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         spear.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        SoundManager.Instance?.PlayGoblinSpearThrow(); // Goblin lance sa lance
 
         Debug.Log($"[Goblin] Lance tirée vers le joueur — direction: {direction}");
     }
@@ -61,4 +60,7 @@ public class Goblin : EnemyBase
     {
         HandleCollision(collision);
     }
+
+    protected override void PlayDeathSound()
+        => SoundManager.Instance?.PlayGoblinDie();
 }

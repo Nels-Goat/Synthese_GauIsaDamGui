@@ -25,14 +25,12 @@ public class UIEnd : UI
 
     public void OnRestartClick()
     {
-
         SceneManager.LoadScene("Game");
 
     }
 
     public void OnMenuClick()
     {
-
         SceneManager.LoadScene("StartTest_JeremyI");
 
     }

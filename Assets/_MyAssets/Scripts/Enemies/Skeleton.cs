@@ -10,7 +10,6 @@ public class Skeleton : EnemyBase
     private void Update()
     {
         if (_player == null) return;
-
         MoveTowardPlayer();
     }
 
@@ -18,4 +17,7 @@ public class Skeleton : EnemyBase
     {
         HandleCollision(collision);
     }
+
+    protected override void PlayDeathSound()
+        => SoundManager.Instance?.PlaySkeletonDie();
 }

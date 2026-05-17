@@ -34,6 +34,9 @@ public class Troll : EnemyBase
                 _isCharging = true;
                 _chargeDirection = ((Vector2)_player.position - (Vector2)transform.position).normalized;
                 gameObject.tag = "EnemyAttack";
+
+                SoundManager.Instance?.PlayTrollDash();
+
                 Debug.Log("[Troll] Charge déclenchée !");
             }
         }
@@ -62,8 +65,6 @@ public class Troll : EnemyBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Le Troll en charge est "EnemyAttack" ? le joueur gère ses propres dégâts
-        // Ici on gère seulement si le Troll se fait tuer
         if (collision.CompareTag("PlayerAttack"))
         {
             Debug.Log("[Troll] Tué par PlayerAttack pendant la charge.");
@@ -71,4 +72,7 @@ public class Troll : EnemyBase
             Die("PlayerAttack");
         }
     }
+
+    protected override void PlayDeathSound()
+        => SoundManager.Instance?.PlayTrollDie();
 }

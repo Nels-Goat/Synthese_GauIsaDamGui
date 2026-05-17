@@ -17,14 +17,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float _iFramesDuration = 1.5f;
     [SerializeField] private int _iFramesFlashCount = 6;
 
-    [Header("Son")]
-    [SerializeField] private AudioClip _walkingSound;
-    [SerializeField, Range(0f, 1f)] private float _walkingVolume = 0.5f;
+    [Header("Son - Marche")]
     [SerializeField] private float _stepInterval = 0.35f;
-    [SerializeField] private AudioClip _dashSound;
-    [SerializeField, Range(0f, 1f)] private float _dashVolume = 0.7f;
-    [SerializeField] private AudioClip _hitSound;
-    [SerializeField, Range(0f, 1f)] private float _hitVolume = 0.8f;
 
     private InputSystem_Actions _inputSystemActions;
     private Rigidbody2D _rigidbody2D;
@@ -39,23 +33,13 @@ public class Player : MonoBehaviour
     private float _deltaDashDuration;
 
     private float _lookingDirection;
-
-    private AudioSource _audioSource;
     private float _stepTimer;
-
     private bool _isInvincible = false;
-
 
     private void Start()
     {
         if (GameManager.Instance != null)
-        {
             GameManager.Instance.OnEnemyDestroyed += OnEnemyDestroyed;
-        }
-
-        _audioSource = GetComponent<AudioSource>();
-        _audioSource.playOnAwake = false;
-        _audioSource.loop = false;
 
         _inputSystemActions = new InputSystem_Actions();
         _inputSystemActions.Player.Enable();
@@ -79,15 +63,12 @@ public class Player : MonoBehaviour
     private void OnDestroy()
     {
         if (GameManager.Instance != null)
-        {
             GameManager.Instance.OnEnemyDestroyed -= OnEnemyDestroyed;
-        }
 
         _inputSystemActions.Player.Disable();
         _inputSystemActions.Player.Dash.started -= _ => _isDashing = true;
         _inputSystemActions.Player.Dash.canceled -= _ => _isDashing = false;
     }
-
 
     // ===================== DÉGÂTS ===================== //
 
@@ -112,8 +93,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (_hitSound != null)
-            _audioSource.PlayOneShot(_hitSound, _hitVolume);
+        SoundManager.Instance?.PlayPlayerGetHit();
 
         StartCoroutine(IFramesRoutine());
     }
@@ -150,13 +130,12 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("EnemyAttack"))
         {
             Debug.Log("[Player] Touché par EnemyAttack !");
-            TakeDamage(1); // Dégât fixe pour les projectiles
+            TakeDamage(1);
             Destroy(collision.gameObject);
         }
     }
 
     // ================================================== //
-
 
     private void FixedUpdate()
     {
@@ -175,7 +154,6 @@ public class Player : MonoBehaviour
         _lookingDirection = direction2D.x != 0 ? direction2D.x : _lookingDirection;
         direction2D.Normalize();
 
-
         // === VITESSE DE DÉPLACEMENT === //
         float speedMultiplier;
 
@@ -185,11 +163,7 @@ public class Player : MonoBehaviour
             _deltaDashDuration += _playerDashDuration;
             _deltaDash = Time.time + _playerDashRate + _playerDashDuration / 60;
 
-            if (_dashSound != null)
-            {
-                _audioSource.pitch = 1f;
-                _audioSource.PlayOneShot(_dashSound, _dashVolume);
-            }
+            SoundManager.Instance?.PlayDash();
         }
         else if (_deltaDashDuration > 0)
         {
@@ -199,7 +173,6 @@ public class Player : MonoBehaviour
         else
             speedMultiplier = _playerSpeed;
         // ============================== //
-
 
         // === ANIMATION === //
         if (_isDashing && _deltaDashDuration > 0)
@@ -241,12 +214,10 @@ public class Player : MonoBehaviour
         }
         // ================= //
 
-
         // === SON DE MARCHE === //
         bool isMoving = (direction2D.x != 0f || direction2D.y != 0f) && _deltaDashDuration == 0;
         HandleWalkingSound(isMoving);
         // ===================== //
-
 
         Vector2 newPosition = _rigidbody2D.position + direction2D * Time.fixedDeltaTime * speedMultiplier;
 
@@ -258,18 +229,13 @@ public class Player : MonoBehaviour
 
     private void HandleWalkingSound(bool isMoving)
     {
-        if (isMoving && _walkingSound != null)
+        if (!isMoving) { _stepTimer = 0f; return; }
+
+        _stepTimer -= Time.fixedDeltaTime;
+        if (_stepTimer <= 0f)
         {
-            _stepTimer -= Time.fixedDeltaTime;
-            if (_stepTimer <= 0f)
-            {
-                _audioSource.PlayOneShot(_walkingSound, _walkingVolume);
-                _stepTimer = _stepInterval;
-            }
-        }
-        else
-        {
-            _stepTimer = 0f;
+            SoundManager.Instance?.PlayFootstep();
+            _stepTimer = _stepInterval;
         }
     }
 }
