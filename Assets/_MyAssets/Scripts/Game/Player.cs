@@ -155,7 +155,7 @@ public class Player : MonoBehaviour
 
             Debug.Log("[Player] Touché par EnemyAttack ! Dmg: " + enemy.Damage);
             TakeDamage(enemy.Damage); // Dégât fixe pour les projectiles
-            
+
             TriggerBumping(collision.transform);
 
             try {
