@@ -120,7 +120,7 @@ public class SoundManager : MonoBehaviour
     {
         AudioClip clipToPlay = sceneName switch
         {
-            "StartTest_NelsonG" => _startSceneMusic,
+            "StartTest_JeremyI" => _startSceneMusic,
             "GameTest_JeremyI" => _gameSceneMusic,
             "EndTest_JeremyI" => _endSceneMusic,
             _ => null
