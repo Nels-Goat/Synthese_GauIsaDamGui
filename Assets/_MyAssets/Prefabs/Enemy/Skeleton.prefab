@@ -128,13 +128,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a60c024bed1356b4f8441e29406e8334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Skeleton
-  _moveSpeed: 2
+  _moveSpeed: 2.5
   _points: 10
   _maxLife: 1
   _damage: 1
   _bumpingForce: 0
-  _attackRange: 1
-  _attackCooldown: 2
+  _attackRange: 1.2
+  _attackCooldown: 1.5
   _attackDuration: 1
   _enemyHitBox: {fileID: 7680614410112825684, guid: c9bfe78025759f646911b4311530d672, type: 3}
   _enemyHitBoxOffset: 0.5

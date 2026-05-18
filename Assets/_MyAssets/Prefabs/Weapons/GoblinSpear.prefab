@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -8404216907062803794}
   m_Layer: 0
   m_Name: GoblinSpear
-  m_TagString: EnemyProjectile
+  m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,11 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d11b5165a1c2ba142b3a5ffc399235af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GoblinSpear
-  _moveSpeed: 0
-  _points: 0
-  _maxLife: 0
-  _damage: 1
-  _bumpingForce: 0
 --- !u!50 &-8404216907062803794
 Rigidbody2D:
   serializedVersion: 5
