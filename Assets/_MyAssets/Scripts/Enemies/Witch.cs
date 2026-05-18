@@ -60,7 +60,6 @@ public class Witch : EnemyBase
         SoundManager.Instance?.PlayWitchSpawnSkeleton(); // Witch invoque des squelettes
         float angleStep = Mathf.PI * 2 / _numSkeleton;
 
-        float angleStep = (float)Mathf.PI * 2 / _numSkeleton;
         for (int i = 0; i < _numSkeleton; i++)
         {
             if (GameManager.Instance.IsEnemyMaxed()) break;
