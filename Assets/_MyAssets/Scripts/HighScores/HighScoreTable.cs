@@ -47,8 +47,7 @@ public class HighScoreTable : MonoBehaviour
 
         if (highScores == null)
         {
-            AddHighScoreEntry(100, "CTR");
-            return; // AddHighScoreEntry appelle déjà DisplayHighScoreTable, on arrête ici pour éviter la récursion
+            return;
         }
 
         // Tri par ordre décroissant de score

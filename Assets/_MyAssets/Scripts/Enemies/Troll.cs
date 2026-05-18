@@ -50,19 +50,24 @@ public class Troll : EnemyBase
         {
             if (inRange)
             {
-                Charge();
-            } else
+                _isCharging = true;
+                _chargeDirection = ((Vector2)_player.position - (Vector2)transform.position).normalized;
+                gameObject.tag = "EnemyAttack";
+                SoundManager.Instance?.PlayTrollDash();
+                Debug.Log("[Troll] Charge déclenchée !");
+            }
+            else
                 MoveTowardPlayer();
         }
         else
         {
             float distanceFromPreCharge = Mathf.Abs(Mathf.Sqrt(Mathf.Pow(transform.position.x - _preChargePos.x, 2) + Mathf.Pow(transform.position.y - _preChargePos.y, 2)));
-            if (distanceFromPreCharge >= _chargeMaxDistance) {
+            if (distanceFromPreCharge >= _chargeMaxDistance)
                 _isCharging = false;
-            }
             else
                 transform.Translate(_chargeDirection * _chargeSpeed * Time.deltaTime);
         }
+        SetAnims(inRange);
 
         SetAnims(inRange);
         //HandleScreenWrap();
@@ -192,4 +197,6 @@ public class Troll : EnemyBase
         }
     }
 
+    protected override void PlayDeathSound()
+        => SoundManager.Instance?.PlayTrollDie();
 }
