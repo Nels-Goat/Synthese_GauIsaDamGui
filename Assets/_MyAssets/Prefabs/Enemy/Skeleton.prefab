@@ -133,7 +133,7 @@ MonoBehaviour:
   _maxLife: 1
   _damage: 1
   _bumpingForce: 0
-  _attackRange: 1
+  _attackRange: 1.5
   _attackCooldown: 2
   _attackDuration: 1
   _enemyHitBox: {fileID: 7680614410112825684, guid: c9bfe78025759f646911b4311530d672, type: 3}

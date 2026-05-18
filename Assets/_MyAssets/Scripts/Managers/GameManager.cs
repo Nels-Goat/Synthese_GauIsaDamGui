@@ -27,9 +27,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private int _maxEnemy = 20;
 
-    [Header("Score")]
     private int _playerScore = 0;
     public int PlayerScore => _playerScore;
+
+    private int _enemyKillCount = 0;
+    public int EnemyKillCount => _enemyKillCount;
 
     private void Awake()
     {
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
     {
         if (p_gameObjectTag == "PlayerAttack")
         {
+            _enemyKillCount++;
             _playerScore += p_enemyPoints;
             Debug.Log($"[GameManager] +{p_enemyPoints} pts | Score total : {_playerScore}");
         }

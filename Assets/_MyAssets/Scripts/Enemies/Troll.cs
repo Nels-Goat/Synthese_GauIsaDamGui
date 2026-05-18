@@ -50,11 +50,7 @@ public class Troll : EnemyBase
         {
             if (inRange)
             {
-                _isCharging = true;
-                _chargeDirection = ((Vector2)_player.position - (Vector2)transform.position).normalized;
-                gameObject.tag = "EnemyAttack";
-                SoundManager.Instance?.PlayTrollDash();
-                Debug.Log("[Troll] Charge déclenchée !");
+                Charge();
             }
             else
                 MoveTowardPlayer();
@@ -67,7 +63,6 @@ public class Troll : EnemyBase
             else
                 transform.Translate(_chargeDirection * _chargeSpeed * Time.deltaTime);
         }
-        SetAnims(inRange);
 
         SetAnims(inRange);
         //HandleScreenWrap();
@@ -76,6 +71,8 @@ public class Troll : EnemyBase
     private void Charge()
     {
         if (Time.time < _nextChargeTime) return;
+
+        SoundManager.Instance?.PlayTrollDash();
 
         _isCharging = true;
         _isAttacking = true;
@@ -191,7 +188,7 @@ public class Troll : EnemyBase
             if (_isCharging)
             {
                 _isCharging = false;
-                collision.transform.Translate(_chargeDirection * _chargeForce);
+                collision.transform.Translate(_chargeDirection * _chargeForce * Time.deltaTime);
             }
             
         }

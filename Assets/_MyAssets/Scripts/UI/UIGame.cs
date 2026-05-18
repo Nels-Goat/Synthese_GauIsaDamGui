@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 public class UIGame : UI
 {
@@ -18,13 +19,16 @@ public class UIGame : UI
     [Header("Barres UI")]
     [SerializeField] private Image _lifeBar;
     [SerializeField] private Image _xpBar;
-    [SerializeField] private float _maxLife = 10f;
     [SerializeField] private int _enemiesPerLevel = 5;
+
+    [Header("Propriétés Upgrade Panel")]
+    [SerializeField] private Sprite[] _cardSprites;
+    [SerializeField] private Button[] _cardSlots;
 
     private float _currentLife;
     int level = 1;
-    int points = 0;
-    private int _enemiesKilled = 0;
+
+    private Player _player;
 
     private void Awake()
     {
@@ -33,9 +37,12 @@ public class UIGame : UI
 
     private void Start()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            _player = player.GetComponent<Player>();
+
         _lifeBar.fillAmount = 1f;
         _xpBar.fillAmount = 0f;
-        _currentLife = _maxLife;
 
         if (GameManager.Instance != null)
             GameManager.Instance.OnEnemyDestroyed += OnEnemyDestroyed;
@@ -49,7 +56,7 @@ public class UIGame : UI
             EventSystem.current.SetSelectedGameObject(_buttonCloseInstructions.gameObject);
 
         _txtLevel.text = $"Niveau {level}";
-        _txtPoints.text = $"{points}";
+        _txtPoints.text = $"{GameManager.Instance.PlayerScore}";
     }
 
     private void OnDestroy()
@@ -61,19 +68,17 @@ public class UIGame : UI
     public void UpdateLifeBar(float currentLife)
     {
         _currentLife = currentLife;
-        _lifeBar.fillAmount = _currentLife / _maxLife;
+        _lifeBar.fillAmount = _currentLife / _player.PlayerMaxLife;
     }
 
     private void OnEnemyDestroyed(object sender, GameManager.OnEnemyDestroyedEventArgs e)
     {
         if (e.DestroyedObjectTag == "PlayerAttack")
         {
-            _enemiesKilled++;
-            points++;
-            _txtPoints.text = $"{points}";
-            _xpBar.fillAmount = (_enemiesKilled % _enemiesPerLevel) / (float)_enemiesPerLevel;
+            _txtPoints.text = $"{GameManager.Instance.PlayerScore}";
+            _xpBar.fillAmount = (GameManager.Instance.EnemyKillCount % _enemiesPerLevel) / (float)_enemiesPerLevel;
 
-            if (_enemiesKilled % _enemiesPerLevel == 0)
+            if (GameManager.Instance.EnemyKillCount % _enemiesPerLevel == 0)
                 OpenUpgradePanel();
         }
     }
@@ -84,7 +89,7 @@ public class UIGame : UI
         _instructionsPanel.SetActive(false);
         _upgradePanel.SetActive(false);
         _gameBar.SetActive(true);
-        _lifeBar.fillAmount = _currentLife / _maxLife;
+        _lifeBar.fillAmount = _currentLife / _player.PlayerMaxLife;
     }
 
     public void OpenUpgradePanel()
@@ -94,17 +99,36 @@ public class UIGame : UI
         _gameBar.SetActive(false);
         _instructionsPanel.SetActive(false);
         EventSystem.current.SetSelectedGameObject(_buttonFirstUpgrade.gameObject);
+
+        Powerup[] powerups = PowerupManager.Instance.GetPowerups();
+        for (int i = 0; i < powerups.Length; i++)
+        {
+            Button card = _cardSlots[i];
+            Powerup pu = powerups[i];
+
+            
+            
+
+
+            card.gameObject.SetActive(true);
+        }
     }
 
     public void UpgradeChosen()
     {
-
         Time.timeScale = 1.0f;
         _instructionsPanel.SetActive(false);
         _upgradePanel.SetActive(false);
         _gameBar.SetActive(true);
-        _lifeBar.fillAmount = _currentLife / _maxLife;
+        _lifeBar.fillAmount = _currentLife / _player.PlayerMaxLife;
         level += 1;
         _txtLevel.text = $"Niveau {level}";
+
+        DisableCards();
+    }
+
+    private void DisableCards()
+    {
+        foreach(Button card in _cardSlots) card.gameObject.SetActive(false);
     }
 }

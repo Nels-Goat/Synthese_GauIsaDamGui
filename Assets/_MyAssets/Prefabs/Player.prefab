@@ -85,7 +85,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: eda99ea9d9e6ca4428755bb1bded4f02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -139,13 +139,7 @@ MonoBehaviour:
   _bumpingForce: 1.2
   _iFramesDuration: 1.5
   _iFramesFlashCount: 6
-  _walkingSound: {fileID: 8300000, guid: d08abf42f6ac5b64685fda6613f0a0e0, type: 3}
-  _walkingVolume: 0.203
   _stepInterval: 0.35
-  _dashSound: {fileID: 8300000, guid: cc1a5c29e7c7baf488e8ddc10efccab7, type: 3}
-  _dashVolume: 0.195
-  _hitSound: {fileID: 0}
-  _hitVolume: 0.8
 --- !u!50 &7611798826381681474
 Rigidbody2D:
   serializedVersion: 5
@@ -314,5 +308,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8125, y: 1}
+  m_Size: {x: 0.6779083, y: 0.7051803}
   m_EdgeRadius: 0

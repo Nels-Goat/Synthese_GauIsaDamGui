@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class PowerupManager : MonoBehaviour
 {
-    public PowerupManager Instance;
+    public static PowerupManager Instance;
+
+    private List<Powerup> _listPowerup;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -15,9 +17,22 @@ public class PowerupManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+
+    private void Start()
+    {
+        _listPowerup.Add(new GainHealth());
+    }
+
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
+    }
+
+    public Powerup[] GetPowerups()
+    {
+        Powerup[] powerups = {_listPowerup[0]};
+        return powerups;
     }
 }
