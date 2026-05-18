@@ -55,7 +55,8 @@ public class PlayerBow : MonoBehaviour
 
     private void Shoot()
     {
-        SoundManager.Instance?.PlayBow(); 
+        SoundManager.Instance?.PlayBow();
+        Vector2 baseDirection = currentDirection;
 
         bowRenderer.sprite = bowSprite2;
         CancelInvoke(nameof(ResetBowSprite));
