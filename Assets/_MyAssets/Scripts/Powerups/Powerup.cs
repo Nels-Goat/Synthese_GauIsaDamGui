@@ -1,15 +1,16 @@
 using UnityEngine;
 
-public abstract class Powerup
+public abstract class Powerup : MonoBehaviour
 {
-    protected string _name;
-    protected string _description;
     protected Sprite _icon;
+    protected EPowerupType _name;
+    protected string _description;
     protected int _level;
 
-    public string Name {get;}
-    public string Description {get;}
-    public int Level {get;}
+    public EPowerupType Name {get => _name;}
+    public string Description {get => _description;}
+    public Sprite Icon {get => _icon;}
+    public int Level {get => _level;}
 
     public abstract void Upgrade();
 }

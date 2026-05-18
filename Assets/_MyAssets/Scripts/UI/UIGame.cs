@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Unity.VisualScripting;
+using System;
 
 public class UIGame : UI
 {
@@ -32,16 +32,20 @@ public class UIGame : UI
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
     private void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
+        if (player != null) {
             _player = player.GetComponent<Player>();
+            UpdateLifeBar(_player.PlayerLife);
+        }
 
-        _lifeBar.fillAmount = 1f;
         _xpBar.fillAmount = 0f;
 
         if (GameManager.Instance != null)
@@ -94,6 +98,7 @@ public class UIGame : UI
 
     public void OpenUpgradePanel()
     {
+        DisableCards();
         Time.timeScale = 0f;
         _upgradePanel.SetActive(true);
         _gameBar.SetActive(false);
@@ -104,27 +109,43 @@ public class UIGame : UI
         for (int i = 0; i < powerups.Length; i++)
         {
             Button card = _cardSlots[i];
-            Powerup pu = powerups[i];
-
+            Powerup pu  = powerups[i];
             
-            
+            Image cSprite          = card.gameObject.GetComponent<Image>();
+            TextMeshProUGUI cLevel = card.gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+            Image cIcon            = card.gameObject.transform.GetChild(1).gameObject.GetComponent<Image>();
+            TextMeshProUGUI cTitle = card.gameObject.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI cDesc  = card.gameObject.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>();
 
+            cSprite.sprite = _cardSprites[pu.Level];
+            cLevel.text    = (pu.Level+1).ToString();
+            cIcon.sprite   = pu.Icon;
+            cTitle.text    = pu.Name.ToString();
+            cDesc.text     = pu.Description;
 
             card.gameObject.SetActive(true);
+
+            Debug.Log(pu.Icon);
         }
     }
 
-    public void UpgradeChosen()
+    public void UpgradeChosen(TextMeshProUGUI cTitle)
     {
+        EPowerupType name;
+        bool validSelection = Enum.TryParse<EPowerupType>(cTitle.text, out name);
+        if (validSelection)
+            PowerupManager.Instance.UpgradePowerup(name);
+
+        DisableCards();
+
         Time.timeScale = 1.0f;
         _instructionsPanel.SetActive(false);
         _upgradePanel.SetActive(false);
         _gameBar.SetActive(true);
-        _lifeBar.fillAmount = _currentLife / _player.PlayerMaxLife;
+        UpdateLifeBar(_player.PlayerLife);
         level += 1;
         _txtLevel.text = $"Niveau {level}";
-
-        DisableCards();
+        
     }
 
     private void DisableCards()

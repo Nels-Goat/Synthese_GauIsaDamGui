@@ -109,7 +109,7 @@ public class PlayerSword : MonoBehaviour
         if(level > 3) {level= 3;}
         if (level < 1) level = 1;
         weaponLevel = level;
-        UpdateSprite(); 
+        UpdateSprite();
     }
 
     private void UpdateSprite()

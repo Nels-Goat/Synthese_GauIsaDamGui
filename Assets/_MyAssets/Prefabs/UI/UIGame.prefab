@@ -1778,7 +1778,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7587806646177445879
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1887,10 +1887,10 @@ MonoBehaviour:
       - m_Target: {fileID: 5019657206350150508}
         m_TargetAssemblyTypeName: UIGame, Assembly-CSharp
         m_MethodName: UpgradeChosen
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 6072519883526354606}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2874,7 +2874,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7460421778985157513
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2983,10 +2983,10 @@ MonoBehaviour:
       - m_Target: {fileID: 5019657206350150508}
         m_TargetAssemblyTypeName: UIGame, Assembly-CSharp
         m_MethodName: UpgradeChosen
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 966446452120937155}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3384,7 +3384,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6493211994945131887
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3493,10 +3493,10 @@ MonoBehaviour:
       - m_Target: {fileID: 5019657206350150508}
         m_TargetAssemblyTypeName: UIGame, Assembly-CSharp
         m_MethodName: UpgradeChosen
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 5619889393609007527}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4613,8 +4613,15 @@ MonoBehaviour:
   _buttonFirstUpgrade: {fileID: 5134118576332073396}
   _lifeBar: {fileID: 609793344432299915}
   _xpBar: {fileID: 7936131883244108397}
-  _maxLife: 10
   _enemiesPerLevel: 5
+  _cardSprites:
+  - {fileID: 5328498034787032367, guid: 6d8413d6aaf79c843aebb9d9c0ae4df0, type: 3}
+  - {fileID: 2588612810208317498, guid: 6d8413d6aaf79c843aebb9d9c0ae4df0, type: 3}
+  - {fileID: -7476310955462098197, guid: 6d8413d6aaf79c843aebb9d9c0ae4df0, type: 3}
+  _cardSlots:
+  - {fileID: 5134118576332073396}
+  - {fileID: 521884034253866557}
+  - {fileID: 2123182799373786921}
 --- !u!1 &8798932464559170839
 GameObject:
   m_ObjectHideFlags: 0

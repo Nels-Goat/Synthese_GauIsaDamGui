@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class GainHealth : Powerup
 {
-    public GainHealth()
+    
+    public GainHealth(Sprite icon)
     {
-        _name = "Regénération";
-        _description = "Soigne 50% de tes PVs";
-        _icon = null;
+        _icon = icon;
+        _name = EPowerupType.Regénération;
+        _description = "Soigne 50% des PVs totaux";
         _level = 0;
     }
 
     public override void Upgrade()
     {
-        Player player = GameObject.FindFirstObjectByType<Player>();
+        Player player = Object.FindFirstObjectByType<Player>();
         float halfLife = player.PlayerMaxLife * .5f;
         float toHeal = player.PlayerMaxLife - player.PlayerLife;
 

@@ -5,10 +5,11 @@ public class PowerupManager : MonoBehaviour
 {
     public static PowerupManager Instance;
 
+    [SerializeField] private Sprite[] _listIcon;
+
     private List<Powerup> _listPowerup;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
         if (Instance == null)
@@ -20,19 +21,24 @@ public class PowerupManager : MonoBehaviour
 
     private void Start()
     {
-        _listPowerup.Add(new GainHealth());
+        _listPowerup = new List<Powerup>
+        {
+            new GainHealth(_listIcon[0]),
+            new BoostMaxHealth(_listIcon[1]),
+        };
     }
 
-
-    // Update is called once per frame
-    private void Update()
-    {
-        
-    }
 
     public Powerup[] GetPowerups()
     {
         Powerup[] powerups = {_listPowerup[0]};
         return powerups;
+    }
+
+    public void UpgradePowerup(EPowerupType name)
+    {
+        if (name == EPowerupType.none) return;
+
+        _listPowerup[(int)name].Upgrade();
     }
 }
