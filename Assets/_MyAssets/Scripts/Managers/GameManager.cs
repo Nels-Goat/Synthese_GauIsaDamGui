@@ -5,24 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private string _endSceneName = "End";
+    [SerializeField] private string _endSceneName = "EndTest_NelsonG";
     public static GameManager Instance;
 
-    // ===================== �V�NEMENTS ===================== //
     public event EventHandler<OnEnemyDestroyedEventArgs> OnEnemyDestroyed;
     public class OnEnemyDestroyedEventArgs : EventArgs
     {
         public string DestroyedObjectTag;
         public int Damage;
     }
-    // ====================================================== //
 
     [Header("Limites de la map")]
-    [SerializeField] private GameObject _top;
-    [SerializeField] private GameObject _bottom;
-    [SerializeField] private GameObject _right;
-    [SerializeField] private GameObject _left;
-    private float _minX, _maxX, _minY, _maxY;
+    [SerializeField] private float _minX = -10f;
+    [SerializeField] private float _maxX = 10f;
+    [SerializeField] private float _minY = -5f;
+    [SerializeField] private float _maxY = 5f;
 
     [Header("Gestion des ennemis")]
     [SerializeField] private GameObject _enemyContainer;
@@ -44,15 +41,9 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("PlayerScore", 0);
 
-        _maxY = _top.GetComponent<SpriteRenderer>().bounds.min.y;
-        _minY = _bottom.GetComponent<SpriteRenderer>().bounds.max.y;
-        _maxX = _right.GetComponent<SpriteRenderer>().bounds.min.x;
-        _minX = _left.GetComponent<SpriteRenderer>().bounds.max.x;
-
         Debug.Log("[GameManager] Initialis� � Score: 0");
     }
 
-    // ===================== GESTION ENNEMIS ===================== //
     public bool IsEnemyMaxed()
     {
         return _enemyContainer.transform.childCount >= _maxEnemy;
@@ -81,9 +72,7 @@ public class GameManager : MonoBehaviour
             Damage = 1
         });
     }
-    // =========================================================== //
 
-    // ===================== FIN DE JEU ===================== //
     public void EndGame()
     {
         // Sauvegarde du score

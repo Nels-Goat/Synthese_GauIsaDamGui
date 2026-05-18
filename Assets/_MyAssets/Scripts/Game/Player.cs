@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _playerDashForce = 25f;
     [SerializeField] private float _playerDashRate = 0.5f;
     [SerializeField] private int _playerDashDuration = 10;
-    [SerializeField] private float _bumpingForce = 1f;
+    [SerializeField] private float _bumpingForce = 4f;
 
     [Header("Invincibilité")]
     [SerializeField] private float _iFramesDuration = 1.5f;
@@ -131,20 +131,14 @@ public class Player : MonoBehaviour
         Debug.Log("Got Touched by: " + collision.tag);
         if (collision.CompareTag("EnemyAttack"))
         {
-            Debug.Log("[Player] Touché par EnemyAttack !");
-            TakeDamage(1);
             EnemyBase enemy = collision.GetComponent<EnemyBase>();
+            int damage = enemy != null ? enemy.Damage : 1;
 
-            Debug.Log("[Player] Touché par EnemyAttack ! Dmg: " + enemy.Damage);
-            TakeDamage(enemy.Damage); // Dégât fixe pour les projectiles
-            
+            Debug.Log("[Player] Touché par EnemyAttack ! Dmg: " + damage);
+            TakeDamage(damage);
             TriggerBumping(collision.transform);
 
-            try {
-                collision.tag = "Enemy";
-            } catch (Exception) {}
-
-            //Destroy(collision.gameObject);
+            try { collision.tag = "Enemy"; } catch (Exception) { }
         }
 
         if (collision.CompareTag("EnemyProjectile"))
