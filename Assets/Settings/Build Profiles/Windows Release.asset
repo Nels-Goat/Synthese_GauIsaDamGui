@@ -10,36 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 15003, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: WindowsDev
+  m_Name: Windows Release
   m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.Build.Profile.BuildProfile
   m_AssetVersion: 1
   m_BuildTarget: 19
   m_Subtarget: 2
   m_PlatformId: 4e3c793746204150860bf175a9a41a05
   m_PlatformBuildProfile:
-    rid: 7517516698446987264
-  m_OverrideGlobalSceneList: 1
-  m_Scenes:
-  - m_enabled: 0
-    m_path: Assets/_MyAssets/Scenes/Start.unity
-  - m_enabled: 0
-    m_path: Assets/_MyAssets/Scenes/Game.unity
-  - m_enabled: 0
-    m_path: Assets/_MyAssets/Scenes/End.unity
-  - m_enabled: 0
-    m_path: Assets/_MyAssets/Scenes/GameTest/StartTest_JeremyI.unity
-  - m_enabled: 0
-    m_path: Assets/_MyAssets/Scenes/GameTest/GameTest_JeremyI.unity
-  - m_enabled: 0
-    m_path: Assets/_MyAssets/Scenes/GameTest/EndTest_JeremyI.unity
-  - m_enabled: 1
-    m_path: Assets/_MyAssets/Scenes/GameTest/StartTest_NelsonG.unity
-  - m_enabled: 1
-    m_path: Assets/_MyAssets/Scenes/GameTest/GameTest_NelsonG.unity
-  - m_enabled: 1
-    m_path: Assets/_MyAssets/Scenes/GameTest/CreditsTest_JeremyI.unity
-  - m_enabled: 1
-    m_path: Assets/_MyAssets/Scenes/GameTest/EndTest_NelsonG.unity
+    rid: 6122577042973917285
+  m_OverrideGlobalSceneList: 0
+  m_Scenes: []
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
@@ -188,7 +168,7 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 1.0.3'
+    - line: '|   bundleVersion: 1.0.0'
     - line: '|   preloadedAssets:'
     - line: '|   - {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100,
         type: 3}'
@@ -854,19 +834,19 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 7517516698446987264
+    - rid: 6122577042973917285
       type: {class: WindowsPlatformSettings, ns: UnityEditor.WindowsStandalone, asm: UnityEditor.WindowsStandalone.Extensions}
       data:
-        m_Development: 1
+        m_Development: 0
         m_ConnectProfiler: 0
         m_BuildWithDeepProfilingSupport: 0
-        m_AllowDebugging: 1
+        m_AllowDebugging: 0
         m_WaitForManagedDebugger: 0
         m_ManagedDebuggerFixedPort: 0
         m_ExplicitNullChecks: 0
         m_ExplicitDivideByZeroChecks: 0
         m_ExplicitArrayBoundsChecks: 0
-        m_CompressionType: 0
+        m_CompressionType: 2
         m_InstallInBuildFolder: 0
         m_InsightsSettingsContainer:
           m_BuildProfileEngineDiagnosticsState: 2
