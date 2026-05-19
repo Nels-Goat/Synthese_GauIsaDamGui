@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerSwordAttack : MonoBehaviour
+public class PlayerSwordAttack : WeaponBaseDamage
 {
     private void Start()
     {
@@ -11,7 +11,8 @@ public class PlayerSwordAttack : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Destroy(other.gameObject);
+            if (other.TryGetComponent<IDamageable>(out var target))
+                target.TakeHit("PlayerAttack", Damage);
         }
     }
 }

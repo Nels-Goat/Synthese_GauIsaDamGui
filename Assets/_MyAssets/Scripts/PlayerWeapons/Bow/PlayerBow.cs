@@ -1,114 +1,111 @@
 using UnityEngine;
 
-public class PlayerBow : MonoBehaviour
+public class PlayerBow : WeaponBaseDamage
 {
     [Header("Attaque")]
-    [SerializeField] private float attackCooldown = 0.5f;
-    [SerializeField] private float arrowSpeed = 20f;
-
+    [SerializeField] private float _attackCooldown = 0.5f;
+    [SerializeField] private float _arrowSpeed = 20f;
+    [SerializeField] private int _weaponLevel = 1;
 
     [Header("Sprites arc")]
-    [SerializeField] private SpriteRenderer bowRenderer;
-    [SerializeField] private Sprite bowSprite1;
-    [SerializeField] private Sprite bowSprite2;
+    [SerializeField] private SpriteRenderer _bowRenderer;
+    [SerializeField] private Sprite _bowSprite1;
+    [SerializeField] private Sprite _bowSprite2;
 
     [Header("Sprites flèches")]
-    [SerializeField] private Sprite arrowLevel1Sprite;
-    [SerializeField] private Sprite arrowLevel2Sprite;
-    [SerializeField] private Sprite arrowLevel3Sprite;
+    [SerializeField] private Sprite _arrowLevel1Sprite;
+    [SerializeField] private Sprite _arrowLevel2Sprite;
+    [SerializeField] private Sprite _arrowLevel3Sprite;
 
-    [SerializeField] private GameObject arrowPrefab;
-    [SerializeField] private int weaponLevel = 1;
+    [SerializeField] private GameObject _arrowPrefab;
 
-
-    private float shootSpriteDuration = 0.1f;
-    private Vector2 lastLookDirection = Vector2.right;
-    private Vector3 lastPlayerPosition;
-    private Transform player;
-    private float nextFireTime;
-    private Vector2 currentDirection = Vector2.right;
+    private float _shootSpriteDuration = 0.1f;
+    private Vector2 _lastLookDirection = Vector2.right;
+    private Vector3 _lastPlayerPosition;
+    private Transform _player;
+    private float _nextFireTime;
+    private Vector2 _currentDirection = Vector2.right;
 
     private void Start()
     {
         GameObject target = GameObject.FindGameObjectWithTag("Player");
-        if (bowRenderer != null)
-            bowRenderer.sprite = bowSprite1;
+        if (_bowRenderer != null)
+            _bowRenderer.sprite = _bowSprite1;
 
         if (target != null)
         {
-            player = target.transform;
-            transform.SetParent(player);
-            lastPlayerPosition = player.position;
+            _player = target.transform;
+            transform.SetParent(_player);
+            _lastPlayerPosition = _player.position;
         }
     }
 
     private void Update()
     {
-        if (player == null) return;
-        currentDirection = GetLookDirection();
+        if (_player == null) return;
+        _currentDirection = GetLookDirection();
         FollowPlayer();
-        if (Time.time >= nextFireTime)
+        if (Time.time >= _nextFireTime)
         {
             Shoot();
-            nextFireTime = Time.time + attackCooldown;
+            _nextFireTime = Time.time + _attackCooldown;
         }
     }
 
     private void Shoot()
     {
         SoundManager.Instance?.PlayBow();
-
-        Vector2 baseDirection = currentDirection;
-        bowRenderer.sprite = bowSprite2;
+        _bowRenderer.sprite = _bowSprite2;
         CancelInvoke(nameof(ResetBowSprite));
-        Invoke(nameof(ResetBowSprite), shootSpriteDuration);
+        Invoke(nameof(ResetBowSprite), _shootSpriteDuration);
 
-
-        if (weaponLevel == 1)
+        if (_weaponLevel == 1)
+            SpawnArrow(_currentDirection);
+        else if (_weaponLevel == 2)
         {
-            ShootArrow(baseDirection);
+            SpawnArrow(_currentDirection);
+            SpawnArrow(RotateDirection(_currentDirection, 20f));
+            SpawnArrow(RotateDirection(_currentDirection, -20f));
         }
-        else if (weaponLevel == 2)
+        else
         {
-            ShootArrow(baseDirection);
-            ShootArrow(RotateDirection(baseDirection, 20f));
-            ShootArrow(RotateDirection(baseDirection, -20f));
-        }
-        else if (weaponLevel >= 3)
-        {
-            ShootArrow(baseDirection);
-            ShootArrow(RotateDirection(baseDirection, 15f));
-            ShootArrow(RotateDirection(baseDirection, -15f));
-            ShootArrow(RotateDirection(baseDirection, 30f));
-            ShootArrow(RotateDirection(baseDirection, -30f));
+            SpawnArrow(_currentDirection);
+            SpawnArrow(RotateDirection(_currentDirection, 15f));
+            SpawnArrow(RotateDirection(_currentDirection, -15f));
+            SpawnArrow(RotateDirection(_currentDirection, 30f));
+            SpawnArrow(RotateDirection(_currentDirection, -30f));
         }
     }
 
-    private void ShootArrow(Vector2 direction)
+    private void SpawnArrow(Vector2 direction)
     {
-        Vector3 spawnPos = player.position + (Vector3)(direction.normalized * 1.5f);
-        GameObject arrow = Instantiate(arrowPrefab, spawnPos, Quaternion.identity);
+        Vector3 spawnPos = _player.position + (Vector3)(direction.normalized * 1.5f);
+        GameObject arrowObj = Instantiate(_arrowPrefab, spawnPos, Quaternion.identity);
 
-        SpriteRenderer arrowRenderer = arrow.GetComponentInChildren<SpriteRenderer>();
-
+        SpriteRenderer arrowRenderer = arrowObj.GetComponentInChildren<SpriteRenderer>();
         if (arrowRenderer != null)
         {
-            if (weaponLevel == 1)
-                arrowRenderer.sprite = arrowLevel1Sprite;
-            else if (weaponLevel == 2)
-                arrowRenderer.sprite = arrowLevel2Sprite;
-            else
-                arrowRenderer.sprite = arrowLevel3Sprite;
+            arrowRenderer.sprite = _weaponLevel switch
+            {
+                1 => _arrowLevel1Sprite,
+                2 => _arrowLevel2Sprite,
+                _ => _arrowLevel3Sprite
+            };
         }
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
-        Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
+        arrowObj.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        Rigidbody2D rb = arrowObj.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
             rb.gravityScale = 0f;
-            rb.linearVelocity = direction.normalized * arrowSpeed;
+            rb.linearVelocity = direction.normalized * _arrowSpeed;
         }
+
+        // Flèche hérite des dégâts de l'arc
+        if (arrowObj.TryGetComponent<Arrow>(out var arrow))
+            arrow.SetDamage(Damage);
     }
 
     private Vector2 RotateDirection(Vector2 direction, float angle)
@@ -121,31 +118,29 @@ public class PlayerBow : MonoBehaviour
 
     private void FollowPlayer()
     {
-        Vector2 direction = currentDirection;
-        transform.localPosition = direction.normalized * 0.7f;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.localPosition = _currentDirection.normalized * 0.7f;
+        float angle = Mathf.Atan2(_currentDirection.y, _currentDirection.x) * Mathf.Rad2Deg;
         transform.localRotation = Quaternion.Euler(0, 0, angle);
     }
 
     private Vector2 GetLookDirection()
     {
-        Vector2 movementDirection = player.position - lastPlayerPosition;
+        Vector2 movementDirection = _player.position - _lastPlayerPosition;
         if (movementDirection.magnitude > 0.01f)
-            lastLookDirection = movementDirection.normalized;
-
-        lastPlayerPosition = player.position;
-        return lastLookDirection;
+            _lastLookDirection = movementDirection.normalized;
+        _lastPlayerPosition = _player.position;
+        return _lastLookDirection;
     }
 
     public void SetWeaponLevel(int level)
     {
-        if (level > 3) level = 3;
-        weaponLevel = level;
+        _weaponLevel = Mathf.Clamp(level, 1, 3);
+      
     }
 
     private void ResetBowSprite()
     {
-        if (bowRenderer != null)
-            bowRenderer.sprite = bowSprite1;
+        if (_bowRenderer != null)
+            _bowRenderer.sprite = _bowSprite1;
     }
 }
