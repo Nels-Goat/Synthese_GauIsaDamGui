@@ -27,13 +27,9 @@ MonoBehaviour:
   - m_enabled: 0
     m_path: Assets/_MyAssets/Scenes/GameTest/EndTest_JeremyI.unity
   - m_enabled: 1
-    m_path: Assets/_MyAssets/Scenes/GameTest/StartTest_NelsonG.unity
-  - m_enabled: 1
     m_path: Assets/_MyAssets/Scenes/GameTest/GameTest_NelsonG.unity
   - m_enabled: 1
     m_path: Assets/_MyAssets/Scenes/GameTest/CreditsTest_JeremyI.unity
-  - m_enabled: 1
-    m_path: Assets/_MyAssets/Scenes/GameTest/EndTest_NelsonG.unity
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

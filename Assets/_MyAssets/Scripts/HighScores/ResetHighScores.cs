@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ResetHighScores : MonoBehaviour
 {
-    private const string PASSWORD = "TOTO";
+    private const string PASSWORD = "GAUISADAMGUI";
 
     [SerializeField] private GameObject _resetHighScoresPanel;
     [SerializeField] private int _maxPasswordLength = 10;

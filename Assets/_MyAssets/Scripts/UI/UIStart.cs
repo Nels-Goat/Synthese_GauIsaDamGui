@@ -57,6 +57,6 @@ public class UIStart : UI
 
     public void OnCreditsClick()
     {
-        SceneManager.LoadScene("CreditsTest_JeremyI");
+        SceneManager.LoadScene("Credits");
     }
 }

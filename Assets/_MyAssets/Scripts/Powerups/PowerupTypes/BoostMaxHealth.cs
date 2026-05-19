@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class BoostMaxHealth : Powerup
 {
-    private float _multiplier = .2f;
-    
     public BoostMaxHealth(Sprite icon)
     {
         _icon = icon;
@@ -20,7 +18,7 @@ public class BoostMaxHealth : Powerup
 
         Player player = Object.FindFirstObjectByType<Player>();
         float currentMax = player.PlayerMaxLife;
-        float newMax = currentMax * (1 +  _level * _multiplier);
+        float newMax = currentMax + 5;
 
         player.PlayerMaxLife = newMax;
 
