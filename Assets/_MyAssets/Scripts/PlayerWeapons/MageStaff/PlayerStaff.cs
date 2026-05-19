@@ -5,7 +5,6 @@ public class PlayerStaff : WeaponBaseDamage
     [Header("Attaque")]
     [SerializeField] private float attackCooldown = 3.5f;
     [SerializeField] private GameObject staffAOEPrefab;
-    [SerializeField] private Vector3 baseScaleAOE = new Vector3(5f, 5f, 1f);
     [SerializeField] private int weaponLevel = 0;
 
     [Header("Animation")]
@@ -51,22 +50,25 @@ public class PlayerStaff : WeaponBaseDamage
 
         SoundManager.Instance?.PlayStaffShoot();
 
-        /*
+        
         if (staffAnimator != null)
         {
             staffAnimator.ResetTrigger("Shoot");
             staffAnimator.SetTrigger("Shoot");
         }
-        */
+       
 
         SpawnAOE(direction);
     }
 
     private void SpawnAOE(Vector2 direction)
     {
-        Vector3 spawnPos = player.position + (Vector3)(direction.normalized * 3f);
+        Vector3 spawnPos = player.position + (Vector3)(direction.normalized * 10f);
+
         GameObject aoe = Instantiate(staffAOEPrefab, spawnPos, Quaternion.identity);
-        Vector3 aoeScale = baseScaleAOE;
+
+        Vector3 aoeScale = new Vector3(6f, 6f, 1f); ;
+
         if (weaponLevel == 2) aoeScale *= 1.5f;
         if (weaponLevel >= 3) aoeScale *= 2f;
         aoe.transform.localScale = aoeScale;
