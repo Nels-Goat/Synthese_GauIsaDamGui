@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class PlayerSword : MonoBehaviour
+public class PlayerSword : WeaponBaseDamage
 {
     [Header("Attaque")]
     [SerializeField] private float attackCooldown = 0.25f;
     [SerializeField] private GameObject swordAOEPrefab;
-    [SerializeField] private int weaponLevel = 1;
+    [SerializeField] private int weaponLevel = 0;
 
     [Header("Sprites par niveau")]
     [SerializeField] private Sprite level1Sprite;
@@ -62,16 +62,17 @@ public class PlayerSword : MonoBehaviour
     {
         Vector3 spawnPos = player.position + (Vector3)(direction.normalized * 1.5f);
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
         GameObject aoe = Instantiate(swordAOEPrefab, spawnPos, Quaternion.Euler(0, 0, angle));
-
         SpriteRenderer sr = aoe.GetComponentInChildren<SpriteRenderer>();
         float multiplier = 1f;
         if (weaponLevel == 2) multiplier = 1.5f;
         if (weaponLevel >= 3) multiplier = 2f;
-
         aoe.transform.localScale *= multiplier;
         attackCooldown = baseAttackCD / multiplier;
+
+        // AJOUT
+        if (aoe.TryGetComponent<PlayerSwordAttack>(out var swordAttack))
+            swordAttack.SetDamage(Damage);
     }
 
     private void FollowPlayer()
@@ -109,7 +110,8 @@ public class PlayerSword : MonoBehaviour
         if(level > 3) {level= 3;}
         if (level < 1) level = 1;
         weaponLevel = level;
-        UpdateSprite(); 
+        SetDamage(weaponLevel + 1);
+        UpdateSprite();
     }
 
     private void UpdateSprite()

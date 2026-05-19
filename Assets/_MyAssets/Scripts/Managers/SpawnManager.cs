@@ -77,7 +77,7 @@ public class SpawnManager : MonoBehaviour
             if (score >= _timeToSpawnEnemy4)
                 randomEnemyIndex = UnityEngine.Random.Range(0, _enemyPrefabs.Length);
             else if (score >= _timeToSpawnEnemy3)
-                randomEnemyIndex = UnityEngine.Random.Range(0, 3); // Skeleton, Goblin, Troll
+                randomEnemyIndex = UnityEngine.Random.Range(0, 3); // Skeleton, Goblin, Witch
             else if (score >= _timeToSpawnEnemy2)
                 randomEnemyIndex = UnityEngine.Random.Range(0, 2); // Skeleton, Goblin
             else
@@ -106,7 +106,17 @@ public class SpawnManager : MonoBehaviour
                 _difficultyThreshold *= _difficultyMultiplier;
                 _enemySpawnInterval = Mathf.Max(0.5f, _enemySpawnInterval - _enemySpawnInterval * _enemyIntervalReducer);
             }
+            if (_difficultyThreshold % 500 == 0) IncreaseLife();
             // ============================== //
+        }
+    }
+
+    private void IncreaseLife()
+    {
+        foreach (GameObject prefab in _enemyPrefabs)
+        {
+            EnemyBase enemy = prefab.GetComponent<EnemyBase>();
+            enemy.MaxLife *= 1.2f;
         }
     }
 

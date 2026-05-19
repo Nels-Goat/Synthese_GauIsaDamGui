@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -10,13 +9,19 @@ public class Player : MonoBehaviour
     [SerializeField] private float _playerMaxLife = 10f;
     [SerializeField] private float _playerSpeed = 10f;
     [SerializeField] private float _playerDashForce = 25f;
-    [SerializeField] private float _playerDashRate = 0.5f;
+    [SerializeField] private float _playerDashRate = 2.5f;
     [SerializeField] private int _playerDashDuration = 10;
     [SerializeField] private float _bumpingForce = 4f;
 
+    public float PlayerLife {get => _playerLife; set => _playerLife = value;}
+    public float PlayerMaxLife {get => _playerMaxLife; set => _playerMaxLife = value;}
+    public float PlayerDashRate {get => _playerDashRate; set => _playerDashRate = value;}
+
     [Header("Invincibilité")]
-    [SerializeField] private float _iFramesDuration = 1.5f;
+    [SerializeField] private float _iFramesDuration = 1f;
     [SerializeField] private int _iFramesFlashCount = 6;
+
+    public float IFramesDuration {get => _iFramesDuration; set => _iFramesDuration = value;}
 
     [Header("Son - Marche")]
     [SerializeField] private float _stepInterval = 0.35f;
@@ -79,14 +84,14 @@ public class Player : MonoBehaviour
             TakeDamage(e.Damage);
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         if (_isInvincible) return;
 
         _playerLife -= damage;
         Debug.Log($"[Player] -{damage} vie | Vie restante : {_playerLife}/{_playerMaxLife}");
 
-        UIGame.Instance?.UpdateLifeBar(_playerLife);
+        UIGame.Instance?.UpdateLifeBar();
 
         if (_playerLife <= 0)
         {
@@ -143,9 +148,10 @@ public class Player : MonoBehaviour
 
         if (collision.CompareTag("EnemyProjectile"))
         {
-            EnemyBase enemy = collision.GetComponent<EnemyBase>();
-            Debug.Log("[Player] Touché par EnemyProjectile ! Dmg: " + enemy.Damage);
-            TakeDamage(enemy.Damage); // Dégât fixe pour les projectiles
+            EnemyProjectile projectile = collision.GetComponent<EnemyProjectile>();
+            int damage = projectile != null ? projectile.Damage : 1;
+            Debug.Log("[Player] Touché par EnemyProjectile !");
+            TakeDamage(damage);
             
             TriggerBumping(collision.transform);
 
@@ -155,6 +161,8 @@ public class Player : MonoBehaviour
 
     private void TriggerBumping(Transform bumper)
     {
+        if (_isInvincible) return;
+
         Vector3 diffPos = (gameObject.transform.position - bumper.position).normalized;
         gameObject.transform.Translate(diffPos * _bumpingForce);
     }

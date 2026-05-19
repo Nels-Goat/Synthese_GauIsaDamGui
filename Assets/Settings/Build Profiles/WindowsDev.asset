@@ -21,12 +21,6 @@ MonoBehaviour:
   m_OverrideGlobalSceneList: 1
   m_Scenes:
   - m_enabled: 0
-    m_path: Assets/_MyAssets/Scenes/Start.unity
-  - m_enabled: 0
-    m_path: Assets/_MyAssets/Scenes/Game.unity
-  - m_enabled: 0
-    m_path: Assets/_MyAssets/Scenes/End.unity
-  - m_enabled: 0
     m_path: Assets/_MyAssets/Scenes/GameTest/StartTest_JeremyI.unity
   - m_enabled: 0
     m_path: Assets/_MyAssets/Scenes/GameTest/GameTest_JeremyI.unity

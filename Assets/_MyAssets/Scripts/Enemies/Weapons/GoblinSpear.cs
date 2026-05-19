@@ -1,8 +1,6 @@
 using UnityEngine;
-public class GoblinSpear : MonoBehaviour
+
+public class GoblinSpear : EnemyProjectile
 {
-    private void Start()
-    {
-        Destroy(gameObject, 5f);
-    }
+    
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,18 +15,21 @@ public class GameManager : MonoBehaviour
     }
 
     [Header("Limites de la map")]
-    [SerializeField] private float _minX = -10f;
-    [SerializeField] private float _maxX = 10f;
-    [SerializeField] private float _minY = -5f;
-    [SerializeField] private float _maxY = 5f;
+    [SerializeField] private GameObject _top;
+    [SerializeField] private GameObject _bottom;
+    [SerializeField] private GameObject _right;
+    [SerializeField] private GameObject _left;
+    private float _minX, _maxX, _minY, _maxY;
 
     [Header("Gestion des ennemis")]
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private int _maxEnemy = 20;
 
-    [Header("Score")]
     private int _playerScore = 0;
     public int PlayerScore => _playerScore;
+
+    private int _enemyKillCount = 0;
+    public int EnemyKillCount => _enemyKillCount;
 
     private void Awake()
     {
@@ -39,8 +41,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerPrefs.SetInt("PlayerScore", 0);
+        _maxY = _top.GetComponent<SpriteRenderer>().bounds.min.y;
+        _minY = _bottom.GetComponent<SpriteRenderer>().bounds.max.y;
+        _maxX = _right.GetComponent<SpriteRenderer>().bounds.min.x;
+        _minX = _left.GetComponent<SpriteRenderer>().bounds.max.x;
 
+        PlayerPrefs.SetInt("PlayerScore", 0);
         Debug.Log("[GameManager] Initialis� � Score: 0");
     }
 
@@ -53,6 +59,7 @@ public class GameManager : MonoBehaviour
     {
         if (p_gameObjectTag == "PlayerAttack")
         {
+            _enemyKillCount++;
             _playerScore += p_enemyPoints;
             Debug.Log($"[GameManager] +{p_enemyPoints} pts | Score total : {_playerScore}");
         }
