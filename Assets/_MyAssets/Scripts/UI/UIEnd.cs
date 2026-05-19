@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections;
 using System.Collections.Generic;
 
 public class UIEnd : UI
@@ -47,6 +48,15 @@ public class UIEnd : UI
             if (EventSystem.current != null)
                 EventSystem.current.SetSelectedGameObject(_buttonRestart.gameObject);
         }
+
+        StartCoroutine(ReturnToMenu());
+    }
+
+    private IEnumerator ReturnToMenu()
+    {
+        yield return new WaitForSeconds(60f);
+
+        SceneManager.LoadScene(_startSceneName);
     }
 
     public void OnRestartScoresClick()
@@ -61,6 +71,7 @@ public class UIEnd : UI
         _panelResetHighScore.SetActive(false);
         _panelButtons.SetActive(true);
         _panelNewHighScore.SetActive(false);
+
         if (EventSystem.current != null)
             EventSystem.current.SetSelectedGameObject(_buttonRestart.gameObject);
     }
