@@ -5,7 +5,8 @@ public class PlayerStaff : MonoBehaviour
     [Header("Attaque")]
     [SerializeField] private float attackCooldown = 3.5f;
     [SerializeField] private GameObject staffAOEPrefab;
-    [SerializeField] private int weaponLevel = 1;
+    [SerializeField] private Vector3 baseScaleAOE = new Vector3(5f, 5f, 1f);
+    [SerializeField] private int weaponLevel = 0;
 
     [Header("Animation")]
     [SerializeField] private Animator staffAnimator;
@@ -50,11 +51,13 @@ public class PlayerStaff : MonoBehaviour
 
         SoundManager.Instance?.PlayStaffShoot();
 
+        /*
         if (staffAnimator != null)
         {
             staffAnimator.ResetTrigger("Shoot");
             staffAnimator.SetTrigger("Shoot");
         }
+        */
 
         SpawnAOE(direction);
     }
@@ -62,21 +65,13 @@ public class PlayerStaff : MonoBehaviour
     private void SpawnAOE(Vector2 direction)
     {
         Vector3 spawnPos = player.position + (Vector3)(direction.normalized * 3f);
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        GameObject aoe = Instantiate(staffAOEPrefab, spawnPos, Quaternion.Euler(0, 0, angle));
+        GameObject aoe = Instantiate(staffAOEPrefab, spawnPos, Quaternion.identity);
 
-        bool facingLeft = direction.x < 0;
-
-        Vector3 aoeScale = new Vector3(10f, 10f, 1f);
+        Vector3 aoeScale = baseScaleAOE;
 
         if (weaponLevel == 2) aoeScale *= 1.5f;
         if (weaponLevel >= 3) aoeScale *= 2f;
-
-        if (facingLeft)
-            aoeScale.y = -Mathf.Abs(aoeScale.y);
-        else
-            aoeScale.y = Mathf.Abs(aoeScale.y);
 
         aoe.transform.localScale = aoeScale;
     }

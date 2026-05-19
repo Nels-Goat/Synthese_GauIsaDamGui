@@ -13,7 +13,7 @@ public class GainHealth : Powerup
 
     public override void Upgrade()
     {
-        if (_level >= 3) return;
+        if (_hidden) return;
 
         _level++;
 
@@ -26,5 +26,7 @@ public class GainHealth : Powerup
         else
             player.PlayerLife += halfLife;
 
+
+        if (_level >= 3) _hidden = true;
     }
 }

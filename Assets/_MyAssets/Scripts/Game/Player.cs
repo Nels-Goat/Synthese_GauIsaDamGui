@@ -9,16 +9,19 @@ public class Player : MonoBehaviour
     [SerializeField] private float _playerMaxLife = 10f;
     [SerializeField] private float _playerSpeed = 10f;
     [SerializeField] private float _playerDashForce = 25f;
-    [SerializeField] private float _playerDashRate = 0.5f;
+    [SerializeField] private float _playerDashRate = 2.5f;
     [SerializeField] private int _playerDashDuration = 10;
     [SerializeField] private float _bumpingForce = 4f;
 
     public float PlayerLife {get => _playerLife; set => _playerLife = value;}
     public float PlayerMaxLife {get => _playerMaxLife; set => _playerMaxLife = value;}
+    public float PlayerDashRate {get => _playerDashRate; set => _playerDashRate = value;}
 
     [Header("Invincibilité")]
-    [SerializeField] private float _iFramesDuration = 1.5f;
+    [SerializeField] private float _iFramesDuration = 1f;
     [SerializeField] private int _iFramesFlashCount = 6;
+
+    public float IFramesDuration {get => _iFramesDuration; set => _iFramesDuration = value;}
 
     [Header("Son - Marche")]
     [SerializeField] private float _stepInterval = 0.35f;
@@ -88,7 +91,7 @@ public class Player : MonoBehaviour
         _playerLife -= damage;
         Debug.Log($"[Player] -{damage} vie | Vie restante : {_playerLife}/{_playerMaxLife}");
 
-        UIGame.Instance?.UpdateLifeBar(_playerLife);
+        UIGame.Instance?.UpdateLifeBar();
 
         if (_playerLife <= 0)
         {
@@ -158,6 +161,8 @@ public class Player : MonoBehaviour
 
     private void TriggerBumping(Transform bumper)
     {
+        if (_isInvincible) return;
+
         Vector3 diffPos = (gameObject.transform.position - bumper.position).normalized;
         gameObject.transform.Translate(diffPos * _bumpingForce);
     }
