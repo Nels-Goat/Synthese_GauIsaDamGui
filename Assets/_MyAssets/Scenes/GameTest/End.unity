@@ -4557,6 +4557,81 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ReadLetterInput
   _resetHighScoresPanel: {fileID: 1094969148}
   _getNewHighScorePanel: {fileID: 17938896}
+--- !u!1 &850599609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 850599610}
+  - component: {fileID: 850599612}
+  - component: {fileID: 850599611}
+  m_Layer: 0
+  m_Name: Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &850599610
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850599609}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1707443907}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 17577.738, y: -8709.415}
+  m_SizeDelta: {x: 200, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &850599611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850599609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 2488193864150925076, guid: 686ad3d3b02df56499fa67bac4299551, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &850599612
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850599609}
+  m_CullTransparentMesh: 1
 --- !u!1 &893046749
 GameObject:
   m_ObjectHideFlags: 0
@@ -5435,6 +5510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa1f814b55541d49b8b743769599cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResetHighScores
+  _firstSelectedButton: {fileID: 2054859065}
   _resetHighScoresPanel: {fileID: 1094969148}
   _maxPasswordLength: 10
   _txtPass: {fileID: 765598537}
@@ -8470,6 +8546,7 @@ RectTransform:
   - {fileID: 17938897}
   - {fileID: 1094969149}
   - {fileID: 576560918}
+  - {fileID: 850599610}
   m_Father: {fileID: 1764965890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -8810,6 +8887,67 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ReadLetterInput
   _resetHighScoresPanel: {fileID: 1094969148}
   _getNewHighScorePanel: {fileID: 17938896}
+--- !u!1001 &1756038126
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1370491788565525236, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789820392217636419, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 715.8041
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789820392217636419, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 18.46776
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789820392217636419, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789820392217636419, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789820392217636419, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789820392217636419, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789820392217636419, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789820392217636419, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789820392217636419, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789820392217636419, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9151590516696514592, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+      propertyPath: _muteImage
+      value: 
+      objectReference: {fileID: 850599611}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9bf79e0581866f848811ce346a157070, type: 3}
 --- !u!1 &1758791171
 GameObject:
   m_ObjectHideFlags: 0
@@ -8998,6 +9136,7 @@ MonoBehaviour:
   _panelNewHighScore: {fileID: 17938896}
   _panelResetHighScore: {fileID: 1094969148}
   _buttonRestart: {fileID: 1415654449}
+  _resetHighScores: {fileID: 1094969150}
 --- !u!1 &1788115079
 GameObject:
   m_ObjectHideFlags: 0
@@ -10773,3 +10912,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 60647626}
   - {fileID: 1764965890}
+  - {fileID: 1756038126}

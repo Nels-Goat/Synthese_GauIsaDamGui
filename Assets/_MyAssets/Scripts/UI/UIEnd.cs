@@ -21,6 +21,7 @@ public class UIEnd : UI
 
     [Header("Buttons")]
     [SerializeField] private Button _buttonRestart;
+    [SerializeField] private ResetHighScores _resetHighScores;
 
     private void Start()
     {
@@ -64,6 +65,7 @@ public class UIEnd : UI
         _panelResetHighScore.SetActive(true);
         _panelButtons.SetActive(false);
         _panelNewHighScore.SetActive(false);
+        _resetHighScores.OnOpenPanel();
     }
 
     public void OnClosePanelResetHighScoreClick()
@@ -71,7 +73,6 @@ public class UIEnd : UI
         _panelResetHighScore.SetActive(false);
         _panelButtons.SetActive(true);
         _panelNewHighScore.SetActive(false);
-
         if (EventSystem.current != null)
             EventSystem.current.SetSelectedGameObject(_buttonRestart.gameObject);
     }

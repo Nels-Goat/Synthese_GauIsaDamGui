@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ResetHighScores : MonoBehaviour
 {
     private const string PASSWORD = "GAUISADAMGUI";
-
+    [SerializeField] private GameObject _firstSelectedButton;
     [SerializeField] private GameObject _resetHighScoresPanel;
     [SerializeField] private int _maxPasswordLength = 10;
     [SerializeField] private TextMeshProUGUI _txtPass;
@@ -98,5 +98,9 @@ public class ResetHighScores : MonoBehaviour
 
         if (_uiEnd != null)
             _uiEnd.OnClosePanelResetHighScoreClick();
+    }
+    public void OnOpenPanel()
+    {
+        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(_firstSelectedButton);
     }
 }
