@@ -20,6 +20,7 @@ public class PlayerBow : MonoBehaviour
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private int weaponLevel = 1;
 
+
     private float shootSpriteDuration = 0.1f;
     private Vector2 lastLookDirection = Vector2.right;
     private Vector3 lastPlayerPosition;
@@ -56,8 +57,8 @@ public class PlayerBow : MonoBehaviour
     private void Shoot()
     {
         SoundManager.Instance?.PlayBow();
-        Vector2 baseDirection = currentDirection;
 
+        Vector2 baseDirection = currentDirection;
         bowRenderer.sprite = bowSprite2;
         CancelInvoke(nameof(ResetBowSprite));
         Invoke(nameof(ResetBowSprite), shootSpriteDuration);

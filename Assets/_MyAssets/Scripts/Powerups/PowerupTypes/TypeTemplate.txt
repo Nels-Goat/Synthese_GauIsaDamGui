@@ -1,0 +1,31 @@
+using UnityEngine;
+
+public class Template : Powerup
+{
+
+
+    public Template(Sprite icon)
+    {
+        _icon = icon;
+        _name = EPowerupType.None;
+        _description = "Template";
+        _level = 0;
+        _hidden = false;
+    }
+
+    public override void Upgrade()
+    {
+        if (_hidden) return;
+        _level++;
+
+
+        // === Effet === //
+
+        
+
+        // ============= //
+
+
+        if (_level >= 3) _hidden = true;
+    }
+}

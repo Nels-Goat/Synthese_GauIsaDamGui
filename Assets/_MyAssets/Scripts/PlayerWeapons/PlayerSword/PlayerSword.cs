@@ -5,7 +5,7 @@ public class PlayerSword : MonoBehaviour
     [Header("Attaque")]
     [SerializeField] private float attackCooldown = 0.25f;
     [SerializeField] private GameObject swordAOEPrefab;
-    [SerializeField] private int weaponLevel = 1;
+    [SerializeField] private int weaponLevel = 0;
 
     [Header("Sprites par niveau")]
     [SerializeField] private Sprite level1Sprite;
@@ -109,7 +109,7 @@ public class PlayerSword : MonoBehaviour
         if(level > 3) {level= 3;}
         if (level < 1) level = 1;
         weaponLevel = level;
-        UpdateSprite(); 
+        UpdateSprite();
     }
 
     private void UpdateSprite()
