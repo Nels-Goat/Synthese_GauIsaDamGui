@@ -239,10 +239,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   _endSceneName: EndTest_JeremyI
-  _top: {fileID: 1924623085}
-  _bottom: {fileID: 618085332}
-  _right: {fileID: 550156014}
-  _left: {fileID: 381076206}
+  _minX: -10
+  _maxX: 10
+  _minY: -5
+  _maxY: 5
   _enemyContainer: {fileID: 243173278}
   _maxEnemy: 100
 --- !u!1 &22428421
@@ -277,8 +277,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 170678786}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.43144602}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1526,9 +1526,9 @@ RectTransform:
   m_Father: {fileID: 407357565}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &468906967
 MonoBehaviour:
@@ -1598,7 +1598,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &497998094
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4482,8 +4482,9 @@ MonoBehaviour:
     est d'\xE9liminer les ennemis afin de vous rendre le plus loin possible. Au cours
     de votre partie, des \xE9l\xE9ments d'am\xE9lioration vous permettrons d'augmenter
     les capacit\xE9s de votre joueur ou de les diminuer...\n\nD\xE9placements : Utiliser
-    WASD, les fl\xE8ches ou le joystick.\nInt\xE9ragir : Utiliser E.\nMettre en sourdine
-    : Utiliser M ou le bouton 6.\nDash : Utiliser ... ou ...\n"
+    WASD, les fl\xE8ches ou le joystick.\nInt\xE9ragir : Utiliser E ou le bouton
+    2.\nMettre en sourdine : Utiliser M ou le bouton 6.\nDash : Utiliser la barre
+    Espace ou 1.\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 801d55316b7091d408bdf9a80e4595a2, type: 2}
   m_sharedMaterial: {fileID: -1484869474059492167, guid: 801d55316b7091d408bdf9a80e4595a2, type: 2}
@@ -5058,12 +5059,14 @@ MonoBehaviour:
   _difficultyMultiplier: 2
   _timeToSpawnEnemy2: 1000
   _timeToSpawnEnemy3: 2000
+  _timeToSpawnEnemy4: 600
   _enemyPrefabs:
   - {fileID: 4435902073034120836, guid: 81bfdb6a9adff0244bc03baa216c2622, type: 3}
   - {fileID: 5193956760265822402, guid: c7ab15de869441f4baa0b0412e557a5a, type: 3}
   - {fileID: 5374305696605463109, guid: c9675e1514e768446a72aeb5ba2f6718, type: 3}
   - {fileID: 1370753064671178128, guid: 5bbcfc1e56555a645a4da0713600c37a, type: 3}
   _enemyContainer: {fileID: 243173278}
+  _maxEnemy: 12
 --- !u!1 &1313756155
 GameObject:
   m_ObjectHideFlags: 0
@@ -6148,7 +6151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1873472432
 RectTransform:
   m_ObjectHideFlags: 0
