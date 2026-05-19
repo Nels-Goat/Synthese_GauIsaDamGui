@@ -4917,6 +4917,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerStaff
       objectReference: {fileID: 0}
+    - target: {fileID: 1251681193676503241, guid: a33b966e4b297354493b341651c4e7e4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1629897293433164508, guid: a33b966e4b297354493b341651c4e7e4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.07
@@ -4958,13 +4962,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4571865641783831399, guid: a33b966e4b297354493b341651c4e7e4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4571865641783831399, guid: a33b966e4b297354493b341651c4e7e4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4571865641783831399, guid: a33b966e4b297354493b341651c4e7e4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4571865641783831399, guid: a33b966e4b297354493b341651c4e7e4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 7562380544065516665, guid: a33b966e4b297354493b341651c4e7e4, type: 3}
       propertyPath: staffAnimator
       value: 
-      objectReference: {fileID: 5552336349878985109, guid: a35c9cc19385f0640b148d836a6e1af5, type: 3}
+      objectReference: {fileID: 1817359399}
     - target: {fileID: 7562380544065516665, guid: a33b966e4b297354493b341651c4e7e4, type: 3}
       propertyPath: staffAOEAnimator
       value: 
