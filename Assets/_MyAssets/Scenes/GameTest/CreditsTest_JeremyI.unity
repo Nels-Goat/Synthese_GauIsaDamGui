@@ -618,10 +618,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Mage Survivor\n\n\nMerci \xE0 nos d\xE9veloppeurs : \n\n\nInterface utilisateur
-    : J\xE9r\xE9my Isabelle\n\nVotre t\xE2che : Nelson Gauthier\n\nVotre t\xE2che
-    : Xavier Guimond\n\nVotre t\xE2che : Xavier Damphousse\n\n\nDroits d'auteurs
-    \xA9 2026 \nProgrammation Jeux vid\xE9os - Simulation"
+  m_text: "Mage Survivor\n\n\nMerci \xE0 nos d\xE9veloppeurs : \n\n\nJ\xE9r\xE9my
+    Isabelle\n\nNelson Gauthier\n\nXavier Guimond\n\nXavier Damphousse\n\n\nDroits
+    d'auteurs \xA9 2026 \nProgrammation Jeux vid\xE9os - Simulation"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 801d55316b7091d408bdf9a80e4595a2, type: 2}
   m_sharedMaterial: {fileID: -1484869474059492167, guid: 801d55316b7091d408bdf9a80e4595a2, type: 2}
