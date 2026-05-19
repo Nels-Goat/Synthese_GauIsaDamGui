@@ -6,14 +6,14 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
     [Header("Propriétés communes")]
     [SerializeField] protected float _moveSpeed = 2f;
     [SerializeField] protected int _points = 10;
-    [SerializeField] protected int _maxLife = 1;
+    [SerializeField] protected float _maxLife = 1f;
     [SerializeField] protected int _damage = 1;
     [SerializeField] protected float _bumpingForce = 0f;
 
     public int Damage { get; set; }
-    public int MaxLife { get; set; }
+    public float MaxLife { get; set; }
 
-    protected int _currentLife;
+    protected float _currentLife;
     private bool _isInvincible = false;
     protected Transform _player;
     protected SpriteRenderer _spriteRenderer;
