@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Goblin
   _moveSpeed: 2
-  _points: 25
+  _points: 10
   _maxLife: 2
   _damage: 1
   _bumpingForce: 0

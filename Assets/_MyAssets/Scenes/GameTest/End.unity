@@ -5512,7 +5512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResetHighScores
   _firstSelectedButton: {fileID: 2054859065}
   _resetHighScoresPanel: {fileID: 1094969148}
-  _maxPasswordLength: 10
+  _maxPasswordLength: 12
   _txtPass: {fileID: 765598537}
   _btResetPass: {fileID: 997411446}
   _uiEnd: {fileID: 1764965891}
