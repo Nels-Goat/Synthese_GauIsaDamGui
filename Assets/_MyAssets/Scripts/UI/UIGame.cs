@@ -12,6 +12,7 @@ public class UIGame : UI
 
     [SerializeField] private TextMeshProUGUI _txtLevel;
     [SerializeField] private TextMeshProUGUI _txtPoints;
+    [SerializeField] private TextMeshProUGUI _txtTimer;
     [SerializeField] private GameObject _upgradePanel;
     [SerializeField] private GameObject _instructionsPanel;
     [SerializeField] private GameObject _gameBar;
@@ -35,6 +36,11 @@ public class UIGame : UI
     InputSystem_Actions _inputSystemActions;
     // =============== //
 
+
+    private void Update()
+    {
+        UpdateTimer();
+    }
     private void Awake()
     {
         if (Instance == null)
@@ -188,6 +194,16 @@ public class UIGame : UI
     private void GodLvlUp(InputAction.CallbackContext context)
     {
         OpenUpgradePanel();
+    }
+
+    private void UpdateTimer()
+    {
+        float time = Time.timeSinceLevelLoad;
+
+        int minutes = Mathf.FloorToInt(time / 60f);
+        int seconds = Mathf.FloorToInt(time % 60f);
+
+        _txtTimer.text = $"{minutes:00}:{seconds:00}";
     }
 }
 

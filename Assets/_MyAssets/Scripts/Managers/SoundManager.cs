@@ -103,11 +103,11 @@ public class SoundManager : MonoBehaviour
         _inputSystem_Actions.Player.Enable();
         _inputSystem_Actions.Player.Mute.performed += Mute_performed;
 
-        if (_muteImage != null)
-        {
-            _muteImage.sprite = _spriteOn;
-            _muteImage.gameObject.SetActive(false);
-        }
+        //if (_muteImage != null)
+        //{
+        //    _muteImage.sprite = _spriteOn;
+        //    _muteImage.gameObject.SetActive(false);
+        //}
     }
 
     private void Mute_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -180,13 +180,13 @@ public class SoundManager : MonoBehaviour
         _audioSource.mute = _isMusicMuted;
         _sfxSource.mute = false;
 
-        if (_muteImage != null)
-        {
-            _muteImage.sprite = _isMusicMuted ? _spriteOff : _spriteOn;
-            _muteImage.gameObject.SetActive(true);
-            CancelInvoke(nameof(HideMuteImage));
-            Invoke(nameof(HideMuteImage), 5f);
-        }
+        //if (_muteImage != null)
+        //{
+        //    _muteImage.sprite = _isMusicMuted ? _spriteOff : _spriteOn;
+        //    _muteImage.gameObject.SetActive(true);
+        //    CancelInvoke(nameof(HideMuteImage));
+        //    Invoke(nameof(HideMuteImage), 5f);
+        //}
     }
 
     private void HideMuteImage()
