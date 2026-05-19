@@ -179,7 +179,7 @@ public class Troll : EnemyBase
         if (collision.CompareTag("PlayerAttack"))
         {
             Destroy(collision.gameObject);
-            TakeHit("PlayerAttack"); // fonctionne charge ou pas
+            TakeHit("PlayerAttack",1f); // fonctionne charge ou pas
         }
         else if (collision.CompareTag("Player") && _isCharging)
         {

@@ -1,15 +1,16 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ResetHighScores : MonoBehaviour
 {
-    private const string PASSWORD = "TOTO";
-
+    private const string PASSWORD = "GAUISADAMGUI";
+    [SerializeField] private GameObject _firstSelectedButton;
     [SerializeField] private GameObject _resetHighScoresPanel;
-    [SerializeField] private int _maxPasswordLength = 10;
+    [SerializeField] private int _maxPasswordLength = 12;
     [SerializeField] private TextMeshProUGUI _txtPass;
     [SerializeField] private Button _btResetPass;
     [SerializeField] private UIEnd _uiEnd;
@@ -98,5 +99,9 @@ public class ResetHighScores : MonoBehaviour
 
         if (_uiEnd != null)
             _uiEnd.OnClosePanelResetHighScoreClick();
+    }
+    public void OnOpenPanel()
+    {
+         EventSystem.current.SetSelectedGameObject(_firstSelectedButton.gameObject);
     }
 }

@@ -46,16 +46,16 @@ public class PowerupManager : MonoBehaviour
             if (!pu.Hidden) available.Add(pu);
             Debug.Log(available);
         }
+        available = reshuffle(available);
 
         // Si aucune carte disponible, retourne soins
-        if (available.Count <= 0)
+        if (available.Count < 3)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = available.Count; i < 3; i++)
                 available.Add(_listPowerup[(int)EPowerupType.Rafraîchissement]);
             return available;
         }
-
-        available = reshuffle(available);
+        
 
         int len = available.Count > 3 ? 3 : available.Count;
         for (int i = 0; i < len; i++)

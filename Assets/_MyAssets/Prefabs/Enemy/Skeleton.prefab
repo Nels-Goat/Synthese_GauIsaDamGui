@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Skeleton
   _moveSpeed: 2.5
-  _points: 10
+  _points: 5
   _maxLife: 1
   _damage: 1
   _bumpingForce: 0

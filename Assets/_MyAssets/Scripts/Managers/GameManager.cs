@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private string _endSceneName = "EndTest_NelsonG";
+    [SerializeField] private string _endSceneName = "End";
     public static GameManager Instance;
 
     public event EventHandler<OnEnemyDestroyedEventArgs> OnEnemyDestroyed;

@@ -1,11 +1,10 @@
 using UnityEngine;
 
-public class PlayerStaff : MonoBehaviour
+public class PlayerStaff : WeaponBaseDamage
 {
     [Header("Attaque")]
     [SerializeField] private float attackCooldown = 3.5f;
     [SerializeField] private GameObject staffAOEPrefab;
-    [SerializeField] private Vector3 baseScaleAOE = new Vector3(5f, 5f, 1f);
     [SerializeField] private int weaponLevel = 0;
 
     [Header("Animation")]
@@ -51,37 +50,53 @@ public class PlayerStaff : MonoBehaviour
 
         SoundManager.Instance?.PlayStaffShoot();
 
-        /*
+        
         if (staffAnimator != null)
         {
             staffAnimator.ResetTrigger("Shoot");
             staffAnimator.SetTrigger("Shoot");
         }
-        */
+       
 
         SpawnAOE(direction);
     }
 
     private void SpawnAOE(Vector2 direction)
     {
-        Vector3 spawnPos = player.position + (Vector3)(direction.normalized * 3f);
+        Vector3 spawnPos = player.position + (Vector3)(direction.normalized * 10f);
 
         GameObject aoe = Instantiate(staffAOEPrefab, spawnPos, Quaternion.identity);
 
-        Vector3 aoeScale = baseScaleAOE;
+        Vector3 aoeScale = new Vector3(6f, 6f, 1f); ;
 
         if (weaponLevel == 2) aoeScale *= 1.5f;
         if (weaponLevel >= 3) aoeScale *= 2f;
-
         aoe.transform.localScale = aoeScale;
+
+        // AJOUT
+        if (aoe.TryGetComponent<StaffAOE>(out var staffAoe))
+            staffAoe.SetDamage(Damage);
     }
 
     private void FollowPlayer()
     {
         Vector2 direction = GetLookDirection();
+
         transform.localPosition = direction.normalized * 0.7f;
+
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        transform.localRotation = Quaternion.Euler(0, 0, angle);
+
+        bool facingLeft = direction.x < 0;
+
+        Vector3 visualScale = staffRenderer.transform.localScale;
+
+        if (facingLeft)
+            visualScale.y = -Mathf.Abs(visualScale.y);
+        else
+            visualScale.y = Mathf.Abs(visualScale.y);
+
+        staffRenderer.transform.localScale = visualScale;
     }
 
     private Vector2 GetLookDirection()
@@ -97,6 +112,28 @@ public class PlayerStaff : MonoBehaviour
     public void SetWeaponLevel(int level)
     {
         if (level > 3) level = 3;
+        if (level < 1) level = 1;
+
         weaponLevel = level;
+        SetDamage(weaponLevel);
+        UpdateSprite();
+    }
+
+    private void UpdateSprite()
+    {
+        if (staffRenderer == null) return;
+
+        if (weaponLevel == 1)
+        {
+            staffRenderer.sprite = level1Sprite;
+        }
+        else if (weaponLevel == 2)
+        {
+            staffRenderer.sprite = level2Sprite;
+        }
+        else
+        {
+            staffRenderer.sprite = level3Sprite;
+        }
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections;
 using System.Collections.Generic;
 
 public class UIEnd : UI
@@ -20,6 +21,7 @@ public class UIEnd : UI
 
     [Header("Buttons")]
     [SerializeField] private Button _buttonRestart;
+    [SerializeField] private ResetHighScores _resetHighScores;
 
     private void Start()
     {
@@ -47,6 +49,15 @@ public class UIEnd : UI
             if (EventSystem.current != null)
                 EventSystem.current.SetSelectedGameObject(_buttonRestart.gameObject);
         }
+
+        StartCoroutine(ReturnToMenu());
+    }
+
+    private IEnumerator ReturnToMenu()
+    {
+        yield return new WaitForSeconds(60f);
+
+        SceneManager.LoadScene(_startSceneName);
     }
 
     public void OnRestartScoresClick()
@@ -54,6 +65,7 @@ public class UIEnd : UI
         _panelResetHighScore.SetActive(true);
         _panelButtons.SetActive(false);
         _panelNewHighScore.SetActive(false);
+        _resetHighScores.OnOpenPanel();
     }
 
     public void OnClosePanelResetHighScoreClick()

@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Witch
   _moveSpeed: 1.5
-  _points: 75
+  _points: 25
   _maxLife: 3
   _damage: 0
   _bumpingForce: 0

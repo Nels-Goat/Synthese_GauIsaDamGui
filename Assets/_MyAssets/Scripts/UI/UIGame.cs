@@ -165,7 +165,7 @@ public class UIGame : UI
         level += 1;
         _txtLevel.text = $"Niveau {level}";
 
-        _enemiesPerLevel += level % 5 == 0 ? 5 : 0;
+        _enemiesPerLevel += _enemiesPerLevel/2;
         UpdateXpBar();
     }
 

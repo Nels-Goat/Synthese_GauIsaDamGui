@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -68,12 +69,15 @@ public class Player : MonoBehaviour
 
     private void OnDestroy()
     {
+ 
+        _inputSystemActions.Player.Dash.started -= _ => _isDashing = true;
+        _inputSystemActions.Player.Dash.canceled -= _ => _isDashing = false;
+
         if (GameManager.Instance != null)
             GameManager.Instance.OnEnemyDestroyed -= OnEnemyDestroyed;
 
         _inputSystemActions.Player.Disable();
-        _inputSystemActions.Player.Dash.started -= _ => _isDashing = true;
-        _inputSystemActions.Player.Dash.canceled -= _ => _isDashing = false;
+        _inputSystemActions.Dispose();
     }
 
     // ===================== DÉGÂTS ===================== //
