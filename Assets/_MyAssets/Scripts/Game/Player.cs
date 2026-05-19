@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -12,7 +11,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float _playerDashForce = 25f;
     [SerializeField] private float _playerDashRate = 0.5f;
     [SerializeField] private int _playerDashDuration = 10;
-    [SerializeField] private float _bumpingForce = 1f;
+    [SerializeField] private float _bumpingForce = 4f;
+
+    public float PlayerLife {get => _playerLife; set => _playerLife = value;}
+    public float PlayerMaxLife {get => _playerMaxLife; set => _playerMaxLife = value;}
 
     [Header("Invincibilité")]
     [SerializeField] private float _iFramesDuration = 1.5f;
@@ -79,7 +81,7 @@ public class Player : MonoBehaviour
             TakeDamage(e.Damage);
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         if (_isInvincible) return;
 
@@ -131,27 +133,22 @@ public class Player : MonoBehaviour
         Debug.Log("Got Touched by: " + collision.tag);
         if (collision.CompareTag("EnemyAttack"))
         {
-            Debug.Log("[Player] Touché par EnemyAttack !");
-            TakeDamage(1);
             EnemyBase enemy = collision.GetComponent<EnemyBase>();
+            int damage = enemy != null ? enemy.Damage : 1;
 
-            Debug.Log("[Player] Touché par EnemyAttack ! Dmg: " + enemy.Damage);
-            TakeDamage(enemy.Damage); // Dégât fixe pour les projectiles
-            
+            Debug.Log("[Player] Touché par EnemyAttack ! Dmg: " + damage);
+            TakeDamage(damage);
             TriggerBumping(collision.transform);
 
-            try {
-                collision.tag = "Enemy";
-            } catch (Exception) {}
-
-            //Destroy(collision.gameObject);
+            try { collision.tag = "Enemy"; } catch (Exception) { }
         }
 
         if (collision.CompareTag("EnemyProjectile"))
         {
-            EnemyBase enemy = collision.GetComponent<EnemyBase>();
-            Debug.Log("[Player] Touché par EnemyProjectile ! Dmg: " + enemy.Damage);
-            TakeDamage(enemy.Damage); // Dégât fixe pour les projectiles
+            EnemyProjectile projectile = collision.GetComponent<EnemyProjectile>();
+            int damage = projectile != null ? projectile.Damage : 1;
+            Debug.Log("[Player] Touché par EnemyProjectile !");
+            TakeDamage(damage);
             
             TriggerBumping(collision.transform);
 

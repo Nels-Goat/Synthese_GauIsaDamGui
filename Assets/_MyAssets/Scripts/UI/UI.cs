@@ -10,7 +10,7 @@ public class UI : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-        // Quitte le programme exécutable
+        // Quitte le programme exï¿½cutable
         //Application.Quit();
         StartCoroutine(QuitterBorne());
 #endif
@@ -22,6 +22,7 @@ public class UI : MonoBehaviour
         try
         {
             string cheminPortail = System.IO.Path.Combine(Application.dataPath, "../../Portail/Portail.exe");
+            System.Diagnostics.Process.Start(cheminPortail);
         } catch (System.Exception e)
         {
             Debug.LogError("Impossible de lancer le portail : " + e.Message);

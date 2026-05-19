@@ -128,14 +128,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 568ef2ac648724b40aa8aad1daabd6ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Witch
-  _moveSpeed: 2
-  _points: 10
-  _maxLife: 1
-  _damage: 1
+  _moveSpeed: 1.5
+  _points: 75
+  _maxLife: 3
+  _damage: 0
   _bumpingForce: 0
   _skeletonPrefab: {fileID: 4435902073034120836, guid: 81bfdb6a9adff0244bc03baa216c2622, type: 3}
   _summonRange: 10
-  _summonCooldown: 20
+  _summonCooldown: 4
   _numSkeleton: 2
   _spawnRadius: 1.5
 --- !u!61 &-7882911311621013097
@@ -175,7 +175,7 @@ BoxCollider2D:
   m_Offset: {x: -0.021013916, y: -0.033945605}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.45925072, y: 0.6123194}
     oldSize: {x: 0.703125, y: 0.84375}
     newSize: {x: 0.703125, y: 0.84420615}
     adaptiveTilingThreshold: 0.5

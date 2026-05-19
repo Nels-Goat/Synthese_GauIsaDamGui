@@ -1,21 +1,18 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private string _endSceneName = "End";
+    [SerializeField] private string _endSceneName = "EndTest_NelsonG";
     public static GameManager Instance;
 
-    // ===================== �V�NEMENTS ===================== //
     public event EventHandler<OnEnemyDestroyedEventArgs> OnEnemyDestroyed;
     public class OnEnemyDestroyedEventArgs : EventArgs
     {
         public string DestroyedObjectTag;
         public int Damage;
     }
-    // ====================================================== //
 
     [Header("Limites de la map")]
     [SerializeField] private GameObject _top;
@@ -28,9 +25,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private int _maxEnemy = 20;
 
-    [Header("Score")]
     private int _playerScore = 0;
     public int PlayerScore => _playerScore;
+
+    private int _enemyKillCount = 0;
+    public int EnemyKillCount => _enemyKillCount;
 
     private void Awake()
     {
@@ -42,17 +41,15 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerPrefs.SetInt("PlayerScore", 0);
-
         _maxY = _top.GetComponent<SpriteRenderer>().bounds.min.y;
         _minY = _bottom.GetComponent<SpriteRenderer>().bounds.max.y;
         _maxX = _right.GetComponent<SpriteRenderer>().bounds.min.x;
         _minX = _left.GetComponent<SpriteRenderer>().bounds.max.x;
 
+        PlayerPrefs.SetInt("PlayerScore", 0);
         Debug.Log("[GameManager] Initialis� � Score: 0");
     }
 
-    // ===================== GESTION ENNEMIS ===================== //
     public bool IsEnemyMaxed()
     {
         return _enemyContainer.transform.childCount >= _maxEnemy;
@@ -62,6 +59,7 @@ public class GameManager : MonoBehaviour
     {
         if (p_gameObjectTag == "PlayerAttack")
         {
+            _enemyKillCount++;
             _playerScore += p_enemyPoints;
             Debug.Log($"[GameManager] +{p_enemyPoints} pts | Score total : {_playerScore}");
         }
@@ -81,9 +79,7 @@ public class GameManager : MonoBehaviour
             Damage = 1
         });
     }
-    // =========================================================== //
 
-    // ===================== FIN DE JEU ===================== //
     public void EndGame()
     {
         // Sauvegarde du score

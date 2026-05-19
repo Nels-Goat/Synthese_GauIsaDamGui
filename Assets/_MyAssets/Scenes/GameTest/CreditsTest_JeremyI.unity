@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52060d43df247ef4b8b0744d20a0186f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UICredits
-  _sceneName: StartTest_JeremyI
+  _sceneName: StartTest_NelsonG
   scrollSpeed: 100
 --- !u!1 &472230844
 GameObject:
@@ -240,6 +240,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 897942827}
+  - {fileID: 1025445792}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &685227692
@@ -553,12 +554,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1025445789}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 472230846}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1252583545
 GameObject:
@@ -617,13 +618,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Titre de notre jeu\n\n\nMerci \xE0 nos d\xE9veloppeurs : \n\n\nInterface
-    utilisateur : J\xE9r\xE9my Isabelle\n\nVotre t\xE2che : Nelson Gauthier\n\nVotre
-    t\xE2che : Xavier Guimond\n\nVotre t\xE2che : Xavier Damphousse\n\n\nDroits d'auteurs
-    \xA9 2026 \nProgrammation Jeux vid\xE9os - Simulation"
+  m_text: "Mage Survivor\n\n\nMerci \xE0 nos d\xE9veloppeurs : \n\n\nJ\xE9r\xE9my
+    Isabelle\n\nNelson Gauthier\n\nXavier Guimond\n\nXavier Damphousse\n\n\nDroits
+    d'auteurs \xA9 2026 \nProgrammation Jeux vid\xE9os - Simulation"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 801d55316b7091d408bdf9a80e4595a2, type: 2}
+  m_sharedMaterial: {fileID: -1484869474059492167, guid: 801d55316b7091d408bdf9a80e4595a2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -647,8 +647,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64.66
-  m_fontSizeBase: 64.66
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -798,4 +798,3 @@ SceneRoots:
   - {fileID: 685227695}
   - {fileID: 1827535360}
   - {fileID: 472230846}
-  - {fileID: 1025445792}
