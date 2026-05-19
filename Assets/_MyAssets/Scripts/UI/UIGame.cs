@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
+using System.Collections.Generic;
 
 public class UIGame : UI
 {
@@ -93,11 +94,18 @@ public class UIGame : UI
         _instructionsPanel.SetActive(false);
         _upgradePanel.SetActive(false);
         _gameBar.SetActive(true);
-        _lifeBar.fillAmount = _currentLife / _player.PlayerMaxLife;
     }
 
     public void OpenUpgradePanel()
     {
+        List<Powerup> powerups = PowerupManager.Instance.GetPowerups();
+        if (powerups.Count <= 0)
+        {
+            level += 1;
+            _txtLevel.text = $"Niveau {level}";
+            return;
+        }
+
         DisableCards();
         Time.timeScale = 0f;
         _upgradePanel.SetActive(true);
@@ -105,8 +113,8 @@ public class UIGame : UI
         _instructionsPanel.SetActive(false);
         EventSystem.current.SetSelectedGameObject(_buttonFirstUpgrade.gameObject);
 
-        Powerup[] powerups = PowerupManager.Instance.GetPowerups();
-        for (int i = 0; i < powerups.Length; i++)
+        
+        for (int i = 0; i < powerups.Count; i++)
         {
             Button card = _cardSlots[i];
             Powerup pu  = powerups[i];
@@ -124,8 +132,6 @@ public class UIGame : UI
             cDesc.text     = pu.Description;
 
             card.gameObject.SetActive(true);
-
-            Debug.Log(pu.Icon);
         }
     }
 

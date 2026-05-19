@@ -13,11 +13,15 @@ public class GainHealth : Powerup
 
     public override void Upgrade()
     {
+        if (_level >= 3) return;
+
+        _level++;
+
         Player player = Object.FindFirstObjectByType<Player>();
         float halfLife = player.PlayerMaxLife * .5f;
-        float toHeal = player.PlayerMaxLife - player.PlayerLife;
+        float newLife = halfLife + player.PlayerLife;
 
-        if (toHeal > player.PlayerMaxLife)
+        if (newLife > player.PlayerMaxLife)
             player.PlayerLife = player.PlayerMaxLife;
         else
             player.PlayerLife += halfLife;

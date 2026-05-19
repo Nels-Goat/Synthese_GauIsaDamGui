@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Powerup : MonoBehaviour
+public abstract class Powerup
 {
     protected Sprite _icon;
     protected EPowerupType _name;

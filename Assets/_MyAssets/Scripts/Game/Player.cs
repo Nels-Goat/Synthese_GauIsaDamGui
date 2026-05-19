@@ -78,10 +78,10 @@ public class Player : MonoBehaviour
     private void OnEnemyDestroyed(object sender, GameManager.OnEnemyDestroyedEventArgs e)
     {
         if (e.DestroyedObjectTag == "Player")
-            TakeHit(e.Damage);
+            TakeDamage(e.Damage);
     }
 
-    public void TakeHit(int damage)
+    public void TakeDamage(int damage)
     {
         if (_isInvincible) return;
 
@@ -145,8 +145,10 @@ public class Player : MonoBehaviour
 
         if (collision.CompareTag("EnemyProjectile"))
         {
+            EnemyProjectile projectile = collision.GetComponent<EnemyProjectile>();
+            int damage = projectile != null ? projectile.Damage : 1;
             Debug.Log("[Player] Touché par EnemyProjectile !");
-            TakeHit(1);
+            TakeDamage(damage);
             
             TriggerBumping(collision.transform);
 

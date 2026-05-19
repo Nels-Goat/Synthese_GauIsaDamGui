@@ -754,7 +754,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &735773957
 Transform:
   m_ObjectHideFlags: 0
@@ -791,12 +791,14 @@ MonoBehaviour:
   _difficultyMultiplier: 2
   _timeToSpawnEnemy2: 1000
   _timeToSpawnEnemy3: 2000
+  _timeToSpawnEnemy4: 600
   _enemyPrefabs:
   - {fileID: 4435902073034120836, guid: 81bfdb6a9adff0244bc03baa216c2622, type: 3}
   - {fileID: 5193956760265822402, guid: c7ab15de869441f4baa0b0412e557a5a, type: 3}
   - {fileID: 5374305696605463109, guid: c9675e1514e768446a72aeb5ba2f6718, type: 3}
   - {fileID: 1370753064671178128, guid: 5bbcfc1e56555a645a4da0713600c37a, type: 3}
   _enemyContainer: {fileID: 2123677902}
+  _maxEnemy: 12
 --- !u!1 &773710926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,10 +1014,6 @@ PrefabInstance:
     - target: {fileID: 5193956760265822402, guid: c7ab15de869441f4baa0b0412e557a5a, type: 3}
       propertyPath: m_Name
       value: Goblin
-      objectReference: {fileID: 0}
-    - target: {fileID: 5193956760265822402, guid: c7ab15de869441f4baa0b0412e557a5a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1405,6 +1403,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 227422646830012792, guid: 527e3d340a2cc5644be3dc17e0f5e01d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 439440031992695463, guid: 527e3d340a2cc5644be3dc17e0f5e01d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 439440031992695463, guid: 527e3d340a2cc5644be3dc17e0f5e01d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7986485603682636796, guid: 527e3d340a2cc5644be3dc17e0f5e01d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7986485603682636796, guid: 527e3d340a2cc5644be3dc17e0f5e01d, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8777609794077027439, guid: 527e3d340a2cc5644be3dc17e0f5e01d, type: 3}
