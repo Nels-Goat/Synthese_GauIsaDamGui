@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerStaff : MonoBehaviour
+public class PlayerStaff : WeaponBaseDamage
 {
     [Header("Attaque")]
     [SerializeField] private float attackCooldown = 3.5f;
@@ -71,8 +71,11 @@ public class PlayerStaff : MonoBehaviour
 
         if (weaponLevel == 2) aoeScale *= 1.5f;
         if (weaponLevel >= 3) aoeScale *= 2f;
-
         aoe.transform.localScale = aoeScale;
+
+        // AJOUT
+        if (aoe.TryGetComponent<StaffAOE>(out var staffAoe))
+            staffAoe.SetDamage(Damage);
     }
 
     private void FollowPlayer()
@@ -112,7 +115,7 @@ public class PlayerStaff : MonoBehaviour
         if (level < 1) level = 1;
 
         weaponLevel = level;
-
+        SetDamage(weaponLevel);
         UpdateSprite();
     }
 

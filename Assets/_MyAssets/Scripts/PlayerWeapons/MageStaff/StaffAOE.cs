@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StaffAOE : MonoBehaviour
+public class StaffAOE : WeaponBaseDamage
 {
     [SerializeField] private float lifeTime = 7f;
 
@@ -13,7 +13,8 @@ public class StaffAOE : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Destroy(other.gameObject);
+            if (other.TryGetComponent<IDamageable>(out var target))
+                target.TakeHit("PlayerAttack", Damage);
         }
     }
 }

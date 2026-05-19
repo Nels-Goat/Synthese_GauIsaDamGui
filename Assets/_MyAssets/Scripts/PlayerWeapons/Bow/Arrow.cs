@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Arrow : MonoBehaviour
+public class Arrow : WeaponBaseDamage
 {
     private bool _hasHit = false;
 
@@ -15,6 +15,9 @@ public class Arrow : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
+            if (other.TryGetComponent<IDamageable>(out var target))
+                target.TakeHit("PlayerAttack", Damage);
+
             _hasHit = true;
             Destroy(gameObject);
         }
