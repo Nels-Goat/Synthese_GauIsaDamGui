@@ -222,7 +222,7 @@ TextureImporter:
         width: 36
         height: 33
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -244,7 +244,7 @@ TextureImporter:
         width: 54
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -266,7 +266,7 @@ TextureImporter:
         width: 7
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -288,7 +288,7 @@ TextureImporter:
         width: 24
         height: 36
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -310,7 +310,7 @@ TextureImporter:
         width: 36
         height: 38
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -332,7 +332,7 @@ TextureImporter:
         width: 44
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -354,7 +354,7 @@ TextureImporter:
         width: 44
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -376,7 +376,7 @@ TextureImporter:
         width: 49
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -398,7 +398,7 @@ TextureImporter:
         width: 44
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -420,7 +420,7 @@ TextureImporter:
         width: 45
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -438,9 +438,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 625
-        y: 11
+        y: 6
         width: 45
-        height: 26
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -464,7 +464,7 @@ TextureImporter:
         width: 46
         height: 29
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -486,7 +486,7 @@ TextureImporter:
         width: 44
         height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -500,57 +500,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Explosion 2 SpriteSheet_13
-      rect:
-        serializedVersion: 2
-        x: 730
-        y: 21
-        width: 23
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 159040fa3fb1c4590800000000000000
-      internalID: -7688739730400999087
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosion 2 SpriteSheet_14
-      rect:
-        serializedVersion: 2
-        x: 748
-        y: 23
-        width: 16
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 76d2b07db1e603910800000000000000
-      internalID: 1815071715681316199
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Explosion 2 SpriteSheet_15
       rect:
         serializedVersion: 2
-        x: 767
-        y: 9
-        width: 19
-        height: 26
+        x: 768
+        y: 3
+        width: 47
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -569,10 +525,10 @@ TextureImporter:
       name: Explosion 2 SpriteSheet_16
       rect:
         serializedVersion: 2
-        x: 781
-        y: 5
-        width: 32
-        height: 29
+        x: 821
+        y: 9
+        width: 43
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -596,7 +552,7 @@ TextureImporter:
         width: 57
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -610,94 +566,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Explosion 2 SpriteSheet_18
-      rect:
-        serializedVersion: 2
-        x: 746
-        y: 10
-        width: 20
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fa84d04b6a21f4880800000000000000
-      internalID: -8624654254196569937
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosion 2 SpriteSheet_19
-      rect:
-        serializedVersion: 2
-        x: 803
-        y: 9
-        width: 26
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dd05f27e92991ea70800000000000000
-      internalID: 8854526747638452445
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosion 2 SpriteSheet_20
-      rect:
-        serializedVersion: 2
-        x: 852
-        y: 20
-        width: 11
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: df4599755cfc2fb40800000000000000
-      internalID: 5472664943693747453
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosion 2 SpriteSheet_21
-      rect:
-        serializedVersion: 2
-        x: 854
-        y: 13
-        width: 10
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7fd295378bb623600800000000000000
-      internalID: 446537753016479223
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Explosion 2 SpriteSheet_22
       rect:
         serializedVersion: 2
@@ -706,7 +574,7 @@ TextureImporter:
         width: 34
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -719,77 +587,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Explosion 2 SpriteSheet_23
-      rect:
-        serializedVersion: 2
-        x: 628
-        y: 5
-        width: 42
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 811b3de075f81e380800000000000000
-      internalID: -8943709780907413224
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosion 2 SpriteSheet_24
-      rect:
-        serializedVersion: 2
-        x: 689
-        y: 5
-        width: 10
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9c13bce292912f0b0800000000000000
-      internalID: -5696462914000834103
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosion 2 SpriteSheet_25
-      rect:
-        serializedVersion: 2
-        x: 697
-        y: 5
-        width: 20
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ff6e8233630213fb0800000000000000
-      internalID: -4669915921447852289
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 17694e8323e3c544681a766e84a7d471
     internalID: 0
     vertices: []
     indices: 
