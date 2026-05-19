@@ -45,5 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerupManager
   _listIcon:
+  - {fileID: -1293744547961624377, guid: fb59fb58c00b0f246883632809cd78a1, type: 3}
   - {fileID: 3191390478458943470, guid: fb59fb58c00b0f246883632809cd78a1, type: 3}
   - {fileID: -3066821693542564923, guid: fb59fb58c00b0f246883632809cd78a1, type: 3}
+  - {fileID: 3338255275656951078, guid: fb59fb58c00b0f246883632809cd78a1, type: 3}
+  - {fileID: -2570562113466220483, guid: fb59fb58c00b0f246883632809cd78a1, type: 3}
+  - {fileID: 25719695, guid: fb59fb58c00b0f246883632809cd78a1, type: 3}
+  - {fileID: -673555705, guid: fb59fb58c00b0f246883632809cd78a1, type: 3}
+  - {fileID: 527592934, guid: fb59fb58c00b0f246883632809cd78a1, type: 3}

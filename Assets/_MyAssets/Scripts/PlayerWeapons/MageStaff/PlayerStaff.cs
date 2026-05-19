@@ -5,7 +5,18 @@ public class PlayerStaff : MonoBehaviour
     [Header("Attaque")]
     [SerializeField] private float attackCooldown = 3.5f;
     [SerializeField] private GameObject staffAOEPrefab;
-    [SerializeField] private int weaponLevel = 1;
+    [SerializeField] private Vector3 baseScaleAOE = new Vector3(5f, 5f, 1f);
+    [SerializeField] private int weaponLevel = 0;
+
+    [Header("Animation")]
+    [SerializeField] private Animator staffAnimator;
+
+    [Header("Sprites Staff")]
+    [SerializeField] private SpriteRenderer staffRenderer;
+
+    [SerializeField] private Sprite level1Sprite;
+    [SerializeField] private Sprite level2Sprite;
+    [SerializeField] private Sprite level3Sprite;
 
     private Vector2 lastLookDirection = Vector2.right;
     private Vector3 lastPlayerPosition;
@@ -37,22 +48,32 @@ public class PlayerStaff : MonoBehaviour
     private void Shoot()
     {
         Vector2 direction = GetLookDirection();
-        SoundManager.Instance?.PlayStaffShoot(); // Joueur tire avec le staff
+
+        SoundManager.Instance?.PlayStaffShoot();
+
+        /*
+        if (staffAnimator != null)
+        {
+            staffAnimator.ResetTrigger("Shoot");
+            staffAnimator.SetTrigger("Shoot");
+        }
+        */
+
         SpawnAOE(direction);
     }
 
     private void SpawnAOE(Vector2 direction)
     {
-        Vector3 spawnPos = transform.position + (Vector3)(direction.normalized * 3f);
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Vector3 spawnPos = player.position + (Vector3)(direction.normalized * 3f);
 
-        GameObject aoe = Instantiate(staffAOEPrefab, spawnPos, Quaternion.Euler(0, 0, angle));
+        GameObject aoe = Instantiate(staffAOEPrefab, spawnPos, Quaternion.identity);
 
-        float multiplier = 1f;
-        if (weaponLevel == 2) multiplier = 1.5f;
-        if (weaponLevel >= 3) multiplier = 2f;
+        Vector3 aoeScale = baseScaleAOE;
 
-        aoe.transform.localScale *= multiplier;
+        if (weaponLevel == 2) aoeScale *= 1.5f;
+        if (weaponLevel >= 3) aoeScale *= 2f;
+
+        aoe.transform.localScale = aoeScale;
     }
 
     private void FollowPlayer()

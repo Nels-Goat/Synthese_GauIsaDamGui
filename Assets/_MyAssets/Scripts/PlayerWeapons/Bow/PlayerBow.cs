@@ -20,6 +20,7 @@ public class PlayerBow : MonoBehaviour
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private int weaponLevel = 1;
 
+
     private float shootSpriteDuration = 0.1f;
     private Vector2 lastLookDirection = Vector2.right;
     private Vector3 lastPlayerPosition;

@@ -1,6 +1,12 @@
 public enum EPowerupType
 {
-    none = -1,
+    None = -1,
+    Rafraîchissement,
     Regénération,
     Renforcement,
+    Gymnaste,
+    Invincible,
+    Arc,
+    Épée,
+    Apocalypse,
 }

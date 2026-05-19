@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class UIGame : UI
 {
@@ -26,10 +27,13 @@ public class UIGame : UI
     [SerializeField] private Sprite[] _cardSprites;
     [SerializeField] private Button[] _cardSlots;
 
-    private float _currentLife;
     int level = 1;
 
     private Player _player;
+
+    // === DEV VAR === //
+    InputSystem_Actions _inputSystemActions;
+    // =============== //
 
     private void Awake()
     {
@@ -44,7 +48,7 @@ public class UIGame : UI
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) {
             _player = player.GetComponent<Player>();
-            UpdateLifeBar(_player.PlayerLife);
+            UpdateLifeBar();
         }
 
         _xpBar.fillAmount = 0f;
@@ -62,26 +66,30 @@ public class UIGame : UI
 
         _txtLevel.text = $"Niveau {level}";
         _txtPoints.text = $"{GameManager.Instance.PlayerScore}";
+
+
+        // DEV
+        EnableGod();
     }
 
     private void OnDestroy()
     {
         if (GameManager.Instance != null)
             GameManager.Instance.OnEnemyDestroyed -= OnEnemyDestroyed;
+
+        _inputSystemActions.Player.God.performed -= GodLvlUp;
     }
 
-    public void UpdateLifeBar(float currentLife)
-    {
-        _currentLife = currentLife;
-        _lifeBar.fillAmount = _currentLife / _player.PlayerMaxLife;
-    }
+    public void UpdateLifeBar() => _lifeBar.fillAmount = _player.PlayerLife / _player.PlayerMaxLife;
+    private void UpdateScore() => _txtPoints.text = $"{GameManager.Instance.PlayerScore}";
+    private void UpdateXpBar() => _xpBar.fillAmount = (GameManager.Instance.EnemyKillCount % _enemiesPerLevel) / (float)_enemiesPerLevel;
 
     private void OnEnemyDestroyed(object sender, GameManager.OnEnemyDestroyedEventArgs e)
     {
         if (e.DestroyedObjectTag == "PlayerAttack")
         {
-            _txtPoints.text = $"{GameManager.Instance.PlayerScore}";
-            _xpBar.fillAmount = (GameManager.Instance.EnemyKillCount % _enemiesPerLevel) / (float)_enemiesPerLevel;
+            UpdateScore();
+            UpdateXpBar();
 
             if (GameManager.Instance.EnemyKillCount % _enemiesPerLevel == 0)
                 OpenUpgradePanel();
@@ -101,8 +109,8 @@ public class UIGame : UI
         List<Powerup> powerups = PowerupManager.Instance.GetPowerups();
         if (powerups.Count <= 0)
         {
-            level += 1;
-            _txtLevel.text = $"Niveau {level}";
+            LevelUp();
+            PowerupManager.Instance.UpgradePowerup(EPowerupType.Rafraîchissement);
             return;
         }
 
@@ -137,25 +145,49 @@ public class UIGame : UI
 
     public void UpgradeChosen(TextMeshProUGUI cTitle)
     {
+        DisableCards();
+
         EPowerupType name;
         bool validSelection = Enum.TryParse<EPowerupType>(cTitle.text, out name);
         if (validSelection)
             PowerupManager.Instance.UpgradePowerup(name);
 
-        DisableCards();
-
         Time.timeScale = 1.0f;
         _instructionsPanel.SetActive(false);
         _upgradePanel.SetActive(false);
         _gameBar.SetActive(true);
-        UpdateLifeBar(_player.PlayerLife);
+        UpdateLifeBar();
+        LevelUp();
+    }
+
+    private void LevelUp()
+    {
         level += 1;
         _txtLevel.text = $"Niveau {level}";
-        
+
+        _enemiesPerLevel += level % 5 == 0 ? 5 : 0;
+        UpdateXpBar();
     }
 
     private void DisableCards()
     {
         foreach(Button card in _cardSlots) card.gameObject.SetActive(false);
     }
+
+
+
+
+    // DEV
+    private void EnableGod()
+    {
+        _inputSystemActions = new InputSystem_Actions();
+        _inputSystemActions.Player.Enable();
+        _inputSystemActions.Player.God.performed += GodLvlUp;
+    }
+
+    private void GodLvlUp(InputAction.CallbackContext context)
+    {
+        OpenUpgradePanel();
+    }
 }
+
