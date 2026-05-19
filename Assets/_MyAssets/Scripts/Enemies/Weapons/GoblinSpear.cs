@@ -8,5 +8,4 @@ public class GoblinSpear : MonoBehaviour
     {
         Destroy(gameObject, 5f);
     }
-
 }

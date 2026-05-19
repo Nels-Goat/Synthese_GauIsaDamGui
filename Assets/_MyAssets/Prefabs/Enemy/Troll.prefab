@@ -129,16 +129,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37644164fa1432248a19d8477a393698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _moveSpeed: 2
-  _points: 10
-  _maxLife: 10
-  _damage: 1
+  _moveSpeed: 1.8
+  _points: 50
+  _maxLife: 4
+  _damage: 2
   _bumpingForce: 2
-  _chargeSpeed: 12
+  _chargeSpeed: 10
   _chargeForce: 5
   _chargeCooldown: 5
-  _chargeMaxDistance: 15
-  _detectionRange: 10
+  _chargeMaxDistance: 10
+  _detectionRange: 5
 --- !u!50 &5664882668539493970
 Rigidbody2D:
   serializedVersion: 5

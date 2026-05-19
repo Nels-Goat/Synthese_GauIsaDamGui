@@ -57,9 +57,12 @@ public class Troll : EnemyBase
         }
         else
         {
-            float distanceFromPreCharge = Mathf.Abs(Mathf.Sqrt(Mathf.Pow(transform.position.x - _preChargePos.x, 2) + Mathf.Pow(transform.position.y - _preChargePos.y, 2)));
+            float distanceFromPreCharge = Vector2.Distance(transform.position, _preChargePos);
             if (distanceFromPreCharge >= _chargeMaxDistance)
+            {
                 _isCharging = false;
+                gameObject.tag = "Enemy"; // ← remet le tag après la charge
+            }
             else
                 transform.Translate(_chargeDirection * _chargeSpeed * Time.deltaTime);
         }
@@ -76,7 +79,7 @@ public class Troll : EnemyBase
 
         _isCharging = true;
         _isAttacking = true;
-        _preChargePos = new Vector2(transform.position.x, transform.position.y);
+        _preChargePos = transform.position;
         _chargeDirection = ((Vector2)_player.position - (Vector2)transform.position).normalized;
         _nextChargeTime = Time.time + _chargeCooldown;
 
@@ -173,24 +176,16 @@ public class Troll : EnemyBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Le Troll en charge est "EnemyAttack" ? le joueur g�re ses propres d�g�ts
-        // Ici on g�re seulement si le Troll se fait tuer
         if (collision.CompareTag("PlayerAttack"))
         {
-            Debug.Log("[Troll] Tu� par PlayerAttack pendant la charge.");
             Destroy(collision.gameObject);
-            Die("PlayerAttack");
+            TakeHit("PlayerAttack"); // fonctionne charge ou pas
         }
-        else if (collision.CompareTag("Player"))
+        else if (collision.CompareTag("Player") && _isCharging)
         {
-            Debug.Log("[Troll] Touché par Player.");
-
-            if (_isCharging)
-            {
-                _isCharging = false;
-                collision.transform.Translate(_chargeDirection * _chargeForce * Time.deltaTime);
-            }
-            
+            _isCharging = false;
+            gameObject.tag = "Enemy";
+            collision.transform.Translate(_chargeDirection * _chargeForce);
         }
     }
 

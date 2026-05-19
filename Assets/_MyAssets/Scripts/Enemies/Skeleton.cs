@@ -29,10 +29,8 @@ public class Skeleton : EnemyBase
 
         float distance = Vector2.Distance(transform.position, _player.position);
 
-        //
         float xDiff = _player.position.x - transform.position.x;
         _lookingDirection = xDiff != 0f ? xDiff : _lookingDirection;
-        //
 
         bool inRange = distance <= _attackRange;
         if (inRange)
