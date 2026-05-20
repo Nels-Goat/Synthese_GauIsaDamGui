@@ -94552,6 +94552,11 @@ MonoBehaviour:
   _left: {fileID: 2023084700}
   _enemyContainer: {fileID: 2123677902}
   _maxEnemy: 100
+--- !u!212 &1579832717 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6103711071624448928, guid: 884910beafeb39f49bc21fbe1da55441, type: 3}
+  m_PrefabInstance: {fileID: 1639644365}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1617070293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94681,7 +94686,7 @@ PrefabInstance:
     - target: {fileID: 3379005726114666935, guid: 884910beafeb39f49bc21fbe1da55441, type: 3}
       propertyPath: _bowRenderer
       value: 
-      objectReference: {fileID: 1722547080}
+      objectReference: {fileID: 1579832717}
     - target: {fileID: 3379005726114666935, guid: 884910beafeb39f49bc21fbe1da55441, type: 3}
       propertyPath: _arrowLevel1Sprite
       value: 
