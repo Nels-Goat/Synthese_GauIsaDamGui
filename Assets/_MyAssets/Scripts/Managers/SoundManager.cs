@@ -60,8 +60,8 @@ public class SoundManager : MonoBehaviour
 
     [Header("Mute UI")]
     [SerializeField] private Image _muteImage;
-    [SerializeField] private Sprite _spriteOn;
-    [SerializeField] private Sprite _spriteOff;
+    [SerializeField] private Sprite _volumeOn;
+    [SerializeField] private Sprite _volumeOff;
 
     [Header("Volume Master")]
     [SerializeField][Range(0f, 1f)] private float _musicVolume = 0.5f;
@@ -103,12 +103,10 @@ public class SoundManager : MonoBehaviour
         _inputSystem_Actions.Player.Enable();
         _inputSystem_Actions.Player.Mute.performed += Mute_performed;
 
-        //if (_muteImage != null)
-        //{
-        //    _muteImage.sprite = _spriteOn;
-        //    _muteImage.gameObject.SetActive(false);
-        //}
+        if (_muteImage != null)
+            _muteImage.gameObject.SetActive(false);
     }
+
 
     private void Mute_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         => OnMuteClick();
@@ -161,6 +159,7 @@ public class SoundManager : MonoBehaviour
     public void PlayDash() => PlaySFX(_dash, _dashVolume);
     public void PlayFootstep() => PlaySFX(_footstep, _footstepVolume);
     public void PlayPlayerGetHit() => PlaySFX(_playerGetHit, _getHitVolume);
+
     // --- Menu ---
 
     public void PlayMenuHover() => PlaySFX(_menuHover, _menuVolume);
@@ -178,18 +177,17 @@ public class SoundManager : MonoBehaviour
     {
         _isMusicMuted = !_isMusicMuted;
         _audioSource.mute = _isMusicMuted;
-        _sfxSource.mute = false;
 
-        //if (_muteImage != null)
-        //{
-        //    _muteImage.sprite = _isMusicMuted ? _spriteOff : _spriteOn;
-        //    _muteImage.gameObject.SetActive(true);
-        //    CancelInvoke(nameof(HideMuteImage));
-        //    Invoke(nameof(HideMuteImage), 5f);
-        //}
+        if (_muteImage != null)
+        {
+            _muteImage.sprite = _isMusicMuted ? _volumeOff : _volumeOn;
+            _muteImage.gameObject.SetActive(true);
+            CancelInvoke(nameof(HideMuteUI));
+            Invoke(nameof(HideMuteUI), 3f);
+        }
     }
 
-    private void HideMuteImage()
+    private void HideMuteUI()
     {
         if (_muteImage != null)
             _muteImage.gameObject.SetActive(false);

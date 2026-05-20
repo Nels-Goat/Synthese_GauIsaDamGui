@@ -5303,17 +5303,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1271719424}
   m_SourcePrefab: {fileID: 100100000, guid: 411ac21219207be47b29fe4476fddc5a, type: 3}
---- !u!114 &1271719421 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5576190160938669875, guid: 411ac21219207be47b29fe4476fddc5a, type: 3}
-  m_PrefabInstance: {fileID: 1271719420}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &1271719422 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 458847437864518437, guid: 411ac21219207be47b29fe4476fddc5a, type: 3}
@@ -5348,7 +5337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfaf0e5e4935d1a4cbe9296bcdbf9fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonHoverSound
---- !u!1001 &1663401510
+--- !u!1001 &1657076956
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -5362,11 +5351,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8789820392217636419, guid: 9bf79e0581866f848811ce346a157070, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 86.1124
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8789820392217636419, guid: 9bf79e0581866f848811ce346a157070, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.62234
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8789820392217636419, guid: 9bf79e0581866f848811ce346a157070, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5401,14 +5390,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9151590516696514592, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+      propertyPath: _volumeOn
+      value: 
+      objectReference: {fileID: 2488193864150925076, guid: 686ad3d3b02df56499fa67bac4299551, type: 3}
+    - target: {fileID: 9151590516696514592, guid: 9bf79e0581866f848811ce346a157070, type: 3}
       propertyPath: _muteImage
       value: 
-      objectReference: {fileID: 1271719421}
+      objectReference: {fileID: 1657076957}
+    - target: {fileID: 9151590516696514592, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+      propertyPath: _volumeOff
+      value: 
+      objectReference: {fileID: 2654917550513951137, guid: 686ad3d3b02df56499fa67bac4299551, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+--- !u!114 &1657076957 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6936653380339515714, guid: 9bf79e0581866f848811ce346a157070, type: 3}
+  m_PrefabInstance: {fileID: 1657076956}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &2108947582
 GameObject:
   m_ObjectHideFlags: 0
@@ -5496,4 +5504,4 @@ SceneRoots:
   - {fileID: 546391739}
   - {fileID: 2108947585}
   - {fileID: 1271719420}
-  - {fileID: 1663401510}
+  - {fileID: 1657076956}
